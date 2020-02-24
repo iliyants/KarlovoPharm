@@ -1,0 +1,43 @@
+﻿@page
+@model LoginModel 
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h3 mb-5 text-black">Вход</h2>
+            </div>
+            <div class="col-md-12">
+                <form action="#" method="post">
+                    <div class="p-3 p-lg-5 border">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_username" class="text-black">Потребителско име <span class="text-danger">*</span></label>
+                                <input asp-for="Input.Username" type="text" class="form-control" id="c_username" name="c_username" placeholder="Потребителско име">
+                                <span asp-validation-for="Input.Username" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_password" class="text-black">Парола <span class="text-danger">*</span></label>
+                                <input asp-for="Input.Password" type="password" class="form-control" id="c_email" name="c_email" placeholder="Парола">
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Влез">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
