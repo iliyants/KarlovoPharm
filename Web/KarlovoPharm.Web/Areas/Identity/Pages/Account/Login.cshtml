@@ -1,6 +1,5 @@
 ﻿@page
-@model LoginModel 
-
+@model KarlovoPharm.Web.LoginModel
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,8 +12,9 @@
                 <h2 class="h3 mb-5 text-black">Вход</h2>
             </div>
             <div class="col-md-12">
-                <form action="#" method="post">
+                <form method="post">
                     <div class="p-3 p-lg-5 border">
+                        <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="c_username" class="text-black">Потребителско име <span class="text-danger">*</span></label>
@@ -34,10 +34,14 @@
                                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Влез">
                             </div>
                         </div>
+                        <a href="/Identity/Account/Register" class="btn btn-primary btn-lg btn-block">
+                            <span class="d-inline">Регистрация</span>
+                        </a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 

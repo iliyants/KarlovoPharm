@@ -1,0 +1,66 @@
+﻿@page
+@model KarlovoPharm.Web.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h3 mb-5 text-black">Регистрация</h2>
+            </div>
+            <div class="col-md-12">
+
+                <form action="#" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="p-3 p-lg-5 border">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label class="text-black">Потребителско име <span class="text-danger">*</span></label>
+                                <input type="text" asp-for="Input.Username" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label class="text-black">Име <span class="text-danger">*</span></label>
+                                <input type="text" asp-for="Input.FirstName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label  class="text-black">Фамилия </label>
+                                <input type="text" asp-for="Input.LastName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label class="text-black">Парола <span class="text-danger">*</span></label>
+                                <input type="password" asp-for="Input.Password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label class="text-black">Потвърди Парола <span class="text-danger">*</span></label>
+                                <input type="password" asp-for="Input.ConfirmPassword" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label class="text-black">Имейл <span class="text-danger">*</span></label>
+                                <input type="email" asp-for="Input.Email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Регистрирай се">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

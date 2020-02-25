@@ -1,19 +1,18 @@
 ﻿namespace KarlovoPharm.Web
 {
-    using KarlovoPharm.Common;
-    using KarlovoPharm.Data.Models.Common;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.Extensions.Logging;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
 
-    [AllowAnonymous]
+    using KarlovoPharm.Common;
+    using KarlovoPharm.Data.Models.Common;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.Logging;
+
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;
@@ -84,11 +83,11 @@
 
         public class InputModel
         {
-            [Display(Name = "Username")]
+            [Display(Name = "Потребителско име")]
             [Required(ErrorMessage = ValidationMessages.RequiredErrorMessage)]
             public string Username { get; set; }
 
-            [Display(Name = "Password")]
+            [Display(Name = "Парола")]
             [Required(ErrorMessage = ValidationMessages.RequiredErrorMessage)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
