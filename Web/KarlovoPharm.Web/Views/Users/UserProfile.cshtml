@@ -1,0 +1,359 @@
+﻿
+@{
+    ViewData["Title"] = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="column-inner-wrapper">
+    <!-- Start Profile Customization -->
+
+    <div class="customer-name">Petko Petkov</div>
+
+    <div class="profile-tabs">
+        <div id="profile-tabs">
+            <ul class="tabs-menu">
+
+
+                <li class="profile-tab">
+                    <a href="https://366.bg/orders.html" title="Поръчки" class="">Поръчки</a>
+                </li>
+
+
+
+                <li class="profile-tab">
+                    <a href="https://366.bg/profile.html" title="Профил на клиента" class="active">Профил на клиента</a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+    <!-- End Profile Customization -->
+    <div id="profile-page" class="profile-pages">
+        <div class="h1-title title-wrapper">
+            <div class="title-left">
+                <h1 class="title-right">Профил</h1>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="page-content-bg">
+                <div class="page-content-bg-repeat">
+                    <div class="da-top">
+                        <div class="da-top-bg"></div>
+                    </div>
+                    <!-- Start Profile Customization -->
+                    <div class="message hidden"></div>
+                    <div class="profile-block-left">
+                        <div class="item account-block account-block-customer-data">
+                            <div class="message hidden"></div>
+                            <h2>Клиентска информация</h2>
+                            <div class="customer-data-information-info">
+                                <div class="customer-data-information-left">
+
+                                    <div class="customer-data-information-left-row">
+                                        <label>Име: </label>
+                                        <span>Petko</span>
+                                    </div>
+
+
+                                    <div class="customer-data-information-left-row">
+                                        <label>Фамилия: </label>
+                                        <span>Petkov</span>
+                                    </div>
+
+                                    <div class="customer-data-information-left-row">
+                                        <label>Е-майл: </label>
+                                        <span>kinveytester1@abv.bg</span>
+                                    </div>
+                                    <div class="customer-data-information-left-row">
+                                        <label>Дата на раждане: </label>
+                                        <span>01-Яну-1980</span>
+                                    </div>
+                                    <div class="customer-data-information-left-row">
+                                        <label>Пол: </label>
+                                        <span>Мъж</span>
+                                    </div>
+                                    <div class="customer-data-information-left-row">
+                                        <label>Мобилен телефон: </label>
+                                        <span>0898567319</span>
+                                    </div>
+                                </div>
+                                <div class="customer-data-information-right">
+                                    <div class="customer-data-information-edit saved-address-edit">Edit</div>
+                                </div>
+                            </div>
+                            <div class="customer-data-information-edit-form">
+                                <form action="https://366.bg/profile.html" method="post" id="changeCustomerData">
+                                    <input type="hidden" name="action" value="gtAjaxChangeCustomerData">
+                                    <input type="hidden" name="CustomerID" value="5313">
+                                    <input type="hidden" name="CustomerAddressID" value="5382">
+                                    <div class="customer-data-information-row">
+                                        <div class="change-login-information-row-left">
+                                            <label for="customer-data-CustomerEmail">Е-майл:</label>
+                                        </div>
+                                        <div class="customer-data-information-row-right">
+                                            <input type="text" name="customer-data-CustomerEmail" id="customer-data-CustomerEmail" value="kinveytester1@abv.bg" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="customer-data-information-row">
+                                        <div class="change-login-information-row-left">
+                                            <label for="customer-data-CustomerEmail">Дата на раждане:</label>
+                                        </div>
+                                        <div class="customer-data-information-row-right"><div id="CustomerBirthDate"><select name="CustomerBirthDate[day]" class="select-date"><option value="">-- Избери --</option><option value="01" selected="selected">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select name="CustomerBirthDate[month]" class="select-date"><option value="">-- Избери --</option><option value="01" selected="selected">Януари</option><option value="02">Февруари</option><option value="03">Mart</option><option value="04">Април</option><option value="05">Май</option><option value="06">Юни</option><option value="07">Юли</option><option value="08">Август</option><option value="09">Септември</option><option value="10">Октомври</option><option value="11">Ноември</option><option value="12">Декември</option></select><select name="CustomerBirthDate[year]" class="select-date"><option value="">-- Избери --</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option><option value="1985">1985</option><option value="1984">1984</option><option value="1983">1983</option><option value="1982">1982</option><option value="1981">1981</option><option value="1980" selected="selected">1980</option><option value="1979">1979</option><option value="1978">1978</option><option value="1977">1977</option><option value="1976">1976</option><option value="1975">1975</option><option value="1974">1974</option><option value="1973">1973</option><option value="1972">1972</option><option value="1971">1971</option><option value="1970">1970</option><option value="1969">1969</option><option value="1968">1968</option><option value="1967">1967</option><option value="1966">1966</option><option value="1965">1965</option><option value="1964">1964</option><option value="1963">1963</option><option value="1962">1962</option><option value="1961">1961</option><option value="1960">1960</option><option value="1959">1959</option><option value="1958">1958</option><option value="1957">1957</option><option value="1956">1956</option><option value="1955">1955</option><option value="1954">1954</option><option value="1953">1953</option><option value="1952">1952</option><option value="1951">1951</option><option value="1950">1950</option><option value="1949">1949</option><option value="1948">1948</option><option value="1947">1947</option><option value="1946">1946</option><option value="1945">1945</option><option value="1944">1944</option><option value="1943">1943</option><option value="1942">1942</option><option value="1941">1941</option><option value="1940">1940</option><option value="1939">1939</option><option value="1938">1938</option><option value="1937">1937</option><option value="1936">1936</option><option value="1935">1935</option><option value="1934">1934</option><option value="1933">1933</option><option value="1932">1932</option><option value="1931">1931</option><option value="1930">1930</option><option value="1929">1929</option><option value="1928">1928</option><option value="1927">1927</option><option value="1926">1926</option><option value="1925">1925</option><option value="1924">1924</option><option value="1923">1923</option><option value="1922">1922</option><option value="1921">1921</option><option value="1920">1920</option><option value="1919">1919</option><option value="1918">1918</option><option value="1917">1917</option><option value="1916">1916</option><option value="1915">1915</option><option value="1914">1914</option><option value="1913">1913</option><option value="1912">1912</option><option value="1911">1911</option><option value="1910">1910</option><option value="1909">1909</option><option value="1908">1908</option><option value="1907">1907</option><option value="1906">1906</option><option value="1905">1905</option><option value="1904">1904</option><option value="1903">1903</option><option value="1902">1902</option><option value="1901">1901</option><option value="1900">1900</option></select></div></div>
+                                    </div>
+                                    <div class="customer-data-information-row">
+                                        <div class="change-login-information-row-left">
+                                            <label for="customer-data-CustomerEmail">Пол:</label>
+                                        </div>
+                                        <div class="customer-data-information-row-right"><label class=""><input type="radio" id="CustomerSex-1" name="CustomerSex" value="1" checked="checked">Мъж</label><label class=""><input type="radio" id="CustomerSex-2" name="CustomerSex" value="2">Жена</label></div>
+                                    </div>
+                                    <div class="customer-data-information-row">
+                                        <div class="change-login-information-row-left">
+                                            <label for="CustomerPhone">Телефон:</label>
+                                        </div>
+                                        <div class="customer-data-information-row-right">
+                                            <input type="text" name="CustomerPhone" id="CustomerPhone" value="0898567319" placeholder="Телефон:">
+                                        </div>
+                                    </div>
+                                    <div class="customer-data-information-row button-container">
+                                        <span class="button simple-button">
+                                            <input type="button" class="input-submit" id="cancelCustomerDataChange" value="Отказ">
+                                            <span class="button-addon"></span>
+                                        </span>
+                                        <span class="button simple-button">
+                                            <input type="submit" class="input-submit" value="Обновяване">
+                                            <span class="button-addon"></span>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="item account-block account-block-login-data">
+                            <div class="message hidden"></div>
+                            <h2>Информация на вход</h2>
+                            <div class="current-login-information" style="display: none;">
+                                <div class="current-login-information-left">
+                                    <div class="current-login-information-left-row">
+                                        <label>Е-майл: </label>
+                                        <label>kinveytester1@abv.bg</label>
+                                    </div>
+                                    <div class="current-login-information-left-row">
+                                        <label>Парола: </label>
+                                        <label>********</label>
+                                    </div>
+                                </div>
+                                <div class="current-login-information-right">
+                                    <div class="current-login-information-edit saved-address-edit">Edit</div>
+                                </div>
+                            </div>
+                            <div class="change-login-information" style="display: block;">
+                                <form action="https://366.bg/profile.html" method="post" id="changeLoginInformation">
+                                    <input type="hidden" name="action" value="gtAjaxChangePassword">
+                                    <div class="change-login-information-row">
+                                        <div class="change-login-information-row-left">
+                                            <label for="CustomerEmail">Е-майл:</label>
+                                        </div>
+                                        <div class="change-login-information-row-right">
+                                            <input type="text" name="CustomerEmail" id="CustomerEmail" value="kinveytester1@abv.bg" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="change-login-information-row">
+                                        <div class="change-login-information-row-left">
+                                            <label for="CustomerPassword">Нова парола:</label>
+                                        </div>
+                                        <div class="change-login-information-row-right">
+                                            <input name="CustomerPassword" id="CustomerPassword" type="password" placeholder="Нова парола:">
+                                        </div>
+                                    </div>
+                                    <div class="change-login-information-row">
+                                        <div class="change-login-information-row-left">
+                                            <label for="CustomerPasswordConfirm">Потвърдете паролата:</label>
+                                        </div>
+                                        <div class="change-login-information-row-right">
+                                            <input name="CustomerPasswordConfirm" id="CustomerPasswordConfirm" type="password" placeholder="Потвърдете паролата:">
+                                        </div>
+                                    </div>
+                                    <div class="change-login-information-row button-container">
+                                        <span class="button simple-button">
+                                            <input type="button" class="input-submit" id="cancelLoginInformationEdit" value="Отказ">
+                                            <span class="button-addon"></span>
+                                        </span>
+                                        <span class="button simple-button">
+                                            <input type="submit" class="input-submit" value="Обновяване">
+                                            <span class="button-addon"></span>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Start Fix Newsletter Subscribe Problem -->
+                        <div class="newsletter-block">
+                            <div class="clearfix info hidden"></div>
+                            <div></div>
+                        </div>
+                        <!-- End Fix Newsletter Subscribe Problem -->
+                    </div>
+                    <div class="profile-block-right">
+                        <div class="profile-edit-block">
+                            <div id="billing-address" class="item profile-address-block">
+                                <h2>Клиентски адрес</h2>
+                                <div class="select-billing-address">
+                                    <div class="select-address">
+
+                                        <div class="saved-addresses">
+
+
+                                            <div class="address-option saved-address default" data-for="CustomerAddresses">
+                                                <div class="saved-address-left">
+                                                    <div class="saved-address-row">
+                                                        <span class="saved-address-customer-full-name">Petko Petkov,</span>
+
+                                                    </div>
+                                                    <div class="saved-address-row">
+                                                        <span class="saved-address-customer-address-1">Елхова Гора 18,</span>
+                                                    </div>
+
+                                                    <div class="saved-address-row">
+                                                        <span class="saved-address-customer-city">София,</span>
+                                                        <span class="saved-address-customer-zip">1138,</span>
+                                                        <span class="saved-address-customer-country">България,</span>
+                                                    </div>
+                                                    <div class="saved-address-row">
+                                                        <span class="saved-address-customer-phone">0898567319</span>
+                                                    </div>
+                                                </div>
+                                                <div class="saved-address-right">
+                                                    <div class="saved-address-right-left">
+                                                        <div class="saved-address-is-default">Active</div>
+                                                    </div>
+                                                    <div class="saved-address-right-right">
+                                                        <div class="saved-address-remove">Remove</div>
+                                                        <div class="address-choice saved-address-edit">Edit</div>
+                                                    </div>
+                                                </div>
+                                                <input type="radio" id="CustomerAddressID" name="CustomerAddresses" value="5382" checked="checked">
+                                            </div>
+                                        </div>
+
+                                        <div class="address-option new-address" data-for="CustomerAddresses">
+                                            <div class="new-address-left">
+                                                <div class="new-address-row">
+                                                    <span class="new-address-add-text">Нов адрес</span>
+                                                </div>
+                                            </div>
+                                            <div class="new-address-right">
+                                                <div class="address-choice new-address-add">Add</div>
+                                            </div>
+                                            <input type="radio" id="CustomerAddressID" name="CustomerAddresses" value="-1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="address-create-edit">
+                                <h2 class="address-create-edit-heading create">Създаване на нов адрес</h2>
+                                <h2 class="address-create-edit-heading edit">Редактирай съществуващ адрес</h2>
+                                <h2 class="address-create-edit-heading selected">Създаване на нов адрес</h2>
+                                <form action="https://366.bg/profile.html" method="post" id="addressCreateEdit">
+                                    <input type="hidden" name="CustomerAddressID" value="-1">
+                                    <input type="hidden" name="action" value="gtAjaxUpdateCustomerAddress">
+                                    <input type="hidden" name="selector" value="">
+                                    <div class="address-create-edit-row">
+                                        <div class="address-create-edit-left">
+                                            <label for="CustomerAddressFirstName">Име: <span class="asterisk">*</span></label>
+                                        </div>
+                                        <div class="address-create-edit-right">
+                                            <input name="CustomerAddressFirstName" id="CustomerAddressFirstName" type="text" class="input-text" value="" placeholder="Име:">
+                                            <span class="error"></span>
+                                            <p class="error-note" id="CustomerAddressFirstName-note" style="display: none;">Моля, въведете вашето име.</p>
+                                        </div>
+                                    </div>
+                                    <div class="address-create-edit-row">
+                                        <div class="address-create-edit-left">
+                                            <label for="CustomerAddressLastName">Фамилия: <span class="asterisk">*</span></label>
+                                        </div>
+                                        <div class="address-create-edit-right">
+                                            <input name="CustomerAddressLastName" id="CustomerAddressLastName" type="text" class="input-text" value="" placeholder="Фамилия:">
+                                            <span class="error"></span>
+                                            <p class="error-note" id="CustomerAddressLastName-note" style="display: none;">Моля, въведете вашата фамилия.</p>
+                                        </div>
+                                    </div>
+                                    <div class="address-create-edit-row">
+                                        <div class="address-create-edit-left">
+                                            <label for="CustomerAddressPhone">Мобилен телефон: <span class="asterisk">*</span></label>
+                                        </div>
+                                        <div class="address-create-edit-right">
+                                            <input name="CustomerAddressPhone" id="CustomerAddressPhone" type="text" class="input-text" value="" placeholder="Мобилен телефон:">
+                                            <span class="error"></span>
+                                            <p class="error-note" id="CustomerAddressPhone-note" style="display: none;">Моля, въведете валиден телефонен номер.</p>
+                                        </div>
+                                    </div>
+                                    <div class="address-create-edit-row">
+                                        <div class="address-create-edit-left">
+                                            <label for="CustomerAddressCity">Град: <span class="asterisk">*</span></label>
+                                        </div>
+                                        <div class="address-create-edit-right">
+                                            <select id="js-select-city" name="CustomerCity" data-placeholder="Град" style="width: 100%;" data-select2-id="js-select-city" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+
+                                                <option value="10996" selected="" data-select2-id="2">София</option>
+                                            </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="1" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-js-select-city-container"><span class="select2-selection__rendered" id="select2-js-select-city-container" role="textbox" aria-readonly="true" title="София">София</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                            <span class="error"></span>
+                                            <p class="error-note" id="CustomerCity-note" style="display: none">Моля, изберете град.</p>
+                                        </div>
+                                    </div>
+                                    <div class="address-create-edit-row">
+                                        <div class="address-create-edit-left">
+                                            <label for="CustomerAddressZip">Пощенски код: <span class="asterisk">*</span></label>
+                                        </div>
+                                        <div class="address-create-edit-right">
+                                            <input name="CustomerAddressZip" id="CustomerAddressZip" type="text" class="input-text" value="" placeholder="Пощенски код:">
+                                            <span class="error"></span>
+                                            <p class="error-note" id="CustomerAddressZip-note" style="display: none">Моля, въведете пощенски код.</p>
+                                        </div>
+                                    </div>
+                                    <div class="address-create-edit-row">
+                                        <div class="address-create-edit-left">
+                                            <label for="CustomerAddressLine1">Адрес: <span class="asterisk">*</span></label>
+                                        </div>
+                                        <div class="address-create-edit-right">
+                                            <input name="CustomerAddressLine1" id="CustomerAddressLine1" type="text" class="input-text" placeholder="Адрес:">
+                                            <span class="error"></span>
+                                            <p class="error-note" id="CustomerAddressLine1-note" style="display: none">Моля, въведете адрес (улица и номер).</p>
+                                        </div>
+                                    </div>
+                                    <div class="address-create-edit-row make-as-default">
+                                        <div class="address-create-edit-left">
+                                            <label for="CustomerAddressIsDefault" style="display: block;">Адрес по подразбиране: </label>
+                                        </div>
+                                        <div class="address-create-edit-right">
+                                            <input name="CustomerAddressIsDefault" id="CustomerAddressIsDefault" type="checkbox" value="1">
+                                            <span class="error"></span>
+                                        </div>
+                                    </div>
+                                    <input name="CustomerAddressCity" id="CustomerAddressCity" type="hidden" value="София">
+                                    <input type="hidden" name="CountryID" value="34">
+                                    <input type="hidden" name="StateID" id="StateID" value="254">
+                                    <input type="hidden" name="CityID" id="CityID" value="10996">
+                                    <div class="address-create-edit-row button-container">
+                                        <span class="button simple-button">
+                                            <input type="button" class="input-submit" id="cancelAddressCreateEdit" value="Отказ">
+                                            <span class="button-addon"></span>
+                                        </span>
+                                        <span class="button simple-button">
+                                            <input type="submit" class="input-submit" value="Добави" data-value-add="Добави" data-value-update="Обновяване">
+                                            <span class="button-addon"></span>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Profile Customization -->
+                    <div class="da-bottom">
+                        <div class="da-bottom-bg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

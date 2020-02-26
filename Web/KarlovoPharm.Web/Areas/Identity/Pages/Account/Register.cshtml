@@ -13,43 +13,48 @@
             </div>
             <div class="col-md-12">
 
-                <form action="#" method="post">
-                    <div asp-validation-summary="All" class="text-danger"></div>
+                <form method="post">
                     <div class="p-3 p-lg-5 border">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label class="text-black">Потребителско име <span class="text-danger">*</span></label>
+                                <label for="Username" class="text-black">Потребителско име <span class="text-danger">*</span></label>
                                 <input type="text" asp-for="Input.Username" class="form-control">
+                                <span asp-validation-for="Input.Username" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label class="text-black">Име <span class="text-danger">*</span></label>
+                                <label for="FirstName" class="text-black">Име </label>
                                 <input type="text" asp-for="Input.FirstName" class="form-control">
+                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label  class="text-black">Фамилия </label>
+                                <label for="LastName" class="text-black">Фамилия </label>
                                 <input type="text" asp-for="Input.LastName" class="form-control">
+                                <span asp-validation-for="Input.LastName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label class="text-black">Парола <span class="text-danger">*</span></label>
+                                <label for="Password" class="text-black">Парола <span class="text-danger">*</span></label>
                                 <input type="password" asp-for="Input.Password" class="form-control">
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label class="text-black">Потвърди Парола <span class="text-danger">*</span></label>
+                                <label for="ConfirmPassword" class="text-black">Потвърди Парола <span class="text-danger">*</span></label>
                                 <input type="password" asp-for="Input.ConfirmPassword" class="form-control">
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label class="text-black">Имейл <span class="text-danger">*</span></label>
+                                <label for="Email" class="text-black">Имейл <span class="text-danger">*</span></label>
                                 <input type="email" asp-for="Input.Email" class="form-control">
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">

@@ -8,11 +8,13 @@
     using KarlovoPharm.Common;
     using KarlovoPharm.Data.Models.Common;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
 
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;
@@ -72,7 +74,7 @@
                 }
                 else
                 {
-                    this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    this.ModelState.AddModelError(string.Empty, "Невалидно потребителско име или парола.");
                     return this.Page();
                 }
             }
@@ -83,12 +85,12 @@
 
         public class InputModel
         {
-            [Display(Name = "Потребителско име")]
-            [Required(ErrorMessage = ValidationMessages.RequiredErrorMessage)]
+            [Display(Name = "Username")]
+            [Required(ErrorMessage = ValidationMessages.RequiredUsernameErrorMessage)]
             public string Username { get; set; }
 
-            [Display(Name = "Парола")]
-            [Required(ErrorMessage = ValidationMessages.RequiredErrorMessage)]
+            [Display(Name = "Password")]
+            [Required(ErrorMessage = ValidationMessages.RequiredPasswordErrorMessage)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
         }

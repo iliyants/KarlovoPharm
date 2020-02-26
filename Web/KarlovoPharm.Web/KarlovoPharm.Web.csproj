@@ -43,8 +43,4 @@
     <ProjectReference Include="..\KarlovoPharm.Web.Infrastructure\KarlovoPharm.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\KarlovoPharm.Web.ViewModels\KarlovoPharm.Web.ViewModels.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Users\" />
-  </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
+
     using KarlovoPharm.Common;
     using KarlovoPharm.Data.Models;
     using KarlovoPharm.Data.Models.Common;
@@ -52,7 +53,7 @@
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? "/Users/AddAdditionalInfo";
+            returnUrl = returnUrl ?? "/Users/UserProfile";
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -61,19 +62,18 @@
                     FirstName = this.Input.FirstName,
                     LastName = this.Input.LastName,
                     Email = this.Input.Email,
-                    ShoppingCart = new ShoppingCart(),
                 };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
-                    this.logger.LogInformation("User created a new account with password.");
+                    //this.logger.LogInformation("User created a new account with password.");
 
-                    var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = this.Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code = code },
-                        protocol: this.Request.Scheme);
+                    //var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = this.Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { userId = user.Id, code = code },
+                    //    protocol: this.Request.Scheme);
 
                     //await this.emailSender.SendEmailAsync(
                     //    this.Input.Email,
@@ -98,32 +98,31 @@
 
         public class InputModel
         {
-            [Display(Name = "Потребителско име")]
-            [Required(ErrorMessage = ValidationMessages.RequiredErrorMessage)]
+            [Display(Name = "Username")]
+            [Required(ErrorMessage = ValidationMessages.RequiredUsernameErrorMessage)]
             [StringLength(10, MinimumLength = 3, ErrorMessage = ValidationMessages.UsernameLengthErrorMessage)]
             public string Username { get; set; }
 
-            [Display(Name = "Име")]
-            [Required(ErrorMessage = ValidationMessages.RequiredErrorMessage)]
+            [Display(Name = "FirstName")]
             [StringLength(30, MinimumLength = 3, ErrorMessage = ValidationMessages.NameLenghtErrorMessage)]
             public string FirstName { get; set; }
 
-            [Display(Name = "Фамилия")]
-            [StringLength(30, MinimumLength = 3, ErrorMessage = ValidationMessages.NameLenghtErrorMessage)]
+            [Display(Name = "LastName")]
+            [StringLength(30, MinimumLength = 3, ErrorMessage = ValidationMessages.LastNameLenghtErrorMessage)]
             public string LastName { get; set; }
 
-            [Display(Name = "Имейл")]
-            [Required(ErrorMessage = ValidationMessages.RequiredErrorMessage)]
+            [Display(Name = "Email")]
+            [Required(ErrorMessage = ValidationMessages.RequiredEmailErrorMessage)]
             [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = ValidationMessages.EmailValidationErrorMessage)]
             public string Email { get; set; }
 
-            [Display(Name = "Парола")]
+            [Display(Name = "Password")]
             [DataType(DataType.Password)]
-            [Required(ErrorMessage = ValidationMessages.RequiredErrorMessage)]
+            [Required(ErrorMessage = ValidationMessages.RequiredPasswordErrorMessage)]
             [StringLength(15, MinimumLength = 5, ErrorMessage = ValidationMessages.PasswordValidationErrorMessage)]
             public string Password { get; set; }
 
-            [Display(Name = "Потвърди парола")]
+            [Display(Name = "ConfirmPassword")]
             [DataType(DataType.Password)]
             [Compare("Password", ErrorMessage = ValidationMessages.PasswordAndConfirmPasswordDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }

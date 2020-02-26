@@ -14,18 +14,18 @@
             <div class="col-md-12">
                 <form method="post">
                     <div class="p-3 p-lg-5 border">
-                        <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group row">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="col-md-12">
-                                <label for="c_username" class="text-black">Потребителско име <span class="text-danger">*</span></label>
-                                <input asp-for="Input.Username" type="text" class="form-control" id="c_username" name="c_username" placeholder="Потребителско име">
+                                <label for="Username" class="text-black">Потребителско име <span class="text-danger">*</span></label>
+                                <input asp-for="Input.Username" type="text" class="form-control" placeholder="Потребителско име">
                                 <span asp-validation-for="Input.Username" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label for="c_password" class="text-black">Парола <span class="text-danger">*</span></label>
-                                <input asp-for="Input.Password" type="password" class="form-control" id="c_email" name="c_email" placeholder="Парола">
+                                <label for="Password" class="text-black">Парола <span class="text-danger">*</span></label>
+                                <input asp-for="Input.Password" type="password" class="form-control"  placeholder="Парола">
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                         </div>
