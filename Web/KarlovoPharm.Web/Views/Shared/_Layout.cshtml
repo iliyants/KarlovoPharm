@@ -91,14 +91,29 @@
                     </div>
                     <div class="icons">
                         <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-                        <a href="" class="icons-btn d-inline-block bag">
-                            <span class="icon-shopping-bag"></span>
-                            <span class="number">2</span>
-                        </a>
-                        <a href="/Identity/Account/Login" class="btn btn-default btn-sm">
-                            <span class="icon-user"></span>
-                            <span class="d-inline">Вход</span>
-                        </a>
+                        @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.UserRoleName))
+                        {
+                            <a href="/ShoppingCart" class="icons-btn d-inline-block bag">
+                                <span class="icon-shopping-bag"></span>
+                                <span class="number">2</span>
+                            </a>
+                            <button type="button" class="btn btn-sm btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @User.Identity.Name
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Към Профил</a>
+                                <a class="dropdown-item" href="#">Поръчки</a>
+                                <a class="dropdown-item" href="#">Любими продукти</a>
+                                <a class="dropdown-item" href="/Identity/Account/Logout">Изход</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="/Identity/Account/Login" class="btn btn-default btn-sm">
+                                <span class="icon-user"></span>
+                                <span class="d-inline">Вход</span>
+                            </a>
+                        }
                         <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
                             <span class="icon-menu"></span>
                         </a>
