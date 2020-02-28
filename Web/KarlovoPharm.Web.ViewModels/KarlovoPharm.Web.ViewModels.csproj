@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Services\KarlovoPharm.Services.Mapping\KarlovoPharm.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Categories\" />
+  </ItemGroup>
+
 </Project>

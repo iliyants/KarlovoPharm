@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\KarlovoPharm.Data.Models\KarlovoPharm.Data.Models.csproj" />
+    <ProjectReference Include="..\..\KarlovoPharm.Common\KarlovoPharm.Common.csproj" />
+    <ProjectReference Include="..\..\Services\KarlovoPharm.Services.Mapping\KarlovoPharm.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\KarlovoPharm.Services.Models\KarlovoPharm.Services.Models.csproj" />
+  </ItemGroup>
+
+</Project>

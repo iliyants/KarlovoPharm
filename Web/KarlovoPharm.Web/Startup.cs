@@ -9,6 +9,8 @@
     using KarlovoPharm.Data.Repositories;
     using KarlovoPharm.Data.Seeding;
     using KarlovoPharm.Services.Data;
+    using KarlovoPharm.Services.Data.Categories;
+    using KarlovoPharm.Services.Data.SubCategories;
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Services.Messaging;
     using KarlovoPharm.Web.ViewModels;
@@ -59,6 +61,8 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ISubCategoryService, SubCategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -43,81 +43,9 @@
                         </div>
                     </div>
                     <div class="main-nav d-none d-lg-block">
-                        <nav class="site-navigation text-right text-md-center" role="navigation">
-                            <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li class="active"><a href="/">Към сайта</a></li>
-                                <li><a href="shop.html">Магазин</a></li>
-                                <li class="has-children">
-                                    <a href="#">Категории</a>
-                                    <ul class="dropdown">
-                                        <li class="has-children">
-                                            <a href="#">Лекарства без рецепта</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">Болкоуспокояващи</a></li>
-                                                <li><a href="#">Противоалергични</a></li>
-                                                <li><a href="#">Хомеопатични</a></li>
-                                                <li><a href="#">Настинка и грип</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-children">
-                                            <a href="#">Хранителни добавки</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">Чайове</a></li>
-                                                <li><a href="#">Витамини</a></li>
-                                                <li><a href="#">Спортни храни</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-children">
-                                            <a href="#">Козметика</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">За мъжа</a></li>
-                                                <li><a href="#">За жената</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-children">
-                                            <a href="#">Продукти за вашето Бебе</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">Памперси и пелени</a></li>
-                                                <li><a href="#">Бебешки храни</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Апарати за кръвно налагяне</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="about.html">За нас</a></li>
-                                <li><a href="contact.html">Свържете се с нас</a></li>
-                            </ul>
-                        </nav>
+                        <partial name="~/Views/Shared/Partials/_NavbarPartial.cshtml">
                     </div>
-                    <div class="icons">
-                        <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-                        @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.UserRoleName))
-                        {
-                            <a href="/ShoppingCart" class="icons-btn d-inline-block bag">
-                                <span class="icon-shopping-bag"></span>
-                                <span class="number">2</span>
-                            </a>
-                            <button type="button" class="btn btn-sm btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @User.Identity.Name
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Към Профил</a>
-                                <a class="dropdown-item" href="#">Поръчки</a>
-                                <a class="dropdown-item" href="#">Любими продукти</a>
-                                <a class="dropdown-item" href="/Identity/Account/Logout">Изход</a>
-                            </div>
-                        }
-                        else
-                        {
-                            <a href="/Identity/Account/Login" class="btn btn-default btn-sm">
-                                <span class="icon-user"></span>
-                                <span class="d-inline">Вход</span>
-                            </a>
-                        }
-                        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
-                            <span class="icon-menu"></span>
-                        </a>
-                    </div>
+                    <partial name="~/Views/Shared/Partials/_LoginPartial.cshtml" />
                 </div>
             </div>
         </div>

@@ -11,7 +11,6 @@
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Data.Repositories;
     using KarlovoPharm.Data.Seeding;
-    using KarlovoPharm.Services.Data;
     using KarlovoPharm.Services.Messaging;
 
     using CommandLine;
@@ -20,6 +19,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using KarlovoPharm.Services.Data;
 
     public static class Program
     {
