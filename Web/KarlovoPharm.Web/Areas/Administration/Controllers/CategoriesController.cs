@@ -1,10 +1,11 @@
 ﻿namespace KarlovoPharm.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
     using KarlovoPharm.Common;
     using KarlovoPharm.Services.Data.Categories;
     using KarlovoPharm.Web.InputModels.Categories.Create;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     public class CategoriesController : AdministrationController
     {
@@ -37,5 +38,6 @@
 
             return this.Redirect("/");
         }
+
     }
 }

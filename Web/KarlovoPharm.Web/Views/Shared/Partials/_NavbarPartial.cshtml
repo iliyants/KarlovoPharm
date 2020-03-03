@@ -1,4 +1,4 @@
-﻿@*@model KarlovoPharm.Web.ViewModels.Navbar.NavBarCategoryViewModel*@
+﻿@inject KarlovoPharm.Services.Data.Categories.ICategoryService categoryservice
 
 @using KarlovoPharm.Common
 
@@ -9,9 +9,9 @@
         <li class="has-children">
             <a href="#">Категории</a>
             <ul class="dropdown">
-                <li class="has-children">
-                    @*@foreach (var category in Model.Categories)
-                    {
+                @foreach (var category in categoryservice.GetAll())
+                {
+                    <li class="has-children">
                         <a href="#">@category.Name</a>
                         <ul class="dropdown">
                             @foreach (var subCategory in category.SubCategories)
@@ -20,11 +20,11 @@
                             }
                             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
-                                <li><a href="#">Добави Подкатегория</a></li>
+                                <li><a href="/Administration/SubCategories/Add?categoryId=@category.Id">Добави Подкатегория</a></li>
                             }
                         </ul>
-                    }*@
-                </li>
+                    </li>
+                }
                 @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
                     <li role="presentation" class="divider"></li>

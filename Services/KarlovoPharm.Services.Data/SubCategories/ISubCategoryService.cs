@@ -1,8 +1,9 @@
 ﻿namespace KarlovoPharm.Services.Data.SubCategories
 {
-    using KarlovoPharm.Data.Models;
-    using System.Linq;
+    using System.Threading.Tasks;
+
     public interface ISubCategoryService
     {
+        public Task<bool> CreateSubCategoryAsync(string name, string categoryId);
     }
 }

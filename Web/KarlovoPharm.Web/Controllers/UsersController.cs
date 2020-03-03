@@ -3,7 +3,6 @@
     using Microsoft.AspNetCore.Mvc;
 
     public class UsersController : BaseController
-    {
-      
+    {      
     }
 }

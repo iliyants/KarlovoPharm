@@ -18,6 +18,9 @@
                 .IsRequired()
                 .HasMaxLength(30);
 
+            category.Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
             category
                 .HasIndex(x => x.Name)
                 .IsUnique();

@@ -3,7 +3,6 @@
     using System.Diagnostics;
 
     using KarlovoPharm.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController

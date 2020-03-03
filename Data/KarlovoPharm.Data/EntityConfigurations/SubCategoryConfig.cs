@@ -20,6 +20,9 @@
             subCategory.Property(x => x.Name).IsRequired()
                 .HasMaxLength(30);
 
+            subCategory.Property(x => x.Id)
+                    .ValueGeneratedOnAdd();
+
             subCategory.HasIndex(x => x.Name)
                 .IsUnique();
 

@@ -1,17 +1,11 @@
 ﻿namespace KarlovoPharm.Web
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text.Encodings.Web;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Common;
-    using KarlovoPharm.Data.Models;
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Services.Messaging;
-    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -113,7 +107,7 @@
 
             [Display(Name = "Email")]
             [Required(ErrorMessage = ValidationMessages.RequiredEmailErrorMessage)]
-            [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = ValidationMessages.EmailValidationErrorMessage)]
+            [DataType(DataType.EmailAddress, ErrorMessage = ValidationMessages.EmailValidationErrorMessage)]
             public string Email { get; set; }
 
             [Display(Name = "Password")]
@@ -126,7 +120,6 @@
             [DataType(DataType.Password)]
             [Compare("Password", ErrorMessage = ValidationMessages.PasswordAndConfirmPasswordDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
-
         }
     }
 }
