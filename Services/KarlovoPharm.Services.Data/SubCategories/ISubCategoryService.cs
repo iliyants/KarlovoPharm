@@ -4,6 +4,7 @@
 
     public interface ISubCategoryService
     {
+        Task<string> GetNameByIdAsync(string subCategoryId);
         public Task<bool> CreateSubCategoryAsync(string name, string categoryId);
     }
 }

@@ -48,7 +48,7 @@
                         map.CreateMappings(configuration);
                     }
                 });
-            MapperInstance = new Mapper(new MapperConfiguration(config));
+            Mapper.Initialize(config);
         }
 
         private static IEnumerable<TypesMap> GetFromMaps(IEnumerable<Type> types)

@@ -10,6 +10,9 @@
         {
             category.HasKey(x => x.Id);
 
+            category.Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
             category.HasMany(x => x.SubCategories)
                 .WithOne(x => x.Category)
                 .HasForeignKey(x => x.CategoryId);

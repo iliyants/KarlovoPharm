@@ -17,10 +17,12 @@
                             @foreach (var subCategory in category.SubCategories)
                             {
                                 <li><a href="#">@subCategory.Name</a></li>
+                                <li><a href="/Administration/Products/Add/@subCategory.Id">Добави Продукт към @subCategory.Name</a></li>
+
                             }
                             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
-                                <li><a href="/Administration/SubCategories/Add?categoryId=@category.Id">Добави Подкатегория</a></li>
+                                <li><a href="/Administration/SubCategories/Add/@category.Id">Добави Подкатегория</a></li>
                             }
                         </ul>
                     </li>

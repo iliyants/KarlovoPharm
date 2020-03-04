@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KarlovoPharm.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200219184256_InitialCreate")]
+    [Migration("20200304190839_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,10 +27,14 @@ namespace KarlovoPharm.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BuildingNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -39,7 +43,8 @@ namespace KarlovoPharm.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -51,7 +56,9 @@ namespace KarlovoPharm.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
@@ -63,6 +70,7 @@ namespace KarlovoPharm.Data.Migrations
             modelBuilder.Entity("KarlovoPharm.Data.Models.Category", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
@@ -78,11 +86,16 @@ namespace KarlovoPharm.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -275,6 +288,7 @@ namespace KarlovoPharm.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -304,10 +318,13 @@ namespace KarlovoPharm.Data.Migrations
             modelBuilder.Entity("KarlovoPharm.Data.Models.Product", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("Available")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -316,7 +333,9 @@ namespace KarlovoPharm.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -324,16 +343,22 @@ namespace KarlovoPharm.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Picture")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Specification")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<string>("SubCategoryId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -363,6 +388,7 @@ namespace KarlovoPharm.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -370,8 +396,7 @@ namespace KarlovoPharm.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -394,9 +419,11 @@ namespace KarlovoPharm.Data.Migrations
             modelBuilder.Entity("KarlovoPharm.Data.Models.SubCategory", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
@@ -412,13 +439,18 @@ namespace KarlovoPharm.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("SubCategories");
                 });
@@ -564,7 +596,9 @@ namespace KarlovoPharm.Data.Migrations
                 {
                     b.HasOne("KarlovoPharm.Data.Models.Common.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KarlovoPharm.Data.Models.OrderProduct", b =>
@@ -586,14 +620,18 @@ namespace KarlovoPharm.Data.Migrations
                 {
                     b.HasOne("KarlovoPharm.Data.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
-                        .HasForeignKey("SubCategoryId");
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KarlovoPharm.Data.Models.ShoppingCart", b =>
                 {
                     b.HasOne("KarlovoPharm.Data.Models.Common.ApplicationUser", "User")
                         .WithOne("ShoppingCart")
-                        .HasForeignKey("KarlovoPharm.Data.Models.ShoppingCart", "UserId");
+                        .HasForeignKey("KarlovoPharm.Data.Models.ShoppingCart", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KarlovoPharm.Data.Models.ShoppingCartProduct", b =>
@@ -615,7 +653,9 @@ namespace KarlovoPharm.Data.Migrations
                 {
                     b.HasOne("KarlovoPharm.Data.Models.Category", "Category")
                         .WithMany("SubCategories")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KarlovoPharm.Data.Models.UserAddress", b =>

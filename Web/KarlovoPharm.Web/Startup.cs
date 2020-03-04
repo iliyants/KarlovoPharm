@@ -10,9 +10,12 @@
     using KarlovoPharm.Data.Seeding;
     using KarlovoPharm.Services.Data;
     using KarlovoPharm.Services.Data.Categories;
+    using KarlovoPharm.Services.Data.Products;
     using KarlovoPharm.Services.Data.SubCategories;
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Services.Messaging;
+    using KarlovoPharm.Services.Models.Products;
+    using KarlovoPharm.Web.InputModels.Products.Create;
     using KarlovoPharm.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -63,12 +66,16 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ISubCategoryService, SubCategoryService>();
+            services.AddTransient<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+            AutoMapperConfig.RegisterMappings(
+                typeof(ErrorViewModel).GetTypeInfo().Assembly,
+                typeof(ProductCreateInputModel).GetTypeInfo().Assembly,
+                typeof(ProductServiceModel).GetTypeInfo().Assembly);
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

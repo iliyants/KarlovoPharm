@@ -20,7 +20,6 @@
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="CategoryName" class="text-black">Име на Подкатегория <span class="text-danger">*</span></label>
-                                    <input asp-for="@Model.CategoryId" type="hidden" value="@Model.CategoryId">
                                     <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Въведете името на подкатегорията тук.">
                                     <span asp-validation-for="@Model.Name" class="text-danger"></span>
                                 </div>

@@ -42,5 +42,20 @@
 
             return true;
         }
+
+        public async Task<string> GetNameByIdAsync(string id)
+        {
+            var subCategory = await this.subCategoryRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .SingleOrDefaultAsync();
+
+            if (subCategory == null)
+            {
+                throw new ArgumentNullException("Invalid SubCategory!");
+            }
+
+            return subCategory.Name;
+        }
     }
 }

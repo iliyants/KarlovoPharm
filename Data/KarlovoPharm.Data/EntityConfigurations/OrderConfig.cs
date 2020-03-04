@@ -10,6 +10,9 @@
         {
             order.HasKey(x => x.Id);
 
+            order.Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
             order.Property(x => x.UserId)
                 .IsRequired();
         }

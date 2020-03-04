@@ -10,6 +10,9 @@
         {
             product.HasKey(x => x.Id);
 
+            product.Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
             product.Property(x => x.Description)
                 .IsRequired()
                 .HasMaxLength(500);
@@ -24,7 +27,7 @@
                 .IsRequired();
 
             product.Property(x => x.Available)
-                .IsRequired();
+                .HasDefaultValue(true);
 
             product.Property(x => x.SubCategoryId)
                 .IsRequired();

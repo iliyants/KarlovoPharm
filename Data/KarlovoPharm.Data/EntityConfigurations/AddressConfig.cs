@@ -10,6 +10,9 @@
         {
             address.HasKey(x => x.Id);
 
+            address.Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
             address.Property(x => x.Description)
                 .HasMaxLength(100);
 

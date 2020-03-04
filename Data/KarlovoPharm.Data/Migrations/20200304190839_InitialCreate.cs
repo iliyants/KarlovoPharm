@@ -16,11 +16,11 @@ namespace KarlovoPharm.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 100, nullable: true),
+                    City = table.Column<string>(maxLength: 20, nullable: false),
                     PostCode = table.Column<string>(nullable: true),
-                    Street = table.Column<string>(nullable: true),
-                    BuildingNumber = table.Column<string>(nullable: true)
+                    Street = table.Column<string>(maxLength: 40, nullable: false),
+                    BuildingNumber = table.Column<string>(maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,7 +86,7 @@ namespace KarlovoPharm.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -226,7 +226,7 @@ namespace KarlovoPharm.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
                     TotalPrice = table.Column<decimal>(nullable: false),
                     OrderDate = table.Column<DateTime>(nullable: true),
                     DeliveryDate = table.Column<DateTime>(nullable: true)
@@ -251,7 +251,7 @@ namespace KarlovoPharm.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -297,8 +297,8 @@ namespace KarlovoPharm.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    CategoryId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -320,12 +320,13 @@ namespace KarlovoPharm.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Specification = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 500, nullable: false),
+                    Specification = table.Column<string>(maxLength: 500, nullable: true),
                     Price = table.Column<decimal>(nullable: false),
-                    Available = table.Column<bool>(nullable: false),
-                    Picture = table.Column<string>(nullable: true),
-                    SubCategoryId = table.Column<string>(nullable: true)
+                    Available = table.Column<bool>(nullable: false, defaultValue: true),
+                    Picture = table.Column<string>(nullable: false),
+                    SubCategoryId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -471,6 +472,12 @@ namespace KarlovoPharm.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_Name",
+                table: "Categories",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_IsDeleted",
                 table: "Orders",
                 column: "IsDeleted");
@@ -514,8 +521,7 @@ namespace KarlovoPharm.Data.Migrations
                 name: "IX_ShoppingCarts_UserId",
                 table: "ShoppingCarts",
                 column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCategories_CategoryId",
@@ -526,6 +532,12 @@ namespace KarlovoPharm.Data.Migrations
                 name: "IX_SubCategories_IsDeleted",
                 table: "SubCategories",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_Name",
+                table: "SubCategories",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserFavouriteProducts_ProductId",

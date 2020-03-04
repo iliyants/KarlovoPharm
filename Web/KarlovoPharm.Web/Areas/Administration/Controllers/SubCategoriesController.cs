@@ -20,29 +20,24 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add(string categoryId)
+        public async Task<IActionResult> Add(string id)
         {
-            var categoryName = await this.categoryService.GetNameByIdAsync(categoryId);
+            var categoryName = await this.categoryService.GetNameByIdAsync(id);
 
             this.ViewData["CategoryName"] = categoryName;
 
-            var subCategoryCreateInputModel = new SubCategoryCreateInputModel()
-            {
-                CategoryId = categoryId
-            };
-
-            return this.View(subCategoryCreateInputModel);
+            return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(SubCategoryCreateInputModel subCategoryCreateInputModel)
+        public async Task<IActionResult> Add(string id, SubCategoryCreateInputModel subCategoryCreateInputModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(subCategoryCreateInputModel);
             }
 
-            if (!await this.subCategoryService.CreateSubCategoryAsync(subCategoryCreateInputModel.Name, subCategoryCreateInputModel.CategoryId))
+            if (!await this.subCategoryService.CreateSubCategoryAsync(subCategoryCreateInputModel.Name, id))
             {
                 this.TempData["Error"] = ValidationMessages.SubCategoryUniqieNameErrorMessage;
                 return this.View(subCategoryCreateInputModel);

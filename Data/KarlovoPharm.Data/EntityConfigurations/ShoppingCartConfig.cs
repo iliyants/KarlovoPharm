@@ -10,6 +10,9 @@
         {
             shoppingCart.HasKey(x => x.Id);
 
+            shoppingCart.Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
             shoppingCart.Property(x => x.UserId)
                 .IsRequired();
         }
