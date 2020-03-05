@@ -1,39 +1,9 @@
-﻿@inject KarlovoPharm.Services.Data.Categories.ICategoryService categoryservice
-
-@using KarlovoPharm.Common
-
+﻿
 <nav class="site-navigation text-right text-md-center" role="navigation">
     <ul class="site-menu js-clone-nav d-none d-lg-block">
         <li class="active"><a href="/">Към сайта</a></li>
-        <li><a href="shop.html">Магазин</a></li>
-        <li class="has-children">
-            <a href="#">Категории</a>
-            <ul class="dropdown">
-                @foreach (var category in categoryservice.GetAll())
-                {
-                    <li class="has-children">
-                        <a href="#">@category.Name</a>
-                        <ul class="dropdown">
-                            @foreach (var subCategory in category.SubCategories)
-                            {
-                                <li><a href="#">@subCategory.Name</a></li>
-                                <li><a href="/Administration/Products/Add/@subCategory.Id">Добави Продукт към @subCategory.Name</a></li>
-
-                            }
-                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                            {
-                                <li><a href="/Administration/SubCategories/Add/@category.Id">Добави Подкатегория</a></li>
-                            }
-                        </ul>
-                    </li>
-                }
-                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                {
-                    <li role="presentation" class="divider"></li>
-                    <li><a href="/Administration/Categories/Add">Добави Категория</a></li>
-                }
-            </ul>
-        </li>
+        <li><a asp-controller="Store" asp-action="All">Магазин</a></li>
+        <partial name="_CategoriesPartial.cshtml">
         <li><a href="about.html">За нас</a></li>
         <li><a href="contact.html">Свържете се с нас</a></li>
     </ul>

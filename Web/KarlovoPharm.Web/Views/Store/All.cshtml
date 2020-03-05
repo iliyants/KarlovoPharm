@@ -1,0 +1,58 @@
+﻿@model KarlovoPharm.Web.ViewModels.Products.ProductAllViewModel
+<div class="site-section">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Филтрирай по цена</h3>
+                <div id="slider-range" class="border-primary"></div>
+                <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
+            </div>
+            <div class="col-lg-6">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Филтрър</h3>
+                <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4" id="dropdownMenuReference"
+                        data-toggle="dropdown">
+                    Предпочитание
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                    <a class="dropdown-item" href="#">Нови продукти</a>
+                    <a class="dropdown-item" href="#">Име, А до Я</a>
+                    <a class="dropdown-item" href="#">Име, Я до А</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Цена по възходящ ред</a>
+                    <a class="dropdown-item" href="#">Цена по низходящ ред</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                @foreach (var product in Model.Products)
+                {
+                    <a href="shop-single.html"> <img src="@product.Picture" style="width:70%"></a>
+                    <h3 class="text-dark"><a href="shop-single.html">@product.Name</a></h3>
+                    <p class="price"><del>95.00</del> &mdash; @product.Price лв.</p>
+                    <a href="asd" class="btn btn-danger btn-md"><i class="fas fa-heart">Добави в любими</i></a>
+                    <a href="asd" class="btn btn-primary btn-md"><i class="fas fa-shopping-cart"></i> Добави в количка</a>
+                }
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12 text-center">
+                <div class="site-block-27">
+                    <ul>
+                        <li><a href="#">&lt;</a></li>
+                        <li class="active"><span>1</span></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&gt;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

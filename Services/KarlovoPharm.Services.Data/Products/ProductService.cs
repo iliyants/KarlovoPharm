@@ -7,6 +7,9 @@
     using System.Threading.Tasks;
 
     using KarlovoPharm.Services.Mapping;
+    using System.Linq;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
 
     public class ProductService : IProductService
     {
@@ -34,6 +37,16 @@
             var result = await this.productRepository.SaveChangesAsync();
 
             return result > 0;
+        }
+
+        public async Task<IEnumerable<ProductSingleServiceModel>> GetAll()
+        {
+            var products =  await this.productRepository
+                 .AllAsNoTracking()
+                 .To<ProductSingleServiceModel>()
+                 .ToListAsync();
+
+            return products;
         }
     }
 }

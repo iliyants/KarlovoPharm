@@ -1,0 +1,36 @@
+﻿@inject KarlovoPharm.Services.Data.Categories.ICategoryService categoryservice
+
+@using KarlovoPharm.Common
+
+
+<li class="has-children">
+    <a href="#">Категории</a>
+    <ul class="dropdown">
+        @foreach (var category in categoryservice.GetAll())
+        {
+            <li class="has-children">
+                <a href="#">@category.Name</a>
+                <ul class="dropdown">
+                    @foreach (var subCategory in category.SubCategories)
+                    {
+                        <li><a href="#">@subCategory.Name</a></li>
+                        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <li><a href="/Administration/Products/Add/@subCategory.Id">Добави Продукт към @subCategory.Name</a></li>
+                        }
+
+                    }
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <li><a href="/Administration/SubCategories/Add/@category.Id">Добави Подкатегория</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <li role="presentation" class="divider"></li>
+            <li><a href="/Administration/Categories/Add">Добави Категория</a></li>
+        }
+    </ul>
+</li>
