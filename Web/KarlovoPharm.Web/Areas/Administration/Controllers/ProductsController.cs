@@ -1,13 +1,12 @@
 ﻿namespace KarlovoPharm.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
+
     using KarlovoPharm.Services.Data.Products;
     using KarlovoPharm.Services.Data.SubCategories;
-    using KarlovoPharm.Services.Models.Products;
+    using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Web.InputModels.Products.Create;
     using Microsoft.AspNetCore.Mvc;
-
-    using KarlovoPharm.Services.Mapping;
 
     public class ProductsController : AdministrationController
     {
@@ -35,25 +34,25 @@
             return this.View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(string id, ProductCreateInputModel productCreateInputModel)
-        {
+        //[HttpPost]
+        //public async Task<IActionResult> Add(string id, ProductCreateInputModel productCreateInputModel)
+        //{
 
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(productCreateInputModel);
-            }
+        //    if (!this.ModelState.IsValid)
+        //    {
+        //        return this.View(productCreateInputModel);
+        //    }
 
-            productCreateInputModel.SubCategoryId = id;
-            var productServiceModel = productCreateInputModel.To<ProductServiceModel>();
+        //    productCreateInputModel.SubCategoryId = id;
+        //    var productServiceModel = productCreateInputModel.To<ProductServiceModel>();
 
-            if (!await this.productService.CreateAsync(productServiceModel))
-            {
-                this.TempData["Error"] = CreateErrorMessage;
-            }
+        //    if (!await this.productService.CreateAsync(productServiceModel))
+        //    {
+        //        this.TempData["Error"] = CreateErrorMessage;
+        //    }
 
-            return this.Redirect("/");
+        //    return this.Redirect("/");
 
-        }
+        //}
     }
 }

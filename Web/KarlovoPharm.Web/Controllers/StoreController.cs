@@ -1,14 +1,11 @@
 ﻿namespace KarlovoPharm.Web.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Services.Data.Products;
     using KarlovoPharm.Services.Data.Store;
-    using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Web.ViewModels.Products;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
 
     public class StoreController : BaseController
     {
@@ -24,13 +21,11 @@
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var productsServiceModel = await this.productService.GetAll();
-
-            var productsSingleViewModel = productsServiceModel.To<ProductSingleViewModel>();
+            var productsServiceModel = await this.productService.GetAllAsync<ProductSingleViewModel>();
 
             var productsAllViewModel = new ProductAllViewModel()
             {
-                Products = productsSingleViewModel,
+                Products = productsServiceModel,
             };
 
             return this.View(productsAllViewModel);

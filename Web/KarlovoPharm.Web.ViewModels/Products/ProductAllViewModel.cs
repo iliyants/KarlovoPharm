@@ -2,9 +2,13 @@
 {
     using System.Collections.Generic;
 
-    public class ProductAllViewModel 
+    public class ProductAllViewModel
     {
+        public ProductAllViewModel()
+        {
+            this.Products = new HashSet<ProductSingleViewModel>();
+        }
+
         public IEnumerable<ProductSingleViewModel> Products { get; set; }
-         = new HashSet<ProductSingleViewModel>();
     }
 }

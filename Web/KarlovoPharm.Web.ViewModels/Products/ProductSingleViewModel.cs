@@ -1,6 +1,9 @@
 ﻿namespace KarlovoPharm.Web.ViewModels.Products
 {
-    public class ProductSingleViewModel
+    using KarlovoPharm.Data.Models;
+    using KarlovoPharm.Services.Mapping;
+
+    public class ProductSingleViewModel : IMapFrom<Product>
     {
         public string Id { get; set; }
 

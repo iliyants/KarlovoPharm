@@ -26,16 +26,16 @@
         </div>
 
         <div class="row">
+            @foreach (var product in Model.Products)
+            {
             <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                @foreach (var product in Model.Products)
-                {
-                    <a href="shop-single.html"> <img src="@product.Picture" style="width:70%"></a>
-                    <h3 class="text-dark"><a href="shop-single.html">@product.Name</a></h3>
-                    <p class="price"><del>95.00</del> &mdash; @product.Price лв.</p>
-                    <a href="asd" class="btn btn-danger btn-md"><i class="fas fa-heart">Добави в любими</i></a>
-                    <a href="asd" class="btn btn-primary btn-md"><i class="fas fa-shopping-cart"></i> Добави в количка</a>
-                }
+                <a href="shop-single.html"> <img src="@product.Picture" width="150" alt="Image"></a>
+                <h3 class="text-dark"><a href="shop-single.html">@product.Name</a></h3>
+                <p class="price"> @product.Price</p>
+                <a href="#" class="btn btn-warning">Добави в количка</a>
+                <a href="#" class="btn btn-danger">Дoбави в любими</a>
             </div>
+            }
         </div>
 
         <div class="row mt-5">

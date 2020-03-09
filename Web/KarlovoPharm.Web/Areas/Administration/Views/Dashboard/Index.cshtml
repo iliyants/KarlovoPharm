@@ -1,7 +1,36 @@
-﻿@model KarlovoPharm.Web.ViewModels.Administration.Dashboard.IndexViewModel
+﻿
 @{
-    this.ViewData["Title"] = "Admin dashboard";
+    ViewData["Title"] = "Админ панел";
 }
 
-<h1>@this.ViewData["Title"]</h1>
-Settings: @this.Model.SettingsCount
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">@ViewData["Title"]</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link active" asp-controller="Categories" asp-action="Add">Създай категория</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-controller="SubCategories" asp-action="Add">Създай подкатегория</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link active" href="#">Добави продукт</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link active" href="#">Виж всички категории</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link active" href="#">Виж всички подкатегории</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link active" href="#">Виж всички продукти</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Виж поръчки</a>
+            </li>
+        </ul>
+    </div>
+</nav>

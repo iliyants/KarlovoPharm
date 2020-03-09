@@ -2,11 +2,20 @@
 {
     using System.Diagnostics;
 
+    using KarlovoPharm.Services.Data.Categories;
     using KarlovoPharm.Web.ViewModels;
+    using KarlovoPharm.Web.ViewModels.Categories;
+    using KarlovoPharm.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly ICategoryService categoryService;
+
+        public HomeController(ICategoryService categoryService )
+        {
+            this.categoryService = categoryService;
+        }
 
         [Route("/")]
         public IActionResult Index()

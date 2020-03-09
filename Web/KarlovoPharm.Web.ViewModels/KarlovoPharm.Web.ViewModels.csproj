@@ -8,12 +8,6 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Categories\**" />
-    <EmbeddedResource Remove="Categories\**" />
-    <None Remove="Categories\**" />
-  </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
@@ -27,7 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\KarlovoPharm.Data.Models\KarlovoPharm.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\KarlovoPharm.Services.Mapping\KarlovoPharm.Services.Mapping.csproj" />
-    <ProjectReference Include="..\..\Services\KarlovoPharm.Services.Models\KarlovoPharm.Services.Models.csproj" />
   </ItemGroup>
 
 </Project>

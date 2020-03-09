@@ -1,6 +1,6 @@
 ﻿namespace KarlovoPharm.Services.Data.Categories
 {
-    using KarlovoPharm.Data.Models;
+    using KarlovoPharm.Web.ViewModels.Categories;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -8,7 +8,9 @@
     {
         public Task<bool> CreateCategoryAsync(string name);
 
-        public IEnumerable<Category> GetAll();
+        public Task<IEnumerable<T>> GetAllAsync<T>();
+
+        public Task<IEnumerable<CategoryViewModel>> GetAllNavBarAsync();
 
         Task<string> GetNameByIdAsync(string categoryId);
 

@@ -5,7 +5,10 @@
     using System.Threading.Tasks;
     using KarlovoPharm.Data.Common.Repositories;
     using KarlovoPharm.Data.Models;
+    using KarlovoPharm.Web.InputModels.SubCategories.Create;
     using Microsoft.EntityFrameworkCore;
+
+    using KarlovoPharm.Services.Mapping;
 
     public class SubCategoryService : ISubCategoryService
     {
@@ -23,19 +26,19 @@
             return test.Contains(name);
         }
 
-        public async Task<bool> CreateSubCategoryAsync(string name, string categoryId)
+        public async Task<bool> CreateAsync(SubCategoryCreateInputModel subCategoryCreateInputModel)
         {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrEmpty(subCategoryCreateInputModel.Name) || string.IsNullOrWhiteSpace(subCategoryCreateInputModel.Name))
             {
                 throw new ArgumentNullException("SubCategory name was null or whitespace!");
             }
 
-            if (await this.SubCategoryNameIsNotUnique(name))
+            if (await this.SubCategoryNameIsNotUnique(subCategoryCreateInputModel.Name))
             {
                 return false;
             }
 
-            var subCategory = new SubCategory { CategoryId = categoryId,Name = name };
+            var subCategory = subCategoryCreateInputModel.To<SubCategory>();
 
             await this.subCategoryRepository.AddAsync(subCategory);
             await this.subCategoryRepository.SaveChangesAsync();

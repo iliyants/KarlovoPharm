@@ -5,8 +5,11 @@
     using System.Linq;
     using System.Threading.Tasks;
     using KarlovoPharm.Data.Common.Repositories;
-    using KarlovoPharm.Data.Models;
     using Microsoft.EntityFrameworkCore;
+
+    using KarlovoPharm.Services.Mapping;
+    using KarlovoPharm.Data.Models;
+    using KarlovoPharm.Web.ViewModels.Categories;
 
     public class CategoryService : ICategoryService
     {
@@ -44,12 +47,10 @@
             return true;
         }
 
-        public IEnumerable<Category> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            return this.categoryRepository
-                .AllAsNoTracking()
-                .Include(x => x.SubCategories)
-                .ToList();
+            return await this.categoryRepository.All()
+                .To<T>().ToListAsync();
         }
 
         public async Task<string> GetNameByIdAsync(string categoryId)
@@ -65,6 +66,11 @@
             }
 
             return category.Name;
+        }
+
+        public async Task<IEnumerable<CategoryViewModel>> GetAllNavBarAsync()
+        {
+            return await this.GetAllAsync<CategoryViewModel>();
         }
     }
 }

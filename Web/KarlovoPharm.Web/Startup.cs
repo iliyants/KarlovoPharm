@@ -15,7 +15,6 @@
     using KarlovoPharm.Services.Data.SubCategories;
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Services.Messaging;
-    using KarlovoPharm.Services.Models.Products;
     using KarlovoPharm.Web.InputModels.Products.Create;
     using KarlovoPharm.Web.ViewModels;
 
@@ -76,8 +75,7 @@
         {
             AutoMapperConfig.RegisterMappings(
                 typeof(ErrorViewModel).GetTypeInfo().Assembly,
-                typeof(ProductCreateInputModel).GetTypeInfo().Assembly,
-                typeof(ProductServiceModel).GetTypeInfo().Assembly);
+                typeof(ProductCreateInputModel).GetTypeInfo().Assembly);
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

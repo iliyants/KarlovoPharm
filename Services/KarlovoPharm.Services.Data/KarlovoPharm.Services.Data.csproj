@@ -7,8 +7,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\KarlovoPharm.Data.Common\KarlovoPharm.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\KarlovoPharm.Data.Models\KarlovoPharm.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\KarlovoPharm.Web.InputModels\KarlovoPharm.Web.InputModels.csproj" />
+    <ProjectReference Include="..\..\Web\KarlovoPharm.Web.ViewModels\KarlovoPharm.Web.ViewModels.csproj" />
     <ProjectReference Include="..\KarlovoPharm.Services.Mapping\KarlovoPharm.Services.Mapping.csproj" />
-    <ProjectReference Include="..\KarlovoPharm.Services.Models\KarlovoPharm.Services.Models.csproj" />
   </ItemGroup>
 
 </Project>

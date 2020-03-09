@@ -2,14 +2,14 @@
 {
     using KarlovoPharm.Data.Common.Repositories;
     using KarlovoPharm.Data.Models;
-    using KarlovoPharm.Services.Models.Products;
     using System;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Services.Mapping;
     using System.Linq;
-    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
+    using KarlovoPharm.Web.InputModels.Products.Create;
+    using Microsoft.EntityFrameworkCore;
 
     public class ProductService : IProductService
     {
@@ -20,7 +20,7 @@
             this.productRepository = productRepository;
         }
 
-        public async Task<bool> CreateAsync(ProductServiceModel productServiceModel)
+        public async Task<bool> CreateAsync(ProductCreateInputModel productServiceModel)
         {
             if (productServiceModel.Name == null ||
                 productServiceModel.Description == null ||
@@ -39,14 +39,10 @@
             return result > 0;
         }
 
-        public async Task<IEnumerable<ProductSingleServiceModel>> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var products =  await this.productRepository
-                 .AllAsNoTracking()
-                 .To<ProductSingleServiceModel>()
-                 .ToListAsync();
-
-            return products;
+            return await this.productRepository.All()
+                .To<T>().ToListAsync();
         }
     }
 }

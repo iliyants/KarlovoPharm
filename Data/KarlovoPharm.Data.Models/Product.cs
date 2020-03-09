@@ -27,7 +27,7 @@
 
         public string SubCategoryId { get; set; }
 
-        public SubCategory SubCategory { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
 
         public ICollection<ShoppingCartProduct> ProductShoppingCarts { get; set; }
 

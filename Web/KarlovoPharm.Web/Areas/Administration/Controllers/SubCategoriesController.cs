@@ -5,6 +5,7 @@
     using KarlovoPharm.Common;
     using KarlovoPharm.Services.Data.Categories;
     using KarlovoPharm.Services.Data.SubCategories;
+    using KarlovoPharm.Web.InputModels.Categories.Display;
     using KarlovoPharm.Web.InputModels.SubCategories.Create;
     using Microsoft.AspNetCore.Mvc;
 
@@ -20,27 +21,28 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add(string id)
+        public async Task<IActionResult> Add()
         {
-            var categoryName = await this.categoryService.GetNameByIdAsync(id);
+            var subCategoryCreateViewModel = new SubCategoryCreateInputModel()
+            {
+                Categories = await this.categoryService.GetAllAsync<CategoryDisplayInputModel>(),
+            };
 
-            this.ViewData["CategoryName"] = categoryName;
-
-            return this.View();
+            return this.View(subCategoryCreateViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(string id, SubCategoryCreateInputModel subCategoryCreateInputModel)
+        public async Task<IActionResult> Add(SubCategoryCreateInputModel subCategoryCreateInputModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(subCategoryCreateInputModel);
             }
 
-            if (!await this.subCategoryService.CreateSubCategoryAsync(subCategoryCreateInputModel.Name, id))
+            if (!await this.subCategoryService.CreateAsync(subCategoryCreateInputModel))
             {
                 this.TempData["Error"] = ValidationMessages.SubCategoryUniqieNameErrorMessage;
-                return this.View(subCategoryCreateInputModel);
+                return await this.Add();
             }
 
             return this.Redirect("/");

@@ -1,12 +1,12 @@
 ﻿namespace KarlovoPharm.Web.InputModels.Products.Create
 {
     using KarlovoPharm.Common;
+    using KarlovoPharm.Data.Models;
     using KarlovoPharm.Services.Mapping;
-    using KarlovoPharm.Services.Models.Products;
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class ProductCreateInputModel : IMapTo<ProductServiceModel>
+    public class ProductCreateInputModel : IMapTo<Product>
     {
         [Display(Name = "Name")]
         [Required(ErrorMessage = ValidationMessages.ProductNameRequiredErrorMessage)]
