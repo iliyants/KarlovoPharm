@@ -1,56 +1,65 @@
 ﻿@model KarlovoPharm.Web.InputModels.Products.Create.ProductCreateInputModel
 @{
-    ViewData["Title"] = "Създай продукт към подкатегорията";
+    ViewData["Title"] = "Създай продукт";
 }
 
 <div class="site-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="h3 mb-5 text-black">@this.ViewData["Title"] @this.ViewData["SubCategoryName"]</h2>
+                <h2 class="h3 mb-5 text-black">@this.ViewData["Title"]</h2>
             </div>
             <div class="col-md-12">
                 @if (this.TempData["Error"] != null)
                 {
                     @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
                 }
-                <form asp-controller="Products" asp-action="Add" method="post">
+                <form asp-controller="Products" asp-action="Add" method="post" enctype="multipart/form-data">
 
                     <div class="p-3 p-lg-5 border">
                         <div class="form-group row">
                             <div class="col-md-5">
-                                <label asp-for="@Model.Name" class="text-black">Име <span class="text-danger">*</span></label>
-                                <input asp-for="@Model.Name" class="form-control" placeholder="Въведете тук името на продукта">
-                                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                <label asp-for="Name" class="text-black">Име<span class="text-danger">*</span></label>
+                                <input asp-for="Name" class="form-control" placeholder="Въведете тук името на продукта">
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
-                                <label asp-for="@Model.Description" class="text-black">Описание <span class="text-danger">*</span></label>
-                                <input asp-for="@Model.Description" class="form-control" placeholder="Въведете тук описание към продукта">
-                                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                                <label asp-for="Description" class="text-black">Описание <span class="text-danger">*</span></label>
+                                <input asp-for="Description" class="form-control" placeholder="Въведете тук описание към продукта">
+                                <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
-                                <label asp-for="@Model.Specification" class="text-black">Спецификация </label>
-                                <input asp-for="@Model.Specification" class="form-control" placeholder="Въведете тук спецификация към родукта">
-                                <span asp-validation-for="@Model.Specification" class="text-danger"></span>
+                                <label asp-for="Specification" class="text-black">Спецификация </label>
+                                <input asp-for="Specification" class="form-control" placeholder="Въведете тук спецификация към родукта">
+                                <span asp-validation-for="Specification" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
-                                <label asp-for="@Model.Price" class="text-black">Цена <span class="text-danger">*</span></label>
-                                <input asp-for="@Model.Price" class="form-control" placeholder="Въведете тук цена към продукта">
-                                <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                                <label asp-for="Price" class="text-black">Цена <span class="text-danger">*</span></label>
+                                <input asp-for="Price" class="form-control" placeholder="Въведете тук цена към продукта">
+                                <span asp-validation-for="Price" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
-                                <label asp-for="@Model.Picture" class="text-black">Снимка <span class="text-danger">*</span></label>
-                                <input asp-for="@Model.Picture" class="form-control" placeholder="Въведете тук път към снимката на продукта">
-                                <span asp-validation-for="@Model.Picture" class="text-danger"></span>
+                                <label asp-for="Picture" class="text-black">Снимка <span class="text-danger">*</span></label>
+                                <input asp-for="Picture" type="file" class="form-control" />
+                                <span asp-validation-for="Picture" class="text-danger"></span>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="select-width" name="SubCategoryId">
+                                <option value="" disabled selected>-- Под категория --</option>
+                                @foreach (var subCategory in Model.SubCategories)
+                                {
+                                    <option value="@subCategory.Id">@subCategory.Name</option>
+                                }
+                            </select>
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-5">

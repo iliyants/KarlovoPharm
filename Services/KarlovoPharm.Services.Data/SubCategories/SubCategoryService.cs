@@ -9,6 +9,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using KarlovoPharm.Services.Mapping;
+    using System.Collections.Generic;
 
     public class SubCategoryService : ISubCategoryService
     {
@@ -59,6 +60,12 @@
             }
 
             return subCategory.Name;
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
+        {
+            return await this.subCategoryRepository.All()
+              .To<T>().ToListAsync();
         }
     }
 }

@@ -31,7 +31,7 @@
 
         public const string ProductPriceNegativeErrorMessage = "Цената не може да бъде негативно число или нула";
 
-        public const string ProductPictureRequiredErrorMessage = "Моля въведете адреса на снимката";
+        public const string ProductPictureRequiredErrorMessage = "Моля изберете снимка!";
 
         public const string ProductNameNotUniqueErrorMessage = "Вече съществува продукт с това име!";
 

@@ -1,13 +1,14 @@
 ﻿namespace KarlovoPharm.Web
 {
     using System.Reflection;
-
+    using CloudinaryDotNet;
     using KarlovoPharm.Data;
     using KarlovoPharm.Data.Common;
     using KarlovoPharm.Data.Common.Repositories;
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Data.Repositories;
     using KarlovoPharm.Data.Seeding;
+    using KarlovoPharm.Services;
     using KarlovoPharm.Services.Data;
     using KarlovoPharm.Services.Data.Categories;
     using KarlovoPharm.Services.Data.Products;
@@ -44,6 +45,15 @@
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+            Account cloudinaryCredentials = new Account(
+                this.configuration["Cloudinary:CloudName"],
+                this.configuration["Cloudinary:ApiKey"],
+                this.configuration["Cloudinary:ApiSecret"]);
+
+            Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
+
+            services.AddSingleton(cloudinaryUtility);
+
             services.Configure<CookiePolicyOptions>(
                 options =>
                     {
@@ -67,6 +77,7 @@
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ISubCategoryService, SubCategoryService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IStoreService, StoreService>();
         }
 
