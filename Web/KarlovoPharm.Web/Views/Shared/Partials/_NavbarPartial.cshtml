@@ -1,14 +1,14 @@
 ﻿@inject KarlovoPharm.Services.Data.Categories.ICategoryService categoryService
 
 
-    <div class="search-wrap">
+    @*<div class="search-wrap">
         <div class="container">
-            <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+            <a asp-area="" asp-controller="Store" asp-action="Get" class="search-close js-search-close"><span class="icon-close2"></span></a>
             <form action="#" method="post">
                 <input type="text" class="form-control" placeholder="Напишете ключова дума и натистене enter...">
             </form>
         </div>
-    </div>
+    </div>*@
 
     <div class="container">
         <div class="d-flex align-items-center justify-content-between">
@@ -32,7 +32,7 @@
                                         <ul class="dropdown">
                                             @foreach (var subCategory in category.SubCategories)
                                             {
-                                                <li><a href="#">@subCategory.Name</a></li>
+                                                <li><a asp-area="" asp-controller="Store" asp-action="All" asp-route-subCategoryId="@subCategory.Id">@subCategory.Name</a></li>
                                             }
                                         </ul>
                                     </li>
@@ -45,7 +45,7 @@
                 </nav>
             </div>
             <div class="icons">
-                <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+                @*<a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>*@
                 <a href="cart.html" class="icons-btn d-inline-block bag">
                     <span class="icon-shopping-bag"></span>
                     <span class="number">2</span>

@@ -9,6 +9,10 @@
             this.Products = new HashSet<ProductSingleViewModel>();
         }
 
+        public string SubcategoryId { get; set; }
+
+        public string SearchString { get; set; }
+
         public IEnumerable<ProductSingleViewModel> Products { get; set; }
     }
 }

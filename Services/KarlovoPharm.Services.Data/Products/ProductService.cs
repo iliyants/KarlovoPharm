@@ -44,5 +44,23 @@
             return await this.productRepository.All()
                 .To<T>().ToListAsync();
         }
+
+        public async Task<IEnumerable<T>> GetAllBySeachAsync<T>(string searchString)
+        {
+            var searchStringClean = searchString.Split(new string[] { ",", ".", " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            return await this.productRepository.All()
+                .Where(x => searchStringClean.All(c => x.Name.ToLower().Contains(c.ToLower())))
+                .To<T>()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllBySubCategoryAsync<T>(string id)
+        {
+            return await this.productRepository.All()
+                .Where(x => x.SubCategoryId == id)
+                .To<T>().ToListAsync();
+        }
+
     }
 }

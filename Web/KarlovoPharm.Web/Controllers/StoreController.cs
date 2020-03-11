@@ -1,5 +1,6 @@
 ﻿namespace KarlovoPharm.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Services.Data.Products;
@@ -19,16 +20,19 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(ProductAllViewModel productAllViewModel)
         {
-            var productsServiceModel = await this.productService.GetAllAsync<ProductSingleViewModel>();
 
-            var productsAllViewModel = new ProductAllViewModel()
+            if (productAllViewModel.SubcategoryId == null)
             {
-                Products = productsServiceModel,
-            };
+                productAllViewModel.Products = await this.productService.GetAllAsync<ProductSingleViewModel>();
+            }
+            else
+            {
+                productAllViewModel.Products = await this.productService.GetAllBySubCategoryAsync<ProductSingleViewModel>(productAllViewModel.SubcategoryId);
+            }
 
-            return this.View(productsAllViewModel);
+            return this.View(productAllViewModel);
         }
     }
 }

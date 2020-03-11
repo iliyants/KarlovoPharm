@@ -9,7 +9,7 @@
                 <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
             </div>
             <div class="col-lg-6">
-                <h3 class="mb-3 h6 text-uppercase text-black d-block">Филтрър</h3>
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Филтър</h3>
                 <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4" id="dropdownMenuReference"
                         data-toggle="dropdown">
                     Предпочитание
@@ -23,18 +23,21 @@
                     <a class="dropdown-item" href="#">Цена по низходящ ред</a>
                 </div>
             </div>
+            <div class="col-lg-6">
+                <input class="form-control mr-sm-2" type="text" id="products-search-bar" name="search" placeholder="Търси" aria-label="Въветете ключова дума">
+            </div>
         </div>
 
-        <div class="row">
+        <div id="products" class="row">
             @foreach (var product in Model.Products)
             {
-            <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                <a href="shop-single.html"> <img src="@product.Picture" width="150" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">@product.Name</a></h3>
-                <p class="price"> @product.Price</p>
-                <a href="#" class="btn btn-warning">Добави в количка</a>
-                <a href="#" class="btn btn-danger">Дoбави в любими</a>
-            </div>
+                <div class="product col-sm-6 col-lg-4 text-center item mb-4">
+                    <a href="shop-single.html"> <img src="@product.Picture" width="150" alt="Image"></a>
+                    <h3 class="text-dark"><a href="shop-single.html">@product.Name</a></h3>
+                    <p class="price"> @product.Price</p>
+                    <a href="#" class="btn btn-warning">Добави в количка</a>
+                    <a href="#" class="btn btn-danger">Дoбави в любими</a>
+                </div>
             }
         </div>
 
@@ -54,5 +57,23 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('#products-search-bar').on("change paste keyup", function () {
+
+            $('.product').show();
+
+            let searchValue = $('#products-search-bar').val();
+
+            for (let elem of $('.product')) {
+                let productName = $($(elem).children()[1]).text();
+
+                if (!productName.toLowerCase().includes(searchValue.toLowerCase())) {
+                    $(elem).hide();
+                }
+            }
+        });
+    </script>
+
 </div>
 

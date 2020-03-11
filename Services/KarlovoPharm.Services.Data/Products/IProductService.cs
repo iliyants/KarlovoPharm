@@ -9,5 +9,9 @@
         public Task<bool> CreateAsync(ProductCreateInputModel productServiceModel);
 
         public Task<IEnumerable<T>> GetAllAsync<T>();
+
+        public Task<IEnumerable<T>> GetAllBySubCategoryAsync<T>(string id);
+
+        public Task<IEnumerable<T>> GetAllBySeachAsync<T>(string searchString);
     }
 }
