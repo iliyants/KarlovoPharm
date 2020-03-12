@@ -1,4 +1,5 @@
-﻿
+﻿@using KarlovoPharm.Web.InputModels.Categories.Display
+@model List<CategoryDisplayInputModel>
 @{
     ViewData["Title"] = "Основни категории";
 }
@@ -9,9 +10,7 @@
             <thead>
                 <tr class="row">
                     <th scope="col" class="col-1 d-flex justify-content-center">#</th>
-                    <th scope="col" class="col-2 d-flex justify-content-center">Номер</th>
                     <th scope="col" class="col-3 d-flex justify-content-center">Име</th>
-                    <th scope="col" class="col-3 d-flex justify-content-center">Брой категории</th>
                     <th scope="col" class="col-3 d-flex justify-content-center"></th>
                 </tr>
             </thead>
@@ -24,21 +23,15 @@
                         <td class="col-1 d-flex justify-content-center">
                             @count
                         </td>
-                        <td class="col-2 d-flex justify-content-center">
-                            @category.Id
-                        </td>
                         <td class="col-3 d-flex justify-content-center">
                             @category.Name
                         </td>
-                        <td class="col-3 d-flex justify-content-center">
-                            @category.ChildCategoriesCount
-                        </td>
                         <td class="col-md-3 d-flex justify-content-around">
                             <div class="mr-2">
-                                <a asp-controller="ParentCategories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary btn-sm">Промени</a>
+                                <a @*asp-controller="ParentCategories" asp-action="Edit" asp-route-id="@category.Id"*@ class="btn btn-primary btn-sm">Промени</a>
                             </div>
                             <div class="mr-2">
-                                <a asp-controller="ParentCategories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-outline-danger btn-sm">Изтрий</a>
+                                <a @*asp-controller="ParentCategories" asp-action="Delete" asp-route-id="@category.Id"*@ class="btn btn-outline-danger btn-sm">Изтрий</a>
                             </div>
                         </td>
                     </tr>

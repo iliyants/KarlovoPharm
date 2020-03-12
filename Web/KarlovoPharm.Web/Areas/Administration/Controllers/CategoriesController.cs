@@ -1,10 +1,12 @@
 ﻿namespace KarlovoPharm.Web.Areas.Administration.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Common;
     using KarlovoPharm.Services.Data.Categories;
     using KarlovoPharm.Web.InputModels.Categories.Create;
+    using KarlovoPharm.Web.InputModels.Categories.Display;
     using Microsoft.AspNetCore.Mvc;
 
     public class CategoriesController : AdministrationController
@@ -39,5 +41,14 @@
             return this.Redirect("/");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var categoryDisplayViewModel = await this.categoryService.GetAllAsync<CategoryDisplayInputModel>();
+
+            var result = new List<CategoryDisplayInputModel>(categoryDisplayViewModel);
+
+            return this.View(result);
+        }
     }
 }

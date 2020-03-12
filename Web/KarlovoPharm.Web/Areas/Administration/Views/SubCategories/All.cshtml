@@ -1,0 +1,49 @@
+﻿@using KarlovoPharm.Web.ViewModels.Display
+@model List<SubCategoryDisplayViewModel>
+
+@{
+    ViewData["Title"] = "Под категории";
+}
+<div class="container mobile-fondsize-11 shadow">
+    <div class="mobile-fondsize-20 h3 text-muted">@ViewData["Title"]</div>
+    <table class="table table-hover">
+        <thead>
+            <tr class="row">
+                <th scope="col" class="col-1 d-flex justify-content-center">#</th>
+                <th scope="col" class="col-2 d-flex justify-content-center">Име</th>
+                <th scope="col" class="col-3 d-flex justify-content-center">Основна Kaтегория</th>
+                <th scope="col" class="col-1 d-flex justify-content-center">Продукти</th>
+                <th scope="col" class="col-3 d-flex justify-content-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int count = 0; }
+            @foreach (var category in Model)
+            {
+                count++;
+                <tr class="row">
+                    <td class="col-1 d-flex justify-content-center">
+                        @count
+                    </td>
+                    <td class="col-2 d-flex justify-content-center">
+                        @category.Name
+                    </td>
+                    <td class="col-3 d-flex justify-content-center">
+                        @category.Category.Name
+                    </td>
+                    <td class="col-1 d-flex justify-content-center">
+                        @category.ProductsCount
+                    </td>
+                    <td class="col-md-3 d-flex justify-content-around">
+                        <div class="mr-2">
+                            <a @*asp-controller="ChildCategories" asp-action="Edit" asp-route-id="@category.Id"*@ class="btn btn-sm btn-primary">Промени</a>
+                        </div>
+                        <div class="mr-2">
+                            <a @*asp-controller="ChildCategories" asp-action="Delete" asp-route-id="@category.Id"*@ class="btn btn-sm btn-outline-danger">Изтрий</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

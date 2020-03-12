@@ -1,5 +1,6 @@
 ﻿namespace KarlovoPharm.Web.Areas.Administration.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Common;
@@ -7,6 +8,7 @@
     using KarlovoPharm.Services.Data.SubCategories;
     using KarlovoPharm.Web.InputModels.Categories.Display;
     using KarlovoPharm.Web.InputModels.SubCategories.Create;
+    using KarlovoPharm.Web.ViewModels.Display;
     using Microsoft.AspNetCore.Mvc;
 
     public class SubCategoriesController : AdministrationController
@@ -46,6 +48,16 @@
             }
 
             return this.Redirect("/");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var subCategoryDisplayViewModel = await this.subCategoryService.GetAllAsync<SubCategoryDisplayViewModel>();
+
+            var result = new List<SubCategoryDisplayViewModel>(subCategoryDisplayViewModel);
+
+            return this.View(result);
         }
     }
 }

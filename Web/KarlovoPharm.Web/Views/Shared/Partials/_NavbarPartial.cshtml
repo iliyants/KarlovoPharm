@@ -1,26 +1,18 @@
 ﻿@inject KarlovoPharm.Services.Data.Categories.ICategoryService categoryService
 
 
-    @*<div class="search-wrap">
-        <div class="container">
-            <a asp-area="" asp-controller="Store" asp-action="Get" class="search-close js-search-close"><span class="icon-close2"></span></a>
-            <form action="#" method="post">
-                <input type="text" class="form-control" placeholder="Напишете ключова дума и натистене enter...">
-            </form>
-        </div>
-    </div>*@
 
     <div class="container">
         <div class="d-flex align-items-center justify-content-between">
             <div class="logo">
                 <div class="site-logo">
-                    <a href="index.html" class="js-logo-clone">Karlovo Pharm</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="js-logo-clone">Karlovo Pharm</a>
                 </div>
             </div>
             <div class="main-nav d-none d-lg-block">
                 <nav class="site-navigation text-right text-md-center" role="navigation">
                     <ul class="site-menu js-clone-nav d-none d-lg-block">
-                        <li class="active"><a href="index.html">Към сайта</a></li>
+                        <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Към сайта</a></li>
                         <li><a asp-area="" asp-controller="Store" asp-action="All">Магазин</a></li>
                         <li class="has-children">
                             <a href="#">Категории</a>
@@ -45,7 +37,6 @@
                 </nav>
             </div>
             <div class="icons">
-                @*<a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>*@
                 <a href="cart.html" class="icons-btn d-inline-block bag">
                     <span class="icon-shopping-bag"></span>
                     <span class="number">2</span>

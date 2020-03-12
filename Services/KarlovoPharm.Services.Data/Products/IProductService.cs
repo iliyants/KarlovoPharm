@@ -12,6 +12,5 @@
 
         public Task<IEnumerable<T>> GetAllBySubCategoryAsync<T>(string id);
 
-        public Task<IEnumerable<T>> GetAllBySeachAsync<T>(string searchString);
     }
 }

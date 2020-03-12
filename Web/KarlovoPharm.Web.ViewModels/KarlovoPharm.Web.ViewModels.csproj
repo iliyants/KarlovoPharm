@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\KarlovoPharm.Data.Models\KarlovoPharm.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\KarlovoPharm.Services.Mapping\KarlovoPharm.Services.Mapping.csproj" />
+    <ProjectReference Include="..\KarlovoPharm.Web.InputModels\KarlovoPharm.Web.InputModels.csproj" />
   </ItemGroup>
 
 </Project>
