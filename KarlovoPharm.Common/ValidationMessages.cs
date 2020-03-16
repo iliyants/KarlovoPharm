@@ -2,7 +2,7 @@
 {
     public class ValidationMessages
     {
-
+        public const string RequiredFieldErrorMessage = "Това поле е задължително.";
 
         public const string RequiredCategoryNameMessage = "Моля въведете име на категория.";
 
@@ -34,6 +34,16 @@
         public const string ProductPictureRequiredErrorMessage = "Моля изберете снимка!";
 
         public const string ProductNameNotUniqueErrorMessage = "Вече съществува продукт с това име!";
+
+        public const string ProductDesignationLengthErrorMessage = "Предназначението на продукта трябва да е между 10 и 500 символа.";
+
+        public const string ProductEffectLengthErrorMessage = "Действието на продукта трябва да е между 10 и 500 символа.";
+
+        public const string ProductWayOfUseLengthErrorMessage = "Начина на употреба на продукта трябва да е между 10 и 500 символа.";
+
+        public const string ProductManufacturerLengthErrorMessage = "Производителя на продукта трябва да е между 3 и 50 символа.";
+
+        public const string ProductCountryOfOriginLengthErrorMessage = "Страната на произхода на продукта трябва да е между 3 и 50 символа.";
 
 
         public const string RequiredUsernameErrorMessage = "Моля въведете потребителско име.";

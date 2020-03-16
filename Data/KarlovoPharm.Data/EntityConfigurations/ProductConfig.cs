@@ -17,9 +17,6 @@
                 .IsRequired()
                 .HasMaxLength(500);
 
-            product.Property(x => x.Specification)
-                .HasMaxLength(500);
-
             product.Property(x => x.Price)
                 .IsRequired();
 
@@ -30,6 +27,29 @@
                 .HasDefaultValue(true);
 
             product.Property(x => x.SubCategoryId)
+                .IsRequired();
+
+            product.Property(x => x.Designation)
+                .HasMaxLength(500);
+
+            product.Property(x => x.Effect)
+                .HasMaxLength(500);
+
+            product.Property(x => x.Composition)
+                .HasMaxLength(500);
+
+            product.Property(x => x.WayOfuse)
+                .HasMaxLength(500);
+
+            product.Property(x => x.Specification)
+                .HasMaxLength(500);
+
+            product.Property(x => x.Manufacturer)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            product.Property(x => x.CountryOfOrigin)
+                .HasMaxLength(50)
                 .IsRequired();
         }
     }

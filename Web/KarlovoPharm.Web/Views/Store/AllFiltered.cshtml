@@ -3,6 +3,8 @@
 
 @{var currentSort = this.ViewData["CurrentSort"]; }
 @{ var currentPage = this.ViewData["CurrentPage"];}
+@{ var searchString = this.ViewData["SearchString"];}
+
 
 <div class="site-section">
     <div class="container">
@@ -18,9 +20,14 @@
                 </div>
             </form>
 
-            <div class="col-lg-6">
-                <input class="form-control mr-sm-2" type="text" id="products-search-bar" name="search" placeholder="Търси" aria-label="Въветете ключова дума">
-            </div>
+            <form method="get" asp-action="AllFIltered">
+                <div class="form-action no-color">
+                    <p>
+                        Търси по име:<input type="text" name="searchString" value="@searchString" />
+                        <input type="submit" value="Търси" class="btn btn-success" />
+                    </p>
+                </div>
+            </form>
         </div>
 
 

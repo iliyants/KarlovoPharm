@@ -9,10 +9,11 @@
     {
         public Task<bool> CreateAsync(ProductCreateInputModel productServiceModel);
 
-        public IQueryable<T> GetAll<T>();
+        public IQueryable<T> GetAll<T>(string searchString);
 
-        public IQueryable<T> GetAllBySubCategory<T>(string id);
+        public IQueryable<T> GetAllBySubCategory<T>(string id, string searchString);
 
+        public T GetProductDetailsById<T>(string productId);
         public IQueryable<ProductSingleViewModel> OrderProducts(string criteria, IQueryable<ProductSingleViewModel> products);
     }
 }

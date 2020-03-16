@@ -38,31 +38,48 @@
             return result > 0;
         }
 
-        public IQueryable<T> GetAll<T>()
+        public IQueryable<T> GetAll<T>(string searchString)
         {
-            return  this.productRepository.All()
+            var productsQuery = this.productRepository.All();
+
+            if (searchString != null)
+            {
+                return productsQuery
+                .Where(x => x.Name.ToLower().Contains(searchString.ToLower()))
                 .To<T>();
-                
+            }
+
+            return productsQuery
+                .To<T>();
         }
 
-        public IQueryable<T> GetAllBySubCategory<T>(string id)
+        public IQueryable<T> GetAllBySubCategory<T>(string id, string searchString)
         {
+
+            if (searchString != null)
+            {
+                return this.productRepository.All()
+                    .Where(x => x.SubCategoryId == id && x.Name.ToLower()
+                    .Contains(searchString.ToLower()))
+                    .To<T>();
+            }
+
             return this.productRepository.All()
-                .Where(x => x.SubCategoryId == id)
-                .To<T>();
+                    .Where(x => x.SubCategoryId == id)
+                    .To<T>();
         }
 
         public IQueryable<ProductSingleViewModel> OrderProducts(string criteria, IQueryable<ProductSingleViewModel> products)
         {
             switch (criteria)
             {
-                case "price-highest-to-lowest": return  this.OrderByPriceDesc(products);
-                case "price-lowest-to-highest": return  this.OrderByPriceAsc(products);
+                case "price-highest-to-lowest": return this.OrderByPriceDesc(products);
+                case "price-lowest-to-highest": return this.OrderByPriceAsc(products);
                 default: return products;
             }
         }
 
-        private  IQueryable<ProductSingleViewModel> OrderByPriceDesc(IQueryable<ProductSingleViewModel> products)
+        private IQueryable<ProductSingleViewModel> OrderByPriceDesc(IQueryable<ProductSingleViewModel> products)
         {
             return products
                 .OrderByDescending(x => x.Price);
@@ -74,5 +91,16 @@
                 .OrderBy(x => x.Price);
         }
 
+        public T GetProductDetailsById<T>(string productId)
+        {
+            var product = this.productRepository.All().Where(x => x.Id == productId).SingleOrDefault();
+
+            if (product == null)
+            {
+                throw new ArgumentNullException("There is no such product in the database!");
+            }
+
+            return product.To<T>();
+        }
     }
 }

@@ -21,12 +21,13 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> All(int? pageNumber, string sortOrder)
+        public async Task<IActionResult> All(int? pageNumber, string sortOrder, string searchString)
         {
             this.ViewData["CurrentSort"] = sortOrder;
             this.ViewData["CurrentPage"] = pageNumber;
+            this.ViewData["SearchString"] = searchString;
 
-            var products = this.productService.GetAll<ProductSingleViewModel>();
+            var products = this.productService.GetAll<ProductSingleViewModel>(searchString);
 
             products = this.productService.OrderProducts(sortOrder, products);
 
@@ -35,12 +36,13 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> AllFiltered(string id, int? pageNumber, string sortOrder)
+        public async Task<IActionResult> AllFiltered(string id, int? pageNumber, string sortOrder, string searchString)
         {
             this.ViewData["CurrentSort"] = sortOrder;
             this.ViewData["CurrentPage"] = pageNumber;
+            this.ViewData["SearchString"] = searchString;
 
-            var productsByCategory = this.productService.GetAllBySubCategory<ProductSingleViewModel>(id);
+            var productsByCategory = this.productService.GetAllBySubCategory<ProductSingleViewModel>(id, searchString);
 
             productsByCategory = this.productService.OrderProducts(sortOrder, productsByCategory);
 

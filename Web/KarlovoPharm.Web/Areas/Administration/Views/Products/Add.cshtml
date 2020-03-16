@@ -15,8 +15,14 @@
                     @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
                 }
                 <form asp-controller="Products" asp-action="Add" method="post" enctype="multipart/form-data">
-
                     <div class="p-3 p-lg-5 border">
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="Picture" class="text-black">Снимка <span class="text-danger">*</span></label>
+                                <input asp-for="Picture" type="file" class="form-control" />
+                                <span asp-validation-for="Picture" class="text-danger"></span>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <div class="col-md-5">
                                 <label asp-for="Name" class="text-black">Име<span class="text-danger">*</span></label>
@@ -27,15 +33,8 @@
                         <div class="form-group row">
                             <div class="col-md-5">
                                 <label asp-for="Description" class="text-black">Описание <span class="text-danger">*</span></label>
-                                <input asp-for="Description" class="form-control" placeholder="Въведете тук описание към продукта">
+                                <input asp-for="Description" class="form-control" placeholder="Въведете тук описанието на продукта">
                                 <span asp-validation-for="Description" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-5">
-                                <label asp-for="Specification" class="text-black">Спецификация </label>
-                                <input asp-for="Specification" class="form-control" placeholder="Въведете тук спецификация към родукта">
-                                <span asp-validation-for="Specification" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -47,9 +46,51 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
-                                <label asp-for="Picture" class="text-black">Снимка <span class="text-danger">*</span></label>
-                                <input asp-for="Picture" type="file" class="form-control" />
-                                <span asp-validation-for="Picture" class="text-danger"></span>
+                                <label asp-for="Designation" class="text-black">Предназначение </label>
+                                <input asp-for="Designation" class="form-control" placeholder="Въведете тук предназначението на родукта">
+                                <span asp-validation-for="Designation" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="Effect" class="text-black">Действие </label>
+                                <input asp-for="Effect" class="form-control" placeholder="Въведете тук действието на продукта">
+                                <span asp-validation-for="Effect" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="Composition" class="text-black">Състав </label>
+                                <input asp-for="Composition" class="form-control" placeholder="Въведете тук състава на продукта">
+                                <span asp-validation-for="Composition" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="WayOfUse" class="text-black">Начин на употреба</label>
+                                <input asp-for="WayOfUse" class="form-control" placeholder="Въведете тук начина на употреба на продукта">
+                                <span asp-validation-for="WayOfUse" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="Specification" class="text-black">Спецификация </label>
+                                <input asp-for="Specification" class="form-control" placeholder="Въведете тук спецификацията на продукта">
+                                <span asp-validation-for="Specification" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="Manufacturer" class="text-black">Производител <span class="text-danger">*</span></label>
+                                <input asp-for="Manufacturer" class="form-control" placeholder="Въведете тук производителя на продукта">
+                                <span asp-validation-for="Manufacturer" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="CountryOfOrigin" class="text-black">Страна на произход <span class="text-danger">*</span></label>
+                                <input asp-for="CountryOfOrigin" class="form-control" placeholder="Въведете тук страната на произход на продукта">
+                                <span asp-validation-for="CountryOfOrigin" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group">

@@ -1,0 +1,143 @@
+﻿@model KarlovoPharm.Web.ViewModels.Products.ProductDetailsViewModel
+
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a href="shop.html"></a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Ibuprofen Tablets, 200mg</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mr-auto">
+                <div class="border text-center">
+                    <img src="@Model.Picture" alt="Image" class="img-fluid p-5">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-black">@Model.Name</h2>
+                <p>@Model.Description</p>
+                
+
+                <strong class="text-primary h4">@Model.Price лв.</strong></p>
+
+                <div class="mb-5">
+                    <div class="input-group mb-3" style="max-width: 220px;">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                        </div>
+                        <input type="text" class="form-control text-center" value="1" placeholder=""
+                               aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                        </div>
+                    </div>
+
+                </div>
+                <p><a href="cart.html" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+
+                <div class="mt-5">
+                    <ul class="nav nav-pills mb-3 custom-pill" id="pills-tab" role="tablist">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-designation-tab" data-toggle="pill" href="#pills-designation" role="tab"
+                               aria-controls="pills-designation" aria-selected="true">Предназначение</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-effect-tab" data-toggle="pill" href="#pills-effect" role="tab"
+                               aria-controls="pills-effect" aria-selected="false">Действие</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-composition-tab" data-toggle="pill" href="#pills-composition" role="tab"
+                               aria-controls="pills-composition" aria-selected="false">Състав</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-wayOfUse-tab" data-toggle="pill" href="#pills-wayOfUse" role="tab"
+                               aria-controls="pills-wayOfUse" aria-selected="false">Начин на употреба</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-specialInstructions-tab" data-toggle="pill" href="#pills-specialInstructions" role="tab"
+                               aria-controls="pills-specialInstructions" aria-selected="false">Специални указания</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab"
+                               aria-controls="pills-manufacturer" aria-selected="false">Производител</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-countryOfOrigin-tab" data-toggle="pill" href="#pills-countryOfOrigin" role="tab"
+                               aria-controls="pills-countryOfOrigin" aria-selected="false">Страна на произход</a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content" id="pills-tabContent">
+
+                        <div class="tab-pane fade show active" id="pills-designation" role="tabpanel" aria-labelledby="pills-designation-tab">
+                            <p>
+                                @Model.Designation
+                            </p>
+                        </div>
+
+
+                        <div class="tab-pane fade" id="pills-effect" role="tabpanel" aria-labelledby="pills-effect-tab">
+
+                            <p>
+                                @Model.Effect
+                            </p>
+                        </div>
+
+
+                        <div class="tab-pane fade" id="pills-composition" role="tabpanel" aria-labelledby="pills-composition-tab">
+
+                            <p>
+                                @Model.Composition
+                            </p>
+                        </div>
+
+                        <div class="tab-pane fade " id="pills-wayOfUse" role="tabpanel" aria-labelledby="pills-wayOfUse-tab">
+
+                            <p>
+                                @Model.WayOfuse
+                            </p>
+                        </div>
+
+                        <div class="tab-pane fade " id="pills-specialInstructions" role="tabpanel" aria-labelledby="pills-specialInstructions-tab">
+
+                            <p>
+                                @Model.Specification
+                            </p>
+                        </div>
+
+
+                        <div class="tab-pane fade " id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
+
+                            <p>
+                                @Model.Manufacturer
+                            </p>
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-countryOfOrigin" role="tabpanel" aria-labelledby="pills-countryOfOrigin-tab">
+
+                            <p>
+                                @Model.CountryOfOrigin
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

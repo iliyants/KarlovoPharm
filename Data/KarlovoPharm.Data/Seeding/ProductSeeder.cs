@@ -21,41 +21,50 @@
                 .Select(x => x.Id)
                 .SingleOrDefault();
 
-            var products = new List<(string name, string subCategoryId, string picture, string description, decimal price)>
+            var products = new List<(string Name,
+                                     string SubCategoryId,
+                                     string Picture,
+                                     string Description,
+                                     decimal Price,
+                                     string Specification,
+                                     string Designation,
+                                     string Effect,
+                                     string Composition,
+                                     string WayOfUse,
+                                     string Manufacturer,
+                                     string ContryOfOrigin
+                                     )>
             {
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 10 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 20 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 30 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 40 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 50 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 60 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 70 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 80 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 90 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 100 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 200 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 300 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 400 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 500 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 600 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 700 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 800 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 900 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 1000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 2000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 3000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 4000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 5000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 6000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 7000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 8000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 9000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 10000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 20000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 30000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 40000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 50000 ),
-                ("TestProduct", testSubCategoryId, "https://cdn.cnn.com/cnnnext/dam/assets/191114120109-dog-aging-project-1-super-tease.jpg", "Some description that is above 10 symbols", 60000 ),
+                ("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),("Benalgin Rapid", testSubCategoryId, "https://static.framar.bg/product/benalgin-rapid-10sachets.jpg", "Some description that is above 10 symbols", 10 , "Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Analgin 500 mg", testSubCategoryId, "https://sopharmacy.bg/userfiles/productlargeimages/product_23106.jpg", "Some description that is above 10 symbols", 20,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
+                ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
             };
 
 
@@ -63,13 +72,22 @@
             {
                 await dbContext.Products.AddAsync(new Product
                 {
-                    Name = product.name,
-                    Description = product.description,
-                    Price = product.price,
-                    Picture = product.picture,
-                    SubCategoryId = product.subCategoryId,
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    Picture = product.Picture,
+                    SubCategoryId = product.SubCategoryId,
+                    Specification = product.Specification,
+                    Designation = product.Designation,
+                    Effect = product.Effect,
+                    Composition = product.Composition,
+                    WayOfuse = product.WayOfUse,
+                    Manufacturer = product.Manufacturer,
+                    CountryOfOrigin = product.ContryOfOrigin,
                 });
             }
         }
     }
 }
+
+           
