@@ -28,6 +28,8 @@
                               new RolesSeeder(),
                               new SettingsSeeder(),
                               new RootSeeder(),
+                              new CategorySeeder(),
+                              new SubCategorySeeder(),
                               new ProductSeeder(),
                           };
 

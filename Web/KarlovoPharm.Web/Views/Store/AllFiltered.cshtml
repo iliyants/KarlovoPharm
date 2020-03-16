@@ -8,7 +8,7 @@
     <div class="container">
 
         <div class="row">
-            <form id="order-form" method="get" asp-action="All">
+            <form id="order-form" method="get" asp-action="AllFiltered">
                 <div class="col-lg-6">
                     <select name="sortOrder" id="sort">
                         <option value="" disabled selected>-- Няма избран филтър --</option>
@@ -46,30 +46,29 @@
                 <div class="site-block-27">
                     <ul>
                         <li class="page-item @prevDisabled">
-                            <a class="page-link" asp-action="All" asp-route-sortOrder="@currentSort" asp-route-pageNumber="1">&laquo;</a>
+                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="1">&laquo;</a>
                         </li>
                         <li class="page-item @prevDisabled">
-                            <a class="page-link" asp-action="All" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex - 1)">&lt;</a>
+                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex - 1)">&lt;</a>
                         </li>
                         @for (int i = 1; i <= Model.TotalPages; i++)
                         {
-                            <li class="page-item"><a class="page-link" asp-action="All" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@i">@i</a></li>
+                            <li class="page-item"><a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@i">@i</a></li>
                             @if (i > 10)
                             {
                                 break;
                             }
                         }
                         <li class="page-item @nextDisabled">
-                            <a class="page-link" asp-action="All" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex + 1)">&gt;</a>
+                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex + 1)">&gt;</a>
                         </li>
                         <li class="page-item @nextDisabled">
-                            <a class="page-link" asp-action="All" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@Model.TotalPages">&raquo;</a>
+                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@Model.TotalPages">&raquo;</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-
 
 
     </div>

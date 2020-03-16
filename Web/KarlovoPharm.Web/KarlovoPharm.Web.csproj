@@ -40,7 +40,6 @@
     <ProjectReference Include="..\..\Services\KarlovoPharm.Services.Mapping\KarlovoPharm.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\KarlovoPharm.Services.Messaging\KarlovoPharm.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\KarlovoPharm.Services\KarlovoPharm.Services.csproj" />
-    <ProjectReference Include="..\KarlovoPharm.Web.Infrastructure\KarlovoPharm.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\KarlovoPharm.Web.InputModels\KarlovoPharm.Web.InputModels.csproj" />
     <ProjectReference Include="..\KarlovoPharm.Web.ViewModels\KarlovoPharm.Web.ViewModels.csproj" />
   </ItemGroup>

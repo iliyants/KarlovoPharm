@@ -7,9 +7,8 @@
 
     using KarlovoPharm.Services.Mapping;
     using System.Linq;
-    using System.Collections.Generic;
     using KarlovoPharm.Web.InputModels.Products.Create;
-    using Microsoft.EntityFrameworkCore;
+    using KarlovoPharm.Web.ViewModels.Products;
 
     public class ProductService : IProductService
     {
@@ -39,17 +38,40 @@
             return result > 0;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync<T>()
+        public IQueryable<T> GetAll<T>()
         {
-            return await this.productRepository.All()
-                .To<T>().ToListAsync();
+            return  this.productRepository.All()
+                .To<T>();
+                
         }
 
-        public async Task<IEnumerable<T>> GetAllBySubCategoryAsync<T>(string id)
+        public IQueryable<T> GetAllBySubCategory<T>(string id)
         {
-            return await this.productRepository.All()
+            return this.productRepository.All()
                 .Where(x => x.SubCategoryId == id)
-                .To<T>().ToListAsync();
+                .To<T>();
+        }
+
+        public IQueryable<ProductSingleViewModel> OrderProducts(string criteria, IQueryable<ProductSingleViewModel> products)
+        {
+            switch (criteria)
+            {
+                case "price-highest-to-lowest": return  this.OrderByPriceDesc(products);
+                case "price-lowest-to-highest": return  this.OrderByPriceAsc(products);
+                default: return products;
+            }
+        }
+
+        private  IQueryable<ProductSingleViewModel> OrderByPriceDesc(IQueryable<ProductSingleViewModel> products)
+        {
+            return products
+                .OrderByDescending(x => x.Price);
+        }
+
+        private IQueryable<ProductSingleViewModel> OrderByPriceAsc(IQueryable<ProductSingleViewModel> products)
+        {
+            return products
+                .OrderBy(x => x.Price);
         }
 
     }

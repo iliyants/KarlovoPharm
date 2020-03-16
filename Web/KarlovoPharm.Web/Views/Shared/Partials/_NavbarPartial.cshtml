@@ -2,49 +2,49 @@
 
 
 
-    <div class="container">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="logo">
-                <div class="site-logo">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="js-logo-clone">Karlovo Pharm</a>
-                </div>
+<div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="logo">
+            <div class="site-logo">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="js-logo-clone">Karlovo Pharm</a>
             </div>
-            <div class="main-nav d-none d-lg-block">
-                <nav class="site-navigation text-right text-md-center" role="navigation">
-                    <ul class="site-menu js-clone-nav d-none d-lg-block">
-                        <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Към сайта</a></li>
-                        <li><a asp-area="" asp-controller="Store" asp-action="All">Магазин</a></li>
-                        <li class="has-children">
-                            <a href="#">Категории</a>
-                            <ul class="dropdown">
-                                @foreach (var category in await categoryService.GetAllNavBarAsync())
-                                {
-                                    <li class="has-children">
-                                        <a href="#">@category.Name</a>
-                                        <ul class="dropdown">
-                                            @foreach (var subCategory in category.SubCategories)
-                                            {
-                                                <li><a asp-area="" asp-controller="Store" asp-action="All" asp-route-subCategoryId="@subCategory.Id">@subCategory.Name</a></li>
-                                            }
-                                        </ul>
-                                    </li>
-                                }
-                            </ul>
-                        </li>
-                        <li><a href="about.html">За нас</a></li>
-                        <li><a href="contact.html">Свържете се с нас</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="icons">
-                <a href="cart.html" class="icons-btn d-inline-block bag">
-                    <span class="icon-shopping-bag"></span>
-                    <span class="number">2</span>
-                </a>
-                <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
-                    <span class="icon-menu"></span>
-                </a>
-            </div>
-            <partial name="~/Views/Shared/Partials/_LoginPartial.cshtml" />
         </div>
+        <div class="main-nav d-none d-lg-block">
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+                <ul class="site-menu js-clone-nav d-none d-lg-block">
+                    <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Към сайта</a></li>
+                    <li><a asp-area="" asp-controller="Store" asp-action="All">Магазин</a></li>
+                    <li class="has-children">
+                        <a href="#">Категории</a>
+                        <ul class="dropdown">
+                            @foreach (var category in await categoryService.GetAllNavBarAsync())
+                            {
+                                <li class="has-children">
+                                    <a href="#">@category.Name</a>
+                                    <ul class="dropdown">
+                                        @foreach (var subCategory in category.SubCategories)
+                                        {
+                                            <li><a asp-area="" asp-controller="Store" asp-action="AllFiltered" asp-route-id="@subCategory.Id">@subCategory.Name</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    <li><a href="about.html">За нас</a></li>
+                    <li><a href="contact.html">Свържете се с нас</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="icons">
+            <a href="cart.html" class="icons-btn d-inline-block bag">
+                <span class="icon-shopping-bag"></span>
+                <span class="number">2</span>
+            </a>
+            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
+                <span class="icon-menu"></span>
+            </a>
+        </div>
+        <partial name="~/Views/Shared/Partials/_LoginPartial.cshtml" />
     </div>
+</div>

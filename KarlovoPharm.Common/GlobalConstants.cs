@@ -7,5 +7,9 @@
         public const string AdministratorRoleName = "Administrator";
 
         public const string UserRoleName = "User";
+
+        public const int DefaultPageIndex = 1;
+
+        public const int DefaultPageSize = 9;
     }
 }
