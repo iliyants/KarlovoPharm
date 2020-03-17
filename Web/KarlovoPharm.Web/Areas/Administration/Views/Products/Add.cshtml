@@ -18,23 +18,9 @@
                     <div class="p-3 p-lg-5 border">
                         <div class="form-group row">
                             <div class="col-md-5">
-                                <label asp-for="Picture" class="text-black">Снимка <span class="text-danger">*</span></label>
-                                <input asp-for="Picture" type="file" class="form-control" />
-                                <span asp-validation-for="Picture" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-5">
                                 <label asp-for="Name" class="text-black">Име<span class="text-danger">*</span></label>
                                 <input asp-for="Name" class="form-control" placeholder="Въведете тук името на продукта">
                                 <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-5">
-                                <label asp-for="Description" class="text-black">Описание <span class="text-danger">*</span></label>
-                                <input asp-for="Description" class="form-control" placeholder="Въведете тук описанието на продукта">
-                                <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -46,36 +32,43 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
+                                <label asp-for="Description" class="text-black">Описание <span class="text-danger">*</span></label>
+                                <textarea asp-for="Description" class="form-control" placeholder="Въведете тук описанието на продукта"> </textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
                                 <label asp-for="Designation" class="text-black">Предназначение </label>
-                                <input asp-for="Designation" class="form-control" placeholder="Въведете тук предназначението на родукта">
+                                <textarea asp-for="Designation" class="form-control" placeholder="Въведете тук предназначението на родукта"> </textarea>
                                 <span asp-validation-for="Designation" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
                                 <label asp-for="Effect" class="text-black">Действие </label>
-                                <input asp-for="Effect" class="form-control" placeholder="Въведете тук действието на продукта">
+                                <textarea asp-for="Effect" class="form-control" placeholder="Въведете тук действието на продукта"></textarea>
                                 <span asp-validation-for="Effect" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
                                 <label asp-for="Composition" class="text-black">Състав </label>
-                                <input asp-for="Composition" class="form-control" placeholder="Въведете тук състава на продукта">
+                                <textarea asp-for="Composition" class="form-control" placeholder="Въведете тук състава на продукта"></textarea>
                                 <span asp-validation-for="Composition" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
                                 <label asp-for="WayOfUse" class="text-black">Начин на употреба</label>
-                                <input asp-for="WayOfUse" class="form-control" placeholder="Въведете тук начина на употреба на продукта">
+                                <textarea asp-for="WayOfUse" class="form-control" placeholder="Въведете тук начина на употреба на продукта"></textarea>
                                 <span asp-validation-for="WayOfUse" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5">
                                 <label asp-for="Specification" class="text-black">Спецификация </label>
-                                <input asp-for="Specification" class="form-control" placeholder="Въведете тук спецификацията на продукта">
+                                <textarea asp-for="Specification" class="form-control" placeholder="Въведете тук спецификацията на продукта"></textarea>
                                 <span asp-validation-for="Specification" class="text-danger"></span>
                             </div>
                         </div>
@@ -101,6 +94,13 @@
                                     <option value="@subCategory.Id">@subCategory.Name</option>
                                 }
                             </select>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="Picture" class="text-black">Снимка <span class="text-danger">*</span></label>
+                                <input asp-for="Picture" type="file" class="form-control" />
+                                <span asp-validation-for="Picture" class="text-danger"></span>
+                            </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-5">

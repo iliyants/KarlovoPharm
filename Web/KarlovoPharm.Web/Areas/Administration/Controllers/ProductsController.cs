@@ -41,7 +41,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return await this.Add();
+                return this.RedirectToAction(nameof(this.Add));
             }
 
             var pictureUrl = await this.cloudinaryService.UploadPictureAsync(
@@ -54,7 +54,7 @@
             if (!await this.productService.CreateAsync(productCreateInputModel))
             {
                 this.TempData["Error"] = CreateErrorMessage;
-                return await this.Add();
+                return this.RedirectToAction(nameof(this.Add));
             }
 
             return this.Redirect("/");
