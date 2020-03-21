@@ -20,13 +20,10 @@
                 </div>
             </form>
 
-            <form method="get" asp-action="AllFIltered">
-                <div class="form-action no-color">
-                    <p>
-                        Търси по име:<input type="text" name="searchString" value="@searchString" />
-                        <input type="submit" value="Търси" class="btn btn-success" />
-                    </p>
-                </div>
+
+            <form method="get" asp-action="AllFiltered" class="form-inline justify-content-center">
+                <input class="form-control mr-sm-2" type="text" name="searchString" placeholder="Въведи ключова дума" value="@searchString">
+                <button class="btn btn-info" type="submit">Търси</button>
             </form>
         </div>
 
@@ -35,7 +32,7 @@
             @foreach (var product in Model)
             {
                 <div class="product col-sm-6 col-lg-4 text-center item mb-4">
-                    <a href="shop-single.html"> <img src="@product.Picture" width="150" alt="Image"></a>
+                    <a  asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" alt="Image"></a>
                     <h3 class="text-dark"><a href="shop-single.html">@product.Name</a></h3>
                     <p class="price"> @product.Price</p>
                     <a href="#" class="btn btn-warning">Добави в количка</a>
@@ -81,20 +78,6 @@
     </div>
 
     <script>
-        $('#products-search-bar').on("change paste keyup", function () {
-
-            $('.product').show();
-
-            let searchValue = $('#products-search-bar').val();
-
-            for (let elem of $('.product')) {
-                let productName = $($(elem).children()[1]).text();
-
-                if (!productName.toLowerCase().includes(searchValue.toLowerCase())) {
-                    $(elem).hide();
-                }
-            }
-        });
 
         $('#sort').change(function () {
             $('#order-form').submit();

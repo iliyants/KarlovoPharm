@@ -10,6 +10,7 @@
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Data.Models;
     using KarlovoPharm.Web.ViewModels.Categories;
+    using KarlovoPharm.Web.InputModels.Categories.Edit;
 
     public class CategoryService : ICategoryService
     {
@@ -72,5 +73,61 @@
         {
             return await this.GetAllAsync<CategoryViewModel>();
         }
+
+        public async Task<bool> EditCategory(CategoryEditInputModel categoryEditInputModel)
+        {
+            var category = this.categoryRepository.All().SingleOrDefault(x => x.Id == categoryEditInputModel.Id);
+
+            if (category == null)
+            {
+                throw new ArgumentNullException($"Cannot find a category with id {categoryEditInputModel.Id}");
+            }
+
+            if (await this.CategoryNameIsNotUnique(categoryEditInputModel.Name))
+            {
+                return false;
+            }
+
+            category.Name = categoryEditInputModel.Name;
+            await this.categoryRepository.SaveChangesAsync();
+
+            return true;
+
+        }
+
+        public T GetCategoryById<T>(string id)
+        {
+            var category = this.categoryRepository.All().Where(x => x.Id == id).SingleOrDefault()
+                .To<T>();
+
+            if (category == null)
+            {
+                throw new ArgumentNullException($"Cannot find a category with id {id}");
+            }
+
+            return category;
+        }
+
+        public async Task<bool> DeleteCategory(string categoryId)
+        {
+         
+            if (this.categoryRepository
+                .All()
+                .Include(x => x.SubCategories)
+                .SingleOrDefault(x => x.Id == categoryId)
+                .SubCategories.Any())
+            {
+                return false;
+            }
+
+            var category = await this.categoryRepository.All().SingleOrDefaultAsync(x => x.Id == categoryId);
+
+            this.categoryRepository.HardDelete(category);
+            await this.categoryRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+
     }
 }

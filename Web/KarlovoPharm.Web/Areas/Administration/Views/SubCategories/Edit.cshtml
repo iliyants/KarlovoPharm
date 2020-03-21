@@ -1,8 +1,10 @@
-﻿@model KarlovoPharm.Web.InputModels.SubCategories.Create.SubCategoryCreateInputModel
+﻿@model KarlovoPharm.Web.InputModels.SubCategories.Edit.SubCategoryEditInputModel
+
 @{
-    ViewData["Title"] = "Създай подкатегория";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Редактирай подкатегория";
 }
+@*@{var categoryId = this.ViewData["CategoryId"]; }
+@{var categoryName = this.ViewData["CategoryName"]; }*@
 
 <div class="site-section">
     <div class="container">
@@ -15,19 +17,20 @@
                 {
                     @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
                 }
-                <form asp-controller="SubCategories" asp-action="Add" method="post" class="form">
+                <form asp-controller="SubCategories" asp-action="Edit" asp-route-subCategoryId="@Model.Id" method="post" class="form">
                     <div class="p-3 p-lg-5 border">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label for="CategoryName" class="text-black">Име на Подкатегория <span class="text-danger">*</span></label>
-                                <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Въведете името на подкатегорията тук.">
+                                <label for="CategoryName" class="text-black">Редакция на @Model.Name <span class="text-danger">*</span></label>
+                                <input type="hidden" asp-for="@Model.Id" />
+                                <input asp-for="@Model.Name" type="text" class="form-control" placeholder="@Model.Name">
                                 <span asp-validation-for="@Model.Name" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <select class="select-width" name="CategoryId" asp-for="@Model.CategoryId">
-                                <option value="" disabled selected>-- Основна категория --</option>
-                                @foreach (var category in Model.Categories)
+                            <select class="select-width" name="CategoryId">
+                                <option value="@Model.CategoryId" selected>@Model.CategoryName</option>
+                                @foreach (var category in Model.Categories.Where(x => x.Name != Model.CategoryName))
                                 {
                                     <option value="@category.Id">@category.Name</option>
                                 }
@@ -35,7 +38,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-12">
-                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Създай">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Редактирай">
                             </div>
                         </div>
                     </div>
@@ -44,3 +47,4 @@
         </div>
     </div>
 </div>
+

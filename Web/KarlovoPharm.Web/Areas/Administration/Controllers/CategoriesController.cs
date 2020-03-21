@@ -7,6 +7,7 @@
     using KarlovoPharm.Services.Data.Categories;
     using KarlovoPharm.Web.InputModels.Categories.Create;
     using KarlovoPharm.Web.InputModels.Categories.Display;
+    using KarlovoPharm.Web.InputModels.Categories.Edit;
     using Microsoft.AspNetCore.Mvc;
 
     public class CategoriesController : AdministrationController
@@ -38,7 +39,7 @@
                 return this.View();
             }
 
-            return this.Redirect("/");
+            return this.RedirectToAction("All");
         }
 
         [HttpGet]
@@ -49,6 +50,38 @@
             var result = new List<CategoryDisplayInputModel>(categoryDisplayViewModel);
 
             return this.View(result);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string categoryId)
+        {
+            var category = this.categoryService.GetCategoryById<CategoryEditInputModel>(categoryId);
+
+            return this.View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CategoryEditInputModel categoryEditInputModel)
+        {
+            if (!await this.categoryService.EditCategory(categoryEditInputModel))
+            {
+                this.TempData["Error"] = ValidationMessages.CategoryUniqieNameErrorMessage;
+                return this.RedirectToAction("Edit", "Categories", new { categoryId = categoryEditInputModel.Id });
+            }
+
+            return this.RedirectToAction("All");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string categoryId)
+        {
+            if (!await this.categoryService.DeleteCategory(categoryId))
+            {
+                this.TempData["Error"] = ValidationMessages.CategoryCannotBeDeletedErrorMessage;
+                return this.RedirectToAction("All");
+            }
+
+            return this.RedirectToAction("All");
         }
     }
 }

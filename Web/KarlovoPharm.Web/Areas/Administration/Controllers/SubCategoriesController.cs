@@ -8,6 +8,7 @@
     using KarlovoPharm.Services.Data.SubCategories;
     using KarlovoPharm.Web.InputModels.Categories.Display;
     using KarlovoPharm.Web.InputModels.SubCategories.Create;
+    using KarlovoPharm.Web.InputModels.SubCategories.Edit;
     using KarlovoPharm.Web.ViewModels.Display;
     using Microsoft.AspNetCore.Mvc;
 
@@ -38,7 +39,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(subCategoryCreateInputModel);
+                return this.RedirectToAction("Add");
             }
 
             if (!await this.subCategoryService.CreateAsync(subCategoryCreateInputModel))
@@ -47,7 +48,7 @@
                 return await this.Add();
             }
 
-            return this.Redirect("/");
+            return this.RedirectToAction("All");
         }
 
         [HttpGet]
@@ -58,6 +59,28 @@
             var result = new List<SubCategoryDisplayViewModel>(subCategoryDisplayViewModel);
 
             return this.View(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string subCategoryId)
+        {
+            var subCategory = this.subCategoryService.GetSubCategoryById<SubCategoryEditInputModel>(subCategoryId);
+
+            subCategory.Categories = await this.categoryService.GetAllAsync<CategoryDisplayInputModel>();
+
+            return this.View(subCategory);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(SubCategoryEditInputModel subCategoryEditInputModel)
+        {
+            if (!await this.subCategoryService.EditSubCategory(subCategoryEditInputModel))
+            {
+                this.TempData["Error"] = ValidationMessages.SubCategoryUniqieNameErrorMessage;
+                return this.RedirectToAction("Edit", "SubCategories", new { subCategoryId = subCategoryEditInputModel.Id });
+            }
+
+            return this.RedirectToAction("All");
         }
     }
 }

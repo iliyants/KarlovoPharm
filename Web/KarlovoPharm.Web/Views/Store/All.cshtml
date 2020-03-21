@@ -19,13 +19,9 @@
                 </div>
             </form>
 
-            <form method="get" asp-action="All">
-                <div class="form-action no-color">
-                    <p>
-                        Търси по име:<input type="text" name="searchString" value="@searchString" />
-                        <input type="submit" value="Търси" class="btn btn-success" />
-                    </p>
-                </div>
+            <form method="get" asp-action="All" class="form-inline justify-content-center">
+                <input class="form-control mr-sm-2" type="text" name="searchString" placeholder="Въведи ключова дума" value="@searchString">
+                <button class="btn btn-info" type="submit">Търси</button>
             </form>
         </div>
 
@@ -81,20 +77,6 @@
     </div>
 
     <script>
-        $('#products-search-bar').on("change paste keyup", function () {
-
-            $('.product').show();
-
-            let searchValue = $('#products-search-bar').val();
-
-            for (let elem of $('.product')) {
-                let productName = $($(elem).children()[1]).text();
-
-                if (!productName.toLowerCase().includes(searchValue.toLowerCase())) {
-                    $(elem).hide();
-                }
-            }
-        });
 
         $('#sort').change(function () {
             $('#order-form').submit();

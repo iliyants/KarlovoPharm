@@ -38,7 +38,7 @@
             return result > 0;
         }
 
-        public IQueryable<T> GetAll<T>(string searchString)
+        public IQueryable<T> GetAll<T>(string searchString = null)
         {
             var productsQuery = this.productRepository.All();
 

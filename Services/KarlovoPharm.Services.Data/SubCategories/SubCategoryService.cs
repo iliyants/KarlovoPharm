@@ -10,14 +10,18 @@
 
     using KarlovoPharm.Services.Mapping;
     using System.Collections.Generic;
+    using KarlovoPharm.Web.InputModels.SubCategories.Edit;
+    using KarlovoPharm.Services.Data.Categories;
 
     public class SubCategoryService : ISubCategoryService
     {
         private readonly IDeletableEntityRepository<SubCategory> subCategoryRepository;
+        private readonly ICategoryService categoryService;
 
-        public SubCategoryService(IDeletableEntityRepository<SubCategory> subCategoryRepository)
+        public SubCategoryService(IDeletableEntityRepository<SubCategory> subCategoryRepository, ICategoryService categoryService)
         {
             this.subCategoryRepository = subCategoryRepository;
+            this.categoryService = categoryService;
         }
 
         private async Task<bool> SubCategoryNameIsNotUnique(string name)
@@ -66,6 +70,67 @@
         {
             return await this.subCategoryRepository.All()
               .To<T>().ToListAsync();
+        }
+
+        public T GetSubCategoryById<T>(string subCategoryId)
+        {
+            var subCategory = this.subCategoryRepository.All()
+                .Include(x => x.Category)
+                .Where(x => x.Id == subCategoryId).SingleOrDefault()
+                .To<T>();
+
+            if (subCategoryId == null)
+            {
+                throw new ArgumentNullException($"SubCategory was null");
+            }
+
+            return subCategory;
+        }
+
+        public async Task<bool> EditSubCategory(SubCategoryEditInputModel subCategoryEditInputModel)
+        {
+            var subCategory = this.subCategoryRepository.All().SingleOrDefault(x => x.Id == subCategoryEditInputModel.Id);
+
+            if (subCategory == null)
+            {
+                throw new ArgumentException("SubCategory was null!");
+            }
+
+
+
+            if (subCategory.Name != subCategoryEditInputModel.Name &&
+                await this.SubCategoryNameIsNotUnique(subCategoryEditInputModel.Name))
+            {
+                return false;
+            }
+            else
+            {
+                subCategory.Name = subCategoryEditInputModel.Name;
+
+                if (subCategory.CategoryId != subCategoryEditInputModel.CategoryId)
+                {
+                    subCategory.CategoryId = subCategoryEditInputModel.CategoryId;                       
+                }
+            }
+
+            await this.subCategoryRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<string> GetMainCategoryNameBySubCategoryId(string id)
+        {
+            return await this.subCategoryRepository.All().Where(x => x.Id == id)
+                .Include(x => x.Category)
+                .Select(x => x.Category.Name)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<string> GetMainCategegoryIdBySubCategoryId(string id)
+        {
+            return await this.subCategoryRepository.All().Where(x => x.Id == id)
+                .Select(x => x.CategoryId)
+                .SingleOrDefaultAsync();
         }
     }
 }

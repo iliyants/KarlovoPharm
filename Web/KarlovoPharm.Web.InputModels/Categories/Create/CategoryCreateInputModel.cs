@@ -6,6 +6,7 @@
 
     public class CategoryCreateInputModel
     {
+
         [Display(Name = "CategoryName")]
         [Required(ErrorMessage = ValidationMessages.RequiredCategoryNameMessage)]
         [StringLength(30, MinimumLength = 3, ErrorMessage = ValidationMessages.CategoryLenghtErrorMessage)]

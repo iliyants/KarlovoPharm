@@ -16,6 +16,10 @@
 
         public const string SubCategoryUniqieNameErrorMessage = "Вече съществува подкатегория с това име!";
 
+        public const string CategoryCannotBeDeletedErrorMessage = "Категорията не може да бъде изтрита!";
+
+        public const string SubCategoryCannotBeDeletedErrorMessage = "Подкатегорията не може да бъде изтрита!";
+
 
         public const string ProductNameLenghtErrorMessage = "Името на продукта трябва да бъде между 3 и 100 исмвола.";
 

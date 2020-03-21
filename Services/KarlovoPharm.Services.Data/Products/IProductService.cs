@@ -9,7 +9,7 @@
     {
         public Task<bool> CreateAsync(ProductCreateInputModel productServiceModel);
 
-        public IQueryable<T> GetAll<T>(string searchString);
+        public IQueryable<T> GetAll<T>(string searchString = null);
 
         public IQueryable<T> GetAllBySubCategory<T>(string id, string searchString);
 

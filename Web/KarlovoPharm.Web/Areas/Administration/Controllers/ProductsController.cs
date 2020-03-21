@@ -1,12 +1,14 @@
 ﻿namespace KarlovoPharm.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
-
+    using KarlovoPharm.Common;
     using KarlovoPharm.Services;
     using KarlovoPharm.Services.Data.Products;
     using KarlovoPharm.Services.Data.SubCategories;
     using KarlovoPharm.Web.InputModels.Categories.Display;
     using KarlovoPharm.Web.InputModels.Products.Create;
+    using KarlovoPharm.Web.Paging;
+    using KarlovoPharm.Web.ViewModels.Display;
     using Microsoft.AspNetCore.Mvc;
 
     public class ProductsController : AdministrationController
@@ -57,7 +59,18 @@
                 return this.RedirectToAction(nameof(this.Add));
             }
 
-            return this.Redirect("/");
+            return this.RedirectToAction("All");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All(int? pageNumber, string searchString)
+        {
+            var productsDisplayModel = this.productService.GetAll<ProductDisplayViewModel>(searchString);
+
+            this.ViewData["SearchString"] = searchString;
+
+            return this.View(await PaginatedList<ProductDisplayViewModel>
+               .CreateAsync(productsDisplayModel, pageNumber ?? GlobalConstants.DefaultPageIndex, GlobalConstants.DefaultPageSize));
         }
     }
 }
