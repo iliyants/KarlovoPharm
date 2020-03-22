@@ -121,7 +121,7 @@
             return product.Contains(name);
         }
 
-        public async Task<bool> EditProduct(ProductEditInputModel productEditInputModel)
+        public async Task<bool> EditProductAsync(ProductEditInputModel productEditInputModel)
         {
             var product = await this.productRepository.All().SingleOrDefaultAsync(x => x.Id == productEditInputModel.Id);
 
@@ -130,7 +130,7 @@
                 throw new ArgumentException("Product was null !");
             }
 
-            if (product.Name != productEditInputModel.Name && 
+            if (product.Name != productEditInputModel.Name &&
                 await this.ProductNameIsNotUnique(productEditInputModel.Name))
             {
                 return false;
@@ -151,6 +151,32 @@
             await this.productRepository.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<bool> DeleteProductAsync(string productId)
+        {
+            var product = await this.productRepository.AllAsNoTracking().SingleOrDefaultAsync(x => x.Id == productId);
+
+            if (product == null)
+            {
+                throw new ArgumentNullException("Product was null !");
+            }
+
+
+            try
+            {
+                this.productRepository.HardDelete(product);
+            }
+            catch (Exception)
+            {
+                return false;                
+            }
+
+
+            await this.productRepository.SaveChangesAsync();
+
+            return true;
+
         }
     }
 }

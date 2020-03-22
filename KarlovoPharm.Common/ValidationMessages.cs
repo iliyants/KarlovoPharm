@@ -18,6 +18,8 @@
 
         public const string ProductNameLenghtErrorMessage = "Името на продукта трябва да бъде между 3 и 100 исмвола.";
 
+        public const string ProductDeleteErrorMEssage = "Възникна грешка ! Продуктът не може да бъде изтрит!";
+
 
 
 

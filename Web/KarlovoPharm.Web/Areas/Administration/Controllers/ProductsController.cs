@@ -87,10 +87,23 @@
         public async Task<IActionResult> Edit(ProductEditInputModel productEditInputModel)
         {
 
-            if (!await this.productService.EditProduct(productEditInputModel))
+            if (!await this.productService.EditProductAsync(productEditInputModel))
             {
                 this.TempData["Error"] = ValidationMessages.ProductNameNotUniqueErrorMessage;
                 return this.RedirectToAction("Edit", "Products", new { productId = productEditInputModel.Id });
+            }
+
+            return this.RedirectToAction("All");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string productId)
+        {
+            if (!await this.productService.DeleteProductAsync(productId))
+            {
+                this.TempData["Error"] = ValidationMessages.ProductDeleteErrorMEssage;
+                return this.RedirectToAction("All");
             }
 
             return this.RedirectToAction("All");

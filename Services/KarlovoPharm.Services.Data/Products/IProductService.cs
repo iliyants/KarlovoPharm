@@ -18,7 +18,10 @@
 
         public IQueryable<ProductSingleViewModel> OrderProducts(string criteria, IQueryable<ProductSingleViewModel> products);
 
-        Task<bool> EditProduct(ProductEditInputModel productEditInputModel);
+        Task<bool> EditProductAsync(ProductEditInputModel productEditInputModel);
+
+        public Task<bool> DeleteProductAsync(string productId);
+
 
     }
 }
