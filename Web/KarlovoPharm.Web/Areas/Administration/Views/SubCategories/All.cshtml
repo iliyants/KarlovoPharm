@@ -4,46 +4,50 @@
 @{
     ViewData["Title"] = "Под категории";
 }
-<div class="container mobile-fondsize-11 shadow">
-    <div class="mobile-fondsize-20 h3 text-muted">@ViewData["Title"]</div>
-    <table class="table table-hover">
-        <thead>
-            <tr class="row">
-                <th scope="col" class="col-1 d-flex justify-content-center">#</th>
-                <th scope="col" class="col-2 d-flex justify-content-center">Име</th>
-                <th scope="col" class="col-3 d-flex justify-content-center">Основна Kaтегория</th>
-                <th scope="col" class="col-1 d-flex justify-content-center">Продукти</th>
-                <th scope="col" class="col-3 d-flex justify-content-center"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @{int count = 0; }
-            @foreach (var subCategory in Model)
-            {
-                count++;
+    <div class="container mobile-fondsize-11 shadow">
+        <div class="mobile-fondsize-20 h3 text-muted">@ViewData["Title"]</div>
+        @if (this.TempData["Error"] != null)
+        {
+            @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+        }
+        <table class="table table-hover">
+            <thead>
                 <tr class="row">
-                    <td class="col-1 d-flex justify-content-center">
-                        @count
-                    </td>
-                    <td class="col-2 d-flex justify-content-center">
-                        @subCategory.Name
-                    </td>
-                    <td class="col-3 d-flex justify-content-center">
-                        @subCategory.Category.Name
-                    </td>
-                    <td class="col-1 d-flex justify-content-center">
-                        @subCategory.ProductsCount
-                    </td>
-                    <td class="col-md-3 d-flex justify-content-around">
-                        <div class="mr-2">
-                            <a asp-controller="SubCategories" asp-action="Edit" asp-route-subCategoryId="@subCategory.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Промени</a>
-                        </div>
-                        <div class="mr-2">
-                            <a @*asp-controller="ChildCategories" asp-action="Delete" asp-route-id="@category.Id"*@ class="btn btn-danger btn-sm mobile-fondsize-11">Изтрий</a>
-                        </div>
-                    </td>
+                    <th scope="col" class="col-1 d-flex justify-content-center">#</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Име</th>
+                    <th scope="col" class="col-3 d-flex justify-content-center">Основна Kaтегория</th>
+                    <th scope="col" class="col-1 d-flex justify-content-center">Продукти</th>
+                    <th scope="col" class="col-3 d-flex justify-content-center"></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @{int count = 0; }
+                @foreach (var subCategory in Model)
+                {
+                    count++;
+                    <tr class="row">
+                        <td class="col-1 d-flex justify-content-center">
+                            @count
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @subCategory.Name
+                        </td>
+                        <td class="col-3 d-flex justify-content-center">
+                            @subCategory.Category.Name
+                        </td>
+                        <td class="col-1 d-flex justify-content-center">
+                            @subCategory.ProductsCount
+                        </td>
+                        <td class="col-md-3 d-flex justify-content-around">
+                            <div class="mr-2">
+                                <a asp-controller="SubCategories" asp-action="Edit" asp-route-subCategoryId="@subCategory.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Промени</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="SubCategories" asp-action="Delete" asp-route-subCategoryId="@subCategory.Id" class="btn btn-danger btn-sm mobile-fondsize-11">Изтрий</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>

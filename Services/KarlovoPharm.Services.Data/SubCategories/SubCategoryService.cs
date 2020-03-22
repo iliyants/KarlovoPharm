@@ -11,24 +11,21 @@
     using KarlovoPharm.Services.Mapping;
     using System.Collections.Generic;
     using KarlovoPharm.Web.InputModels.SubCategories.Edit;
-    using KarlovoPharm.Services.Data.Categories;
 
     public class SubCategoryService : ISubCategoryService
     {
         private readonly IDeletableEntityRepository<SubCategory> subCategoryRepository;
-        private readonly ICategoryService categoryService;
 
-        public SubCategoryService(IDeletableEntityRepository<SubCategory> subCategoryRepository, ICategoryService categoryService)
+        public SubCategoryService(IDeletableEntityRepository<SubCategory> subCategoryRepository)
         {
             this.subCategoryRepository = subCategoryRepository;
-            this.categoryService = categoryService;
         }
 
         private async Task<bool> SubCategoryNameIsNotUnique(string name)
         {
-            var test = await this.subCategoryRepository.AllAsNoTracking().Select(x => x.Name).ToListAsync();
+            var subCategory = await this.subCategoryRepository.AllAsNoTracking().Select(x => x.Name).ToListAsync();
 
-            return test.Contains(name);
+            return subCategory.Contains(name);
         }
 
         public async Task<bool> CreateAsync(SubCategoryCreateInputModel subCategoryCreateInputModel)
@@ -97,7 +94,6 @@
             }
 
 
-
             if (subCategory.Name != subCategoryEditInputModel.Name &&
                 await this.SubCategoryNameIsNotUnique(subCategoryEditInputModel.Name))
             {
@@ -131,6 +127,26 @@
             return await this.subCategoryRepository.All().Where(x => x.Id == id)
                 .Select(x => x.CategoryId)
                 .SingleOrDefaultAsync();
+        }
+
+        public async Task<bool> DeleteSubCategory(string subCategoryId)
+        {
+
+            if (this.subCategoryRepository
+                .All()
+                .Include(x => x.Products)
+                .SingleOrDefault(x => x.Id == subCategoryId)
+                .Products.Any())
+            {
+                return false;
+            }
+
+            var subCategory = await this.subCategoryRepository.All().SingleOrDefaultAsync(x => x.Id == subCategoryId);
+
+            this.subCategoryRepository.HardDelete(subCategory);
+            await this.subCategoryRepository.SaveChangesAsync();
+
+            return true;
         }
     }
 }

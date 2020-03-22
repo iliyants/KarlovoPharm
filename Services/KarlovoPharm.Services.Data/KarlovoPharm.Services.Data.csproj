@@ -10,6 +10,7 @@
     <ProjectReference Include="..\..\Web\KarlovoPharm.Web.InputModels\KarlovoPharm.Web.InputModels.csproj" />
     <ProjectReference Include="..\..\Web\KarlovoPharm.Web.ViewModels\KarlovoPharm.Web.ViewModels.csproj" />
     <ProjectReference Include="..\KarlovoPharm.Services.Mapping\KarlovoPharm.Services.Mapping.csproj" />
+    <ProjectReference Include="..\KarlovoPharm.Services\KarlovoPharm.Services.csproj" />
   </ItemGroup>
 
 </Project>

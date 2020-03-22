@@ -82,5 +82,17 @@
 
             return this.RedirectToAction("All");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string subCategoryId)
+        {
+            if (!await this.subCategoryService.DeleteSubCategory(subCategoryId))
+            {
+                this.TempData["Error"] = ValidationMessages.SubCategoryCannotBeDeletedErrorMessage;
+                return this.RedirectToAction("All");
+            }
+
+            return this.RedirectToAction("All");
+        }
     }
 }

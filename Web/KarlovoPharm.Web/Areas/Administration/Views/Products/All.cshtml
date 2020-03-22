@@ -34,8 +34,8 @@
                     <td>@product.Price</td>
                     <td>@product.SubCategoryCategoryName</td>
                     <td>@product.SubCategoryName</td>
-                    <td><a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Промени</a></td>
-                    <td><a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-danger btn-sm mobile-fondsize-11">Изтрий</a></td>
+                    <td><a asp-action="Edit" asp-route-productId="@product.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Промени</a></td>
+                    <td><a asp-action="Delete" asp-route-productId="@product.Id" class="btn btn-danger btn-sm mobile-fondsize-11">Изтрий</a></td>
                 </tr>
             }
         </tbody>

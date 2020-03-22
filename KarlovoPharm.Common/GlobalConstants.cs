@@ -11,5 +11,8 @@
         public const int DefaultPageIndex = 1;
 
         public const int DefaultPageSize = 9;
+
+        public const string CloudinaryProductPictureFolder = "product_images";
+
     }
 }

@@ -7,13 +7,13 @@
     using KarlovoPharm.Services.Data.SubCategories;
     using KarlovoPharm.Web.InputModels.Categories.Display;
     using KarlovoPharm.Web.InputModels.Products.Create;
+    using KarlovoPharm.Web.InputModels.Products.Edit;
     using KarlovoPharm.Web.Paging;
     using KarlovoPharm.Web.ViewModels.Display;
     using Microsoft.AspNetCore.Mvc;
 
     public class ProductsController : AdministrationController
     {
-        private const string CloudinaryProductPictureFolder = "product_images";
         private const string CreateErrorMessage = "Възникна грешка при опит за създаване на продукт.";
 
         private readonly ISubCategoryService subCategoryService;
@@ -49,7 +49,7 @@
             var pictureUrl = await this.cloudinaryService.UploadPictureAsync(
                 productCreateInputModel.Picture,
                 productCreateInputModel.Name,
-                CloudinaryProductPictureFolder);
+                GlobalConstants.CloudinaryProductPictureFolder);
 
             productCreateInputModel.PictureUrl = pictureUrl;
 
@@ -71,6 +71,29 @@
 
             return this.View(await PaginatedList<ProductDisplayViewModel>
                .CreateAsync(productsDisplayModel, pageNumber ?? GlobalConstants.DefaultPageIndex, GlobalConstants.DefaultPageSize));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string productId)
+        {
+            var product = this.productService.GetProductDetailsById<ProductEditInputModel>(productId);
+
+            product.SubCategories = await this.subCategoryService.GetAllAsync<CategoryDisplayInputModel>();
+
+            return this.View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProductEditInputModel productEditInputModel)
+        {
+
+            if (!await this.productService.EditProduct(productEditInputModel))
+            {
+                this.TempData["Error"] = ValidationMessages.ProductNameNotUniqueErrorMessage;
+                return this.RedirectToAction("Edit", "Products", new { productId = productEditInputModel.Id });
+            }
+
+            return this.RedirectToAction("All");
         }
     }
 }

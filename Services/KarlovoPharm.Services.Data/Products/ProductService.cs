@@ -9,14 +9,20 @@
     using System.Linq;
     using KarlovoPharm.Web.InputModels.Products.Create;
     using KarlovoPharm.Web.ViewModels.Products;
+    using Microsoft.EntityFrameworkCore;
+    using KarlovoPharm.Web.InputModels.Products.Edit;
+    using KarlovoPharm.Common;
 
     public class ProductService : IProductService
     {
         private readonly IDeletableEntityRepository<Product> productRepository;
 
-        public ProductService(IDeletableEntityRepository<Product> productRepository)
+        private readonly ICloudinaryService cloudinaryService;
+
+        public ProductService(IDeletableEntityRepository<Product> productRepository, ICloudinaryService cloudinaryService)
         {
             this.productRepository = productRepository;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<bool> CreateAsync(ProductCreateInputModel productServiceModel)
@@ -93,7 +99,11 @@
 
         public T GetProductDetailsById<T>(string productId)
         {
-            var product = this.productRepository.All().Where(x => x.Id == productId).SingleOrDefault();
+            var product = this.productRepository
+                .All()
+                .Where(x => x.Id == productId)
+                .Include(x => x.SubCategory)
+                .SingleOrDefault();
 
             if (product == null)
             {
@@ -101,6 +111,46 @@
             }
 
             return product.To<T>();
+        }
+
+
+        private async Task<bool> ProductNameIsNotUnique(string name)
+        {
+            var product = await this.productRepository.AllAsNoTracking().Select(x => x.Name).ToListAsync();
+
+            return product.Contains(name);
+        }
+
+        public async Task<bool> EditProduct(ProductEditInputModel productEditInputModel)
+        {
+            var product = await this.productRepository.All().SingleOrDefaultAsync(x => x.Id == productEditInputModel.Id);
+
+            if (product == null)
+            {
+                throw new ArgumentException("Product was null !");
+            }
+
+            if (product.Name != productEditInputModel.Name && 
+                await this.ProductNameIsNotUnique(productEditInputModel.Name))
+            {
+                return false;
+            }
+
+            if (productEditInputModel.PictureFile != null)
+            {
+                var pictureUrl = await this.cloudinaryService.UploadPictureAsync(
+                    productEditInputModel.PictureFile,
+                    productEditInputModel.Name,
+                    GlobalConstants.CloudinaryProductPictureFolder);
+
+                product.Picture = pictureUrl;
+            }
+
+            productEditInputModel.To(product);
+
+            await this.productRepository.SaveChangesAsync();
+
+            return true;
         }
     }
 }

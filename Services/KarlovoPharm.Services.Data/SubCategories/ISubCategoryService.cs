@@ -20,5 +20,7 @@
         Task<string> GetMainCategoryNameBySubCategoryId(string id);
 
         Task<string> GetMainCategegoryIdBySubCategoryId(string id);
+
+        public Task<bool> DeleteSubCategory(string subCategoryId);
     }
 }

@@ -13,5 +13,15 @@
 
             return AutoMapper.Mapper.Map<T>(origin);
         }
+
+        public static object To(this object origin, object destination)
+        {
+            if (origin == null || destination == null)
+            {
+                throw new ArgumentNullException($"{nameof(origin)} was null or {nameof(destination)} was null");
+            }
+
+            return AutoMapper.Mapper.Map(origin, destination);
+        }
     }
 }
