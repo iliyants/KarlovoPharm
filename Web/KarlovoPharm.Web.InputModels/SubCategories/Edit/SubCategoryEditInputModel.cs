@@ -17,7 +17,7 @@
         public string CategoryName { get; set; }
 
         [Display(Name = "SubCategoryName")]
-        [Required(ErrorMessage = ValidationMessages.RequiredSubCategoryNameMessage)]
+        [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [StringLength(30, MinimumLength = 3, ErrorMessage = ValidationMessages.SubCategoryLenghtErrorMessage)]
         public string Name { get; set; }
 

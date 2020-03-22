@@ -86,11 +86,11 @@
         public class InputModel
         {
             [Display(Name = "Username")]
-            [Required(ErrorMessage = ValidationMessages.RequiredUsernameErrorMessage)]
+            [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
             public string Username { get; set; }
 
             [Display(Name = "Password")]
-            [Required(ErrorMessage = ValidationMessages.RequiredPasswordErrorMessage)]
+            [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
         }

@@ -8,7 +8,7 @@
     {
 
         [Display(Name = "CategoryName")]
-        [Required(ErrorMessage = ValidationMessages.RequiredCategoryNameMessage)]
+        [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [StringLength(30, MinimumLength = 3, ErrorMessage = ValidationMessages.CategoryLenghtErrorMessage)]
         public string Name { get; set; }
     }

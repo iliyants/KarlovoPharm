@@ -31,7 +31,7 @@
 
 
         [Display(Name = "Price")]
-        [Required(ErrorMessage = ValidationMessages.ProductPriceRequiredErrorMessage)]
+        [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [Range(0.0, double.MaxValue, ErrorMessage = ValidationMessages.ProductPriceNegativeErrorMessage)]
         public decimal Price { get; set; }
 

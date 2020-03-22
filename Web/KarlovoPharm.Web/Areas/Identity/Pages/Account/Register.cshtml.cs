@@ -93,7 +93,7 @@
         public class InputModel
         {
             [Display(Name = "Username")]
-            [Required(ErrorMessage = ValidationMessages.RequiredUsernameErrorMessage)]
+            [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
             [StringLength(10, MinimumLength = 3, ErrorMessage = ValidationMessages.UsernameLengthErrorMessage)]
             public string Username { get; set; }
 
@@ -106,13 +106,13 @@
             public string LastName { get; set; }
 
             [Display(Name = "Email")]
-            [Required(ErrorMessage = ValidationMessages.RequiredEmailErrorMessage)]
+            [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
             [DataType(DataType.EmailAddress, ErrorMessage = ValidationMessages.EmailValidationErrorMessage)]
             public string Email { get; set; }
 
             [Display(Name = "Password")]
             [DataType(DataType.Password)]
-            [Required(ErrorMessage = ValidationMessages.RequiredPasswordErrorMessage)]
+            [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
             [StringLength(15, MinimumLength = 5, ErrorMessage = ValidationMessages.PasswordValidationErrorMessage)]
             public string Password { get; set; }
 
