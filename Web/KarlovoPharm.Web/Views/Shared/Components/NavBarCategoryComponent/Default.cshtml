@@ -1,0 +1,21 @@
+﻿@using KarlovoPharm.Web.ViewComponents.Models
+@model IEnumerable<NavBarCategoryViewModel>
+
+
+<li class="has-children">
+    <a href="#">Категории</a>
+    <ul class="dropdown">
+        @foreach (var category in Model)
+        {
+            <li class="has-children">
+                <a href="#">@category.Name</a>
+                <ul class="dropdown">
+                    @foreach (var subCategory in category.SubCategories)
+                    {
+                        <li><a asp-area="" asp-controller="Store" asp-action="AllFiltered" asp-route-id="@subCategory.Id">@subCategory.Name</a></li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</li>

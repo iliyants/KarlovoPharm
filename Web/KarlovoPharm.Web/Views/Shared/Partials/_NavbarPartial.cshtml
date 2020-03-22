@@ -1,6 +1,4 @@
-﻿@inject KarlovoPharm.Services.Data.Categories.ICategoryService categoryService
-
-
+﻿@using KarlovoPharm.Web.ViewComponents
 
 <div class="container">
     <div class="d-flex align-items-center justify-content-between">
@@ -14,23 +12,7 @@
                 <ul class="site-menu js-clone-nav d-none d-lg-block">
                     <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Към сайта</a></li>
                     <li><a asp-area="" asp-controller="Store" asp-action="All">Магазин</a></li>
-                    <li class="has-children">
-                        <a href="#">Категории</a>
-                        <ul class="dropdown">
-                            @foreach (var category in await categoryService.GetAllNavBarAsync())
-                            {
-                                <li class="has-children">
-                                    <a href="#">@category.Name</a>
-                                    <ul class="dropdown">
-                                        @foreach (var subCategory in category.SubCategories)
-                                        {
-                                            <li><a asp-area="" asp-controller="Store" asp-action="AllFiltered" asp-route-id="@subCategory.Id">@subCategory.Name</a></li>
-                                        }
-                                    </ul>
-                                </li>
-                            }
-                        </ul>
-                    </li>
+                    @await  Component.InvokeAsync(typeof(NavBarCategoryComponent))
                     <li><a href="about.html">За нас</a></li>
                     <li><a href="contact.html">Свържете се с нас</a></li>
                 </ul>
