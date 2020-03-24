@@ -7,7 +7,7 @@
     {
         public string UserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public string AddressId { get; set; }
 

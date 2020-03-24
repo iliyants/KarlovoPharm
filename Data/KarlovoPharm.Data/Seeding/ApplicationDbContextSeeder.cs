@@ -31,6 +31,9 @@
                               new CategorySeeder(),
                               new SubCategorySeeder(),
                               new ProductSeeder(),
+                              new UsersSeeder(),
+                              new AddressSeeder(),
+                              new UserAddressSeeder(),
                           };
 
             foreach (var seeder in seeders)

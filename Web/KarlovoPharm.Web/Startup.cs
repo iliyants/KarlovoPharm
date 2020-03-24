@@ -14,6 +14,7 @@
     using KarlovoPharm.Services.Data.Products;
     using KarlovoPharm.Services.Data.Store;
     using KarlovoPharm.Services.Data.SubCategories;
+    using KarlovoPharm.Services.Data.Users;
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Services.Messaging;
     using KarlovoPharm.Web.InputModels.Products.Create;
@@ -79,6 +80,7 @@
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IStoreService, StoreService>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

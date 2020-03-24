@@ -14,7 +14,7 @@
                 .ValueGeneratedOnAdd();
 
             address.Property(x => x.Description)
-                .HasMaxLength(100);
+                .HasMaxLength(500);
 
             address.Property(x => x.City)
                 .IsRequired()
@@ -25,8 +25,11 @@
                .HasMaxLength(40);
 
             address.Property(x => x.BuildingNumber)
-               .IsRequired()
                .HasMaxLength(10);
+
+            address.Property(x => x.PostCode)
+                .IsRequired()
+                .HasMaxLength(10);
         }
     }
 }

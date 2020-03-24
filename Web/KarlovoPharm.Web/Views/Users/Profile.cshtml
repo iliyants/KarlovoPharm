@@ -1,0 +1,113 @@
+﻿@model KarlovoPharm.Web.ViewModels.User.UserProfileViewModel
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h3 mb-5 text-black">Потребителски профил на @Model.UserName</h2>
+            </div>
+            <div class="col-md-12">
+                <div class="border border-primary">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="Username" class="text-black">Потребителско име: </label>
+                            <span>@Model.UserName</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="FirstName" class="text-black">Име: </label>
+                            <span>@Model.FirstName</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="LastName" class="text-black">Фамилия: </label>
+                            <span>@Model.LastName</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="Email" class="text-black">Имейл: </label>
+                            <span>@Model.NormalizedEmail</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="PhoneNumber" class="text-black">Телефон: </label>
+                            <span>@Model.PhoneNumber</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                @{ var count = 1;}
+
+                <div class="accordion" id="accordionExample">
+
+                    @foreach (var address in Model.UserAddresses)
+                    {
+                        <div class="card">
+                            <div class="card-header" id="@count">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne_@count" aria-expanded="true" aria-controls="collapseOne_@count">
+                                        Адрес @count
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseOne_@count" class="collapse" aria-labelledby="@count" data-parent="#accordionExample">
+
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="City" class="text-black">Град: </label>
+                                        <span>@address.AddressCity</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="Street" class="text-black">Улица: </label>
+                                        <span>@address.AddressStreet</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="Street" class="text-black">Номер на сграда: </label>
+                                        <span>@address.AddressBuildingNumber</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="PostCode" class="text-black">Пощенски код: </label>
+                                        <span>@address.AddressPostCode</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="Description" class="text-black">Описание: </label>
+                                        <span>
+                                            @address.AddressDescription
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        count++;
+                    }
+
+                </div>
+
+                <br>
+
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <a asp-controller="Users" asp-action="ProfileEdit" asp-route-userId="@Model.Id">
+                            <input type="button" class="btn btn-primary" value="Редактирай профил" />
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

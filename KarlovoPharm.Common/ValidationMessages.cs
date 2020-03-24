@@ -58,5 +58,18 @@
 
         public const string TownLengthErrorMessage = "Паролите трябва да съвпадат!";
 
+
+        public const string CityLengthErrorMessage = "Градът трябва да е между 2 и 20 символа !";
+
+        public const string StreetLengthErrorMessage = "Улицата трябва да е между 5 и 40 символа !";
+
+        public const string BuildingNumberLengthErrorMessage = "Номерът на сградата трябва да е между 1 и 10 символа !";
+
+        public const string PostCodeLengthErrorMessage = "Пощенският код трябва да е между 2 и 10 символа !";
+
+        public const string DescriptionLengthErrorMessage = "Описанието трябва да е между 10 и 500 символа !";
+
+        public const string PhoneNumberLengthErrorMessage = "Моля въдевете валиден телефонен номер !";
+
     }
 }

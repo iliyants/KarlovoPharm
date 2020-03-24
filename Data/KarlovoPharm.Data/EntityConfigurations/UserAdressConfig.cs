@@ -1,12 +1,10 @@
-﻿using KarlovoPharm.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KarlovoPharm.Data.EntityConfigurations
+﻿namespace KarlovoPharm.Data.EntityConfigurations
 {
+
+    using KarlovoPharm.Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     public class UserAdressConfig : IEntityTypeConfiguration<UserAddress>
     {
         public void Configure(EntityTypeBuilder<UserAddress> userAddress)

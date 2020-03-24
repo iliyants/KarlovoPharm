@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+
     using KarlovoPharm.Data.Common.Models;
 
     public class Address : BaseDeletableModel<string>
