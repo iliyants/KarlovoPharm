@@ -1,6 +1,9 @@
 ﻿
 
-
+@if (this.TempData["Status"] != null)
+{
+    @await Component.InvokeAsync("InfoMessage", new { message = this.TempData["Status"] });
+}
 
 <partial name="~/Views/Shared/Partials/_BackGroundPartial.cshtml" />
 

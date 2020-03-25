@@ -46,6 +46,8 @@
 
         public const string UsernameLengthErrorMessage = "Потребителското име трябва да съдържа между 3 и 10 символа.";
 
+        public const string UsernameNotUniqueErrorMessage = "Моля изберете друго потребителско име !";
+
         public const string NameLenghtErrorMessage = "Името трябва да е между 3 и 30 символа";
 
         public const string LastNameLenghtErrorMessage = "Фамилията трябва да е между 3 и 30 символа";

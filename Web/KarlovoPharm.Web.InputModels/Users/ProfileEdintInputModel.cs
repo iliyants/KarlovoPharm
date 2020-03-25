@@ -13,6 +13,7 @@
 
 
         [Display(Name = "Username")]
+        [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [StringLength(10, MinimumLength = 3, ErrorMessage = ValidationMessages.UsernameLengthErrorMessage)]
         public string Username { get; set; }
 
@@ -25,6 +26,7 @@
         public string LastName { get; set; }
 
         [Display(Name = "PhoneNumber")]
+        [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [Phone(ErrorMessage = ValidationMessages.PhoneNumberLengthErrorMessage)]
         public string PhoneNumber { get; set; }
 

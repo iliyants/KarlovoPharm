@@ -6,36 +6,36 @@
 
 
 
-    <div class="icons">
-        @if (this.SignInManager.IsSignedIn(this.User))
-        {
-            var user = await UserManager.FindByNameAsync(this.User.Identity.Name);
-            var userId = user.Id; 
+<div class="icons">
+    @if (this.SignInManager.IsSignedIn(this.User))
+    {
+        var user = await UserManager.GetUserAsync(this.User);
+        var userId = user?.Id;
 
-            <button type="button" class="btn btn-sm btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @User.Identity.Name
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="Profile" asp-route-userId="@userId">Към Профил</a>
-                @if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                {
-                    <a class="dropdown-item" href="#">Поръчки</a>
-                    <a class="dropdown-item" href="#">Любими продукти</a>
-                }
-                else
-                {
-                    <a class="dropdown-item" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Админ панел</a>
-                }
-                <a class="dropdown-item" href="~/Identity/Account/Logout" asp->Изход</a>
-            </div>
+        <button type="button" class="btn btn-sm btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @User.Identity.Name
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="Profile" asp-route-userId="@userId">Към Профил</a>
+            @if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <a class="dropdown-item" href="#">Поръчки</a>
+                <a class="dropdown-item" href="#">Любими продукти</a>
+            }
+            else
+            {
+                <a class="dropdown-item" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Админ панел</a>
+            }
+            <a class="dropdown-item" href="~/Identity/Account/Logout" asp->Изход</a>
+        </div>
 
-        }
-        else
-        {
-            <a href="/Identity/Account/Login" class="btn btn-default btn-sm">
-                <span class="icon-user"></span>
-                <span class="d-inline">Вход</span>
-            </a>
-        }
+    }
+    else
+    {
+        <a href="/Identity/Account/Login" class="btn btn-default btn-sm">
+            <span class="icon-user"></span>
+            <span class="d-inline">Вход</span>
+        </a>
+    }
 
-    </div>
+</div>

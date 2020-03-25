@@ -11,20 +11,20 @@
 
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly ILogger<LogoutModel> logger;
+        private const string SuccesfullLogout = "Успешно излязохте от профила си.";
 
-        public LogoutModel(SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger)
+        private readonly SignInManager<ApplicationUser> signInManager;
+
+        public LogoutModel(SignInManager<ApplicationUser> signInManager)
         {
             this.signInManager = signInManager;
-            this.logger = logger;
         }
 
         public async Task<IActionResult> OnGet()
         {
             await this.signInManager.SignOutAsync();
 
-            this.logger.LogInformation("User logged out.");
+            this.TempData["Status"] = SuccesfullLogout;
 
             return this.Redirect("/");
         }

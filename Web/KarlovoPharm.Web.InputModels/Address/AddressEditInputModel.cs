@@ -7,6 +7,9 @@ namespace KarlovoPharm.Web.InputModels.Address
 {
     public class AddressEditInputModel : IMapFrom<UserAddress>, IMapTo<UserAddress>
     {
+
+        public string AddressId { get; set; }
+
         [Display(Name = "AddressCity")]
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [StringLength(20), MinLength(2, ErrorMessage = ValidationMessages.CityLengthErrorMessage)]

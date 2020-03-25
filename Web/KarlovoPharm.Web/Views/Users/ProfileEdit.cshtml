@@ -1,29 +1,34 @@
 ﻿@model KarlovoPharm.Web.InputModels.Users.ProfileEdintInputModel
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="h3 mb-5 text-black">Редактирай Профил</h2>
-        </div>
-        <form asp-controller="Users" asp-action="ProfileEdit" asp-route-userId="@Model.Id" method="post">
+    @if (this.TempData["Error"] != null)
+    {
+        @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+    }
+    <form id="form" asp-controller="Users" asp-action="ProfileEdit" asp-route-userId="@Model.Id" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h3 mb-5 text-black">Редактирай Профил</h2>
+            </div>
             <div class="col-md-12">
                 <div class="p-3 p-lg-5 border">
                     <div class="form-group row">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
+                            <input type="hidden" asp-for="@Model.Id">
                             <label for="Username" class="text-black">Потребителско име:</label>
                             <input asp-for="Username" type="text" class="form-control" placeholder="@Model.Username">
                             <span asp-validation-for="Username" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
                             <label for="FirstName" class="text-black">Име:</label>
                             <input asp-for="FirstName" type="text" class="form-control" placeholder="@Model.FirstName">
                             <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
                             <label for="LastName" class="text-black">Фамилия:</label>
                             <input asp-for="LastName" type="text" class="form-control" placeholder="@Model.LastName">
                             <span asp-validation-for="LastName" class="text-danger"></span>
@@ -31,10 +36,18 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
                             <label for="PhoneNumber" class="text-black">Телефонен номер:</label>
                             <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="@Model.PhoneNumber">
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-5">
+                            <a asp-controller="Users" asp-action="ProfileEdit" asp-route-userId="@Model.Id">
+                                <input type="button" class="btn btn-primary" value="Добави адрес" />
+                            </a>
                         </div>
                     </div>
 
@@ -46,17 +59,25 @@
                         {
                             <div class="card">
                                 <div class="card-header" id="@count">
-                                    <h2 class="mb-0">
+                                    <h2 class="mb-md-0">
                                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne_@count" aria-expanded="true" aria-controls="collapseOne_@count">
                                             Адрес @count
                                         </button>
                                     </h2>
                                 </div>
 
+                                <div class="form-group row">
+                                    <div class="col-lg-5">
+                                        <a asp-controller="Addresses" asp-action="Edit" asp-route-addressId="@address.AddressId">
+                                            <input type="button" class="btn btn-primary" value="Редактирай адрес" />
+                                        </a>
+                                    </div>
+                                </div>
+
                                 <div id="collapseOne_@count" class="collapse" aria-labelledby="@count" data-parent="#accordionExample">
 
                                     <div class="form-group row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-5">
                                             <label for="AddressCity" class="text-black">Град:</label>
                                             <input asp-for="@address.AddressCity" type="text" class="form-control" placeholder="@address.AddressCity">
                                             <span asp-validation-for="@address.AddressCity" class="text-danger"></span>
@@ -64,21 +85,21 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-5">
                                             <label for="AddressStreet" class="text-black">Улица:</label>
                                             <input asp-for="@address.AddressStreet" type="text" class="form-control" placeholder="@address.AddressStreet">
                                             <span asp-validation-for="@address.AddressStreet" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-5">
                                             <label for="AddressBuildingNumber" class="text-black">Номер на сграда:</label>
                                             <input asp-for="@address.AddressBuildingNumber" type="text" class="form-control" placeholder="@address.AddressBuildingNumber">
                                             <span asp-validation-for="@address.AddressBuildingNumber" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-5">
                                             <label for="AddressPostCode" class="text-black">Пощенски код:</label>
                                             <input asp-for="@address.AddressPostCode" type="text" class="form-control" placeholder="@address.AddressPostCode">
                                             <span asp-validation-for="@address.AddressPostCode" class="text-danger"></span>
@@ -98,15 +119,19 @@
                         }
 
                     </div>
-
                 </div>
-                <div class="form-group row">
-                    <div class="col-lg-12">
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Запази промените">
-                    </div>
-                </div>
-
             </div>
-        </form>
-    </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-12">
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Запази промените">
+            </div>
+        </div>
+    </form>
+
+    <script>
+
+
+
+    </script>
 </div>
