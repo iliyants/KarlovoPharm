@@ -3,14 +3,13 @@
     using KarlovoPharm.Common;
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Services.Mapping;
-    using KarlovoPharm.Web.InputModels.Address;
+    using KarlovoPharm.Web.InputModels.Addresses.Display;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class ProfileEdintInputModel : IMapFrom<ApplicationUser>, IMapTo<ApplicationUser>
     {
         public string Id { get; set; }
-
 
         [Display(Name = "Username")]
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
@@ -30,6 +29,6 @@
         [Phone(ErrorMessage = ValidationMessages.PhoneNumberLengthErrorMessage)]
         public string PhoneNumber { get; set; }
 
-        public List<AddressEditInputModel> UserAddresses { get; set; }
+        public List<AddressDisplayInputModel> UserAddresses { get; set; }
     }
 }

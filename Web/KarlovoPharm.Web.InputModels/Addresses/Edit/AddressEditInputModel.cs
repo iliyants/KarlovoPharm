@@ -1,36 +1,39 @@
-﻿using KarlovoPharm.Common;
-using KarlovoPharm.Data.Models;
-using KarlovoPharm.Services.Mapping;
-using System.ComponentModel.DataAnnotations;
-
-namespace KarlovoPharm.Web.InputModels.Address
+﻿namespace KarlovoPharm.Web.InputModels.Addresses.Edit
 {
-    public class AddressEditInputModel : IMapFrom<UserAddress>, IMapTo<UserAddress>
-    {
+    using KarlovoPharm.Common;
+    using KarlovoPharm.Data.Models;
+    using KarlovoPharm.Services.Mapping;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-        public string AddressId { get; set; }
+    public class AddressEditInputModel : IMapFrom<Address>, IMapTo<Address>
+    {
+        public string Id { get; set; }
+
+        [NotMapped]
+        public string UserId { get; set; }
 
         [Display(Name = "AddressCity")]
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [StringLength(20), MinLength(2, ErrorMessage = ValidationMessages.CityLengthErrorMessage)]
-        public string AddressCity { get; set; }
+        public string City { get; set; }
 
         [Display(Name = "AddressStreet")]
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [StringLength(40), MinLength(5, ErrorMessage = ValidationMessages.StreetLengthErrorMessage)]
-        public string AddressStreet { get; set; }
+        public string Street { get; set; }
 
         [Display(Name = "AddressPostCode")]
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [StringLength(10), MinLength(2, ErrorMessage = ValidationMessages.PostCodeLengthErrorMessage)]
-        public string AddressPostCode { get; set; }
+        public string PostCode { get; set; }
 
         [Display(Name = "AddressBuildingNumber")]
         [StringLength(10), MinLength(1, ErrorMessage = ValidationMessages.BuildingNumberLengthErrorMessage)]
-        public string AddressBuildingNumber { get; set; }
+        public string BuildingNumber { get; set; }
 
         [Display(Name = "AddressDescription")]
         [StringLength(500), MinLength(10, ErrorMessage = ValidationMessages.DescriptionLengthErrorMessage)]
-        public string AddressDescription { get; set; }
+        public string Description { get; set; }
     }
 }

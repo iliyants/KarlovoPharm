@@ -45,7 +45,7 @@
 
                     <div class="form-group row">
                         <div class="col-lg-5">
-                            <a asp-controller="Users" asp-action="ProfileEdit" asp-route-userId="@Model.Id">
+                            <a asp-controller="Addresses" asp-action="Create" asp-route-userId="@Model.Id">
                                 <input type="button" class="btn btn-primary" value="Добави адрес" />
                             </a>
                         </div>
@@ -57,63 +57,61 @@
 
                         @foreach (var address in Model.UserAddresses)
                         {
-                            <div class="card">
-                                <div class="card-header" id="@count">
-                                    <h2 class="mb-md-0">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne_@count" aria-expanded="true" aria-controls="collapseOne_@count">
-                                            Адрес @count
-                                        </button>
-                                    </h2>
+                        <div class="card">
+                            <div class="card-header" id="@count">
+                                <h2 class="mb-md-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne_@count" aria-expanded="true" aria-controls="collapseOne_@count">
+                                        Адрес @count
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <a asp-controller="Addresses" asp-action="Edit" asp-route-addressId="@address.AddressId" asp-route-userId="@Model.Id">
+                                        <input type="button" class="btn btn-primary" value="Редактирай адрес" />
+                                    </a>
+                                    <a asp-controller="Addresses" asp-action="Delete" asp-route-addressId="@address.AddressId" asp-route-userId="@Model.Id">
+                                        <input type="button" class="btn btn-primary" value="Изтрий адрес" />
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div id="collapseOne_@count" class="collapse" aria-labelledby="@count" data-parent="#accordionExample">
+
+                                <div class="form-group row">
+                                    <div class="col-md-5">
+                                        <label for="AddressCity" class="text-black">Град:</label>
+                                        <span>@address.AddressCity</span>
+                                    </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-lg-5">
-                                        <a asp-controller="Addresses" asp-action="Edit" asp-route-addressId="@address.AddressId">
-                                            <input type="button" class="btn btn-primary" value="Редактирай адрес" />
-                                        </a>
+                                    <div class="col-md-5">
+                                        <label for="AddressStreet" class="text-black">Улица:</label>
+                                        <span>@address.AddressStreet</span>
                                     </div>
                                 </div>
-
-                                <div id="collapseOne_@count" class="collapse" aria-labelledby="@count" data-parent="#accordionExample">
-
-                                    <div class="form-group row">
-                                        <div class="col-md-5">
-                                            <label for="AddressCity" class="text-black">Град:</label>
-                                            <input asp-for="@address.AddressCity" type="text" class="form-control" placeholder="@address.AddressCity">
-                                            <span asp-validation-for="@address.AddressCity" class="text-danger"></span>
-                                        </div>
+                                <div class="form-group row">
+                                    <div class="col-md-5">
+                                        <label for="AddressBuildingNumber" class="text-black">Номер на сграда:</label>
+                                        <span>@address.AddressBuildingNumber</span>
                                     </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-md-5">
-                                            <label for="AddressStreet" class="text-black">Улица:</label>
-                                            <input asp-for="@address.AddressStreet" type="text" class="form-control" placeholder="@address.AddressStreet">
-                                            <span asp-validation-for="@address.AddressStreet" class="text-danger"></span>
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-5">
+                                        <label for="AddressPostCode" class="text-black">Пощенски код:</label>
+                                        <span>@address.AddressPostCode</span>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-5">
-                                            <label for="AddressBuildingNumber" class="text-black">Номер на сграда:</label>
-                                            <input asp-for="@address.AddressBuildingNumber" type="text" class="form-control" placeholder="@address.AddressBuildingNumber">
-                                            <span asp-validation-for="@address.AddressBuildingNumber" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-5">
-                                            <label for="AddressPostCode" class="text-black">Пощенски код:</label>
-                                            <input asp-for="@address.AddressPostCode" type="text" class="form-control" placeholder="@address.AddressPostCode">
-                                            <span asp-validation-for="@address.AddressPostCode" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <label for="Description" class="text-black">Описание:</label>
-                                            <textarea asp-for="@address.AddressDescription" type="text" class="form-control" placeholder="@address.AddressDescription"></textarea>
-                                            <span asp-validation-for="@address.AddressDescription" class="text-danger"></span>
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="Description" class="text-black">Описание:</label>
+                                        <span>@address.AddressDescription</span>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
                             count++;
                         }
@@ -124,7 +122,7 @@
         </div>
         <div class="form-group row">
             <div class="col-lg-12">
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Запази промените">
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Запази промените по профила">
             </div>
         </div>
     </form>

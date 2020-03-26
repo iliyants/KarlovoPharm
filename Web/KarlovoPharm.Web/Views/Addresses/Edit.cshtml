@@ -1,0 +1,67 @@
+﻿@model KarlovoPharm.Web.InputModels.Addresses.Edit.AddressEditInputModel
+
+@{
+    ViewData["Title"] = "Редактирай адрес";
+}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h3 mb-5 text-black">@this.ViewData["Title"]</h2>
+            </div>
+            <div class="col-md-12">
+                @if (this.TempData["Error"] != null)
+                {
+                    @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+                }
+                <form asp-controller="Addresses" asp-action="Edit" asp-route-addressId="Id" method="post">
+                    <input type="hidden" asp-for="UserId" />
+                    <input type="hidden" asp-for="Id" />
+                    <div class="p-3 p-lg-5 border">
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="City" class="text-black">Град: <span class="text-danger">*</span></label>
+                                <input asp-for="City" class="form-control" placeholder="@Model.City">
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="Street" class="text-black">Улица: <span class="text-danger">*</span></label>
+                                <input asp-for="Street" class="form-control" placeholder="@Model.Street">
+                                <span asp-validation-for="Street" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="PostCode" class="text-black">Пощенски код: <span class="text-danger">*</span></label>
+                                <input asp-for="PostCode" class="form-control" placeholder="@Model.PostCode">
+                                <span asp-validation-for="PostCode" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="BuildingNumber" class="text-black">Номер на сграда: </label>
+                                <input asp-for="BuildingNumber" class="form-control" placeholder="@Model.BuildingNumber">
+                                <span asp-validation-for="BuildingNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label asp-for="Description" class="text-black">Описание: </label>
+                                <textarea asp-for="Description" class="form-control" placeholder="@Model.Description"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-5">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Запази промените">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

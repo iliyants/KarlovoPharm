@@ -87,6 +87,11 @@
         public async Task<IActionResult> Edit(ProductEditInputModel productEditInputModel)
         {
 
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(productEditInputModel);
+            }
+
             if (!await this.productService.EditProductAsync(productEditInputModel))
             {
                 this.TempData["Error"] = ValidationMessages.ProductNameNotUniqueErrorMessage;

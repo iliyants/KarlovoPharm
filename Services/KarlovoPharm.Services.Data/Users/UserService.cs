@@ -30,6 +30,19 @@
             return userUserName.Contains(userName);
         }
 
+        public async Task<bool> UserHasThreeAddresses(string userId)
+        {
+
+            var userAdresses = await this.userRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == userId)
+                .Select(x => x.UserAddresses)
+                .ToListAsync();
+
+
+            return userAdresses[0].Count == 3;
+        }
+
         public async Task<bool> EditProfileAsync(ProfileEdintInputModel profileEditInputModel)
         {
             var user = await this.userRepository.All().Where(x => x.Id == profileEditInputModel.Id).SingleOrDefaultAsync();

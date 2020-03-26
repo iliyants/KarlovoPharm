@@ -46,6 +46,12 @@
         [HttpPost]
         public async Task<IActionResult> ProfileEdit(ProfileEdintInputModel profileEdintInputModel)
         {
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(profileEdintInputModel);
+            }
+
             if (!await this.userService.EditProfileAsync(profileEdintInputModel))
             {
                 this.TempData["Error"] = ValidationMessages.UsernameNotUniqueErrorMessage;

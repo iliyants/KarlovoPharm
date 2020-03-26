@@ -63,6 +63,12 @@
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryEditInputModel categoryEditInputModel)
         {
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(categoryEditInputModel);
+            }
+
             if (!await this.categoryService.EditCategory(categoryEditInputModel))
             {
                 this.TempData["Error"] = ValidationMessages.CategoryUniqieNameErrorMessage;

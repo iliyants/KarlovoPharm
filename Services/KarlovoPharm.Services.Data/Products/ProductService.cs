@@ -163,19 +163,11 @@
             }
 
 
-            try
-            {
-                this.productRepository.HardDelete(product);
-            }
-            catch (Exception)
-            {
-                return false;                
-            }
+            this.productRepository.HardDelete(product);
 
+            var result = await this.productRepository.SaveChangesAsync();
 
-            await this.productRepository.SaveChangesAsync();
-
-            return true;
+            return result > 0;
 
         }
     }

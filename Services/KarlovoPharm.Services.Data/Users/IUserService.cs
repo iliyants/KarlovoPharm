@@ -8,5 +8,7 @@
 
         Task<bool> EditProfileAsync(ProfileEdintInputModel productEditInputModel);
 
+        Task<bool> UserHasThreeAddresses(string userId);
+
     }
 }
