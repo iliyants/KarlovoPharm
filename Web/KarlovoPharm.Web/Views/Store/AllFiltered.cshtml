@@ -10,20 +10,27 @@
     <div class="container">
 
         <div class="row">
-            <form id="order-form" method="get" asp-action="AllFiltered">
-                <div class="col-lg-6">
-                    <select name="sortOrder" id="sort">
-                        <option value="" disabled selected>-- Няма избран филтър --</option>
-                        <option value="price-lowest-to-highest">Цена ниска към висока</option>
-                        <option value="price-highest-to-lowest">Цена висока към ниска</option>
-                    </select>
+
+
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Сортирай по
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-action="AllFiltered" asp-route-sortOrder="price-highest-to-lowest" asp-route-searchString="@searchString">Цена нисходящ</a>
+                    <a class="dropdown-item" asp-action="AllFiltered" asp-route-sortOrder="price-lowest-to-highest" asp-route-searchString="@searchString">Цена възходящ</a>
                 </div>
-            </form>
+            </div>
 
-
-            <form method="get" asp-action="AllFiltered" class="form-inline justify-content-center">
-                <input class="form-control mr-sm-2" type="text" name="searchString" placeholder="Въведи ключова дума" value="@searchString">
-                <button class="btn btn-info" type="submit">Търси</button>
+            <form asp-action="AllFiltered" method="get">
+                <div class="form-action no-color">
+                    <p>
+                        Търси по ключова дума: <input type="text" name="searchString" value="@searchString" />
+                        <input type="submit" value="Търси" class="btn btn-success" />
+                        <a asp-action="AllFiltered"> Обратно към пълен лист</a>
+                    </p>
+                </div>
             </form>
         </div>
 
@@ -50,39 +57,29 @@
                 <div class="site-block-27">
                     <ul>
                         <li class="page-item @prevDisabled">
-                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="1">&laquo;</a>
+                            <a class="page-link" asp-action="AllFiltered"  asp-route-sortOrder="@currentSort" asp-route-pageNumber="1" asp-route-searchString="@searchString">&laquo;</a>
                         </li>
                         <li class="page-item @prevDisabled">
-                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex - 1)">&lt;</a>
+                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-searchString="@searchString">&lt;</a>
                         </li>
                         @for (int i = 1; i <= Model.TotalPages; i++)
                         {
-                            <li class="page-item"><a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@i">@i</a></li>
+                            <li class="page-item"><a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@i" asp-route-searchString="@searchString">@i</a></li>
                             @if (i > 10)
                             {
                                 break;
                             }
                         }
                         <li class="page-item @nextDisabled">
-                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex + 1)">&gt;</a>
+                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-searchString="@searchString">&gt;</a>
                         </li>
                         <li class="page-item @nextDisabled">
-                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@Model.TotalPages">&raquo;</a>
+                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@Model.TotalPages" asp-route-searchString="@searchString">&raquo;</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-
-
     </div>
-
-    <script>
-
-        $('#sort').change(function () {
-            $('#order-form').submit();
-        });
-    </script>
-
 </div>
 
