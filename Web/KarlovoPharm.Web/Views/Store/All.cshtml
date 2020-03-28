@@ -8,7 +8,7 @@
 <div class="site-section">
     <div class="container">
 
-        <div class="row">
+        <div class="justify-content-center">
 
 
             <div class="btn-group">
@@ -22,15 +22,11 @@
             </div>
 
 
-            <form asp-action="All" method="get">
-                <div class="form-action no-color">
-                    <p>
-                        Търси по ключова дума: <input type="text" name="searchString" value="@searchString" />
-                        <input type="submit" value="Търси" class="btn btn-success" />
-                        <a asp-action="All"> Обратно към пълен лист</a>
-                    </p>
-                </div>
+            <form method="get" asp-action="All" class="form-inline justify-content-center">
+                <input class="form-control mr-sm-2" type="text" name="searchString" placeholder="Въведи ключова дума" value="@searchString">
+                <button class="btn btn-info" type="submit">Търси</button>
             </form>
+
 
         </div>
 

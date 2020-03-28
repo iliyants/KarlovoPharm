@@ -6,80 +6,77 @@
 @{ var searchString = this.ViewData["SearchString"];}
 
 
-<div class="site-section">
-    <div class="container">
+    <div class="site-section">
+        <div class="container">
 
-        <div class="row">
+            <div class="justify-content-center">
 
 
-
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Сортирай по
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" asp-action="AllFiltered" asp-route-sortOrder="price-highest-to-lowest" asp-route-searchString="@searchString">Цена нисходящ</a>
-                    <a class="dropdown-item" asp-action="AllFiltered" asp-route-sortOrder="price-lowest-to-highest" asp-route-searchString="@searchString">Цена възходящ</a>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Сортирай по
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-action="AllFiltered" asp-route-sortOrder="price-highest-to-lowest" asp-route-searchString="@searchString">Цена нисходящ</a>
+                        <a class="dropdown-item" asp-action="AllFiltered" asp-route-sortOrder="price-lowest-to-highest" asp-route-searchString="@searchString">Цена възходящ</a>
+                    </div>
                 </div>
+
+
+                <form method="get" asp-action="AllFiltered" class="form-inline justify-content-center">
+                    <input class="form-control mr-sm-2" type="text" name="searchString" placeholder="Въведи ключова дума" value="@searchString">
+                    <button class="btn btn-info" type="submit">Търси</button>
+                </form>
+
+
             </div>
 
-            <form asp-action="AllFiltered" method="get">
-                <div class="form-action no-color">
-                    <p>
-                        Търси по ключова дума: <input type="text" name="searchString" value="@searchString" />
-                        <input type="submit" value="Търси" class="btn btn-success" />
-                        <a asp-action="AllFiltered"> Обратно към пълен лист</a>
-                    </p>
-                </div>
-            </form>
-        </div>
 
+            <div id="products" class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="product col-sm-6 col-lg-4 text-center item mb-4">
+                        <a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" alt="Image"></a>
+                        <h3 class="text-dark"><a href="shop-single.html">@product.Name</a></h3>
+                        <p class="price"> @product.Price</p>
+                        <a href="#" class="btn btn-warning">Добави в количка</a>
+                        <a href="#" class="btn btn-danger">Дoбави в любими</a>
+                    </div>
+                }
+            </div>
 
-        <div id="products" class="row">
-            @foreach (var product in Model)
-            {
-                <div class="product col-sm-6 col-lg-4 text-center item mb-4">
-                    <a  asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" alt="Image"></a>
-                    <h3 class="text-dark"><a href="shop-single.html">@product.Name</a></h3>
-                    <p class="price"> @product.Price</p>
-                    <a href="#" class="btn btn-warning">Добави в количка</a>
-                    <a href="#" class="btn btn-danger">Дoбави в любими</a>
-                </div>
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
             }
-        </div>
-
-        @{
-            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-        }
-        <div class="row mt-5">
-            <div class="col-md-12 text-center">
-                <div class="site-block-27">
-                    <ul>
-                        <li class="page-item @prevDisabled">
-                            <a class="page-link" asp-action="AllFiltered"  asp-route-sortOrder="@currentSort" asp-route-pageNumber="1" asp-route-searchString="@searchString">&laquo;</a>
-                        </li>
-                        <li class="page-item @prevDisabled">
-                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-searchString="@searchString">&lt;</a>
-                        </li>
-                        @for (int i = 1; i <= Model.TotalPages; i++)
-                        {
-                            <li class="page-item"><a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@i" asp-route-searchString="@searchString">@i</a></li>
-                            @if (i > 10)
+            <div class="row mt-5">
+                <div class="col-md-12 text-center">
+                    <div class="site-block-27">
+                        <ul>
+                            <li class="page-item @prevDisabled">
+                                <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="1" asp-route-searchString="@searchString">&laquo;</a>
+                            </li>
+                            <li class="page-item @prevDisabled">
+                                <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-searchString="@searchString">&lt;</a>
+                            </li>
+                            @for (int i = 1; i <= Model.TotalPages; i++)
                             {
-                                break;
+                                <li class="page-item"><a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@i" asp-route-searchString="@searchString">@i</a></li>
+                                @if (i > 10)
+                                {
+                                    break;
+                                }
                             }
-                        }
-                        <li class="page-item @nextDisabled">
-                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-searchString="@searchString">&gt;</a>
-                        </li>
-                        <li class="page-item @nextDisabled">
-                            <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@Model.TotalPages" asp-route-searchString="@searchString">&raquo;</a>
-                        </li>
-                    </ul>
+                            <li class="page-item @nextDisabled">
+                                <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-searchString="@searchString">&gt;</a>
+                            </li>
+                            <li class="page-item @nextDisabled">
+                                <a class="page-link" asp-action="AllFiltered" asp-route-sortOrder="@currentSort" asp-route-pageNumber="@Model.TotalPages" asp-route-searchString="@searchString">&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
