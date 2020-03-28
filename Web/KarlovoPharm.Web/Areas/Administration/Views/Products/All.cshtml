@@ -8,6 +8,7 @@
 @{ var searchString = this.ViewData["SearchString"];}
 
 
+
 <form method="get" asp-action="All" class="form-inline justify-content-center">
     <input class="form-control mr-sm-2" type="text" name="searchString" placeholder="Въведи ключова дума" value="@searchString">
     <button class="btn btn-info" type="submit">Търси</button>
@@ -50,24 +51,24 @@
             <div class="site-block-27">
                 <ul>
                     <li class="page-item @prevDisabled">
-                        <a class="page-link" asp-action="All" asp-route-pageNumber="1">&laquo;</a>
+                        <a class="page-link" asp-action="All" asp-route-pageNumber="1" asp-route-searchString="@searchString">&laquo;</a>
                     </li>
                     <li class="page-item @prevDisabled">
-                        <a class="page-link" asp-action="All" asp-route-pageNumber="@(Model.PageIndex - 1)">&lt;</a>
+                        <a class="page-link" asp-action="All" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-searchString="@searchString">&lt;</a>
                     </li>
                     @for (int i = 1; i <= Model.TotalPages; i++)
                     {
-                        <li class="page-item"><a class="page-link" asp-action="All" asp-route-pageNumber="@i">@i</a></li>
+                        <li class="page-item"><a class="page-link" asp-action="All" asp-route-pageNumber="@i" asp-route-searchString="@searchString">@i</a></li>
                         @if (i > 10)
                         {
                             break;
                         }
                     }
                     <li class="page-item @nextDisabled">
-                        <a class="page-link" asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1)">&gt;</a>
+                        <a class="page-link" asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1)"asp-route-searchString="@searchString">&gt;</a>
                     </li>
                     <li class="page-item @nextDisabled">
-                        <a class="page-link" asp-action="All" asp-route-pageNumber="@Model.TotalPages">&raquo;</a>
+                        <a class="page-link" asp-action="All" asp-route-pageNumber="@Model.TotalPages"asp-route-searchString="@searchString">&raquo;</a>
                     </li>
                 </ul>
             </div>
