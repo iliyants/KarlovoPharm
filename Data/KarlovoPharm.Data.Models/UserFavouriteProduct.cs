@@ -1,9 +1,11 @@
 ﻿namespace KarlovoPharm.Data.Models
 {
-    using KarlovoPharm.Data.Models.Common;
     using System;
 
-    public class UserFavouriteProduct
+    using KarlovoPharm.Data.Common.Models;
+    using KarlovoPharm.Data.Models.Common;
+
+    public class UserFavouriteProduct : BaseDeletableModel<string>
     {
         public UserFavouriteProduct()
         {

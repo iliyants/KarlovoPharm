@@ -2,7 +2,6 @@
 {
     using System.Diagnostics;
 
-    using KarlovoPharm.Services.Data.Categories;
     using KarlovoPharm.Web.ViewModels;
     using Microsoft.AspNetCore.Mvc;
 

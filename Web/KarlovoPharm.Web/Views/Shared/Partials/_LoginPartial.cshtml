@@ -20,7 +20,7 @@
             @if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <a class="dropdown-item" href="#">Поръчки</a>
-                <a class="dropdown-item" href="#">Любими продукти</a>
+                <a class="dropdown-item" asp-area="" asp-controller="ProductsFavourite" asp-action="All" asp-route-userId="@userId">Любими продукти</a>
             }
             else
             {

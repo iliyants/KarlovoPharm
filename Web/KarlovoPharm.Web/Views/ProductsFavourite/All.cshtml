@@ -1,0 +1,73 @@
+﻿@using KarlovoPharm.Web.ViewModels.Products
+@model KarlovoPharm.Web.Paging.PaginatedList<ProductFavouriteViewModel>
+
+@{
+    ViewData["Title"] = "Любими продукти";
+}
+
+@{var userId = this.TempData["UserId"]; }
+
+<div class="container mobile-fondsize-11">
+    <div class="mobile-fondsize-20 h3 text-center text-black">@ViewData["Title"]</div>
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Снимка</th>
+                <th>Име</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td><img src="@product.ProductPicture" width="50" height="50"></td>
+                    <td>@product.ProductName</td>
+                    <td>@product.ProductPrice</td>
+                    <td>
+                        <a asp-controller="Cart"
+                           asp-action="Add"
+                           asp-route-productId="@product.ProductId"
+                           asp-route-userId="@product.UserId"
+                           class="btn btn-warning btn-sm mobile-fondsize-11">Добави в количка</a>
+                    </td>
+                    <td><a asp-controller="ProductsFavourite" asp-action="Delete" asp-route-productId="@product.ProductId" asp-route-userId="@product.UserId" class="btn btn-danger btn-sm mobile-fondsize-11">Премахни</a></td>
+                    <td><a asp-controller="Products" asp-action="Details" asp-route-productId="@product.ProductId" class="btn btn-primary btn-sm mobile-fondsize-11">Детайли</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <div class="site-block-27">
+                <ul>
+                    <li class="page-item @prevDisabled">
+                        <a class="page-link" asp-controller="ProductsFavourite" asp-action="All" asp-route-userId="@userId" asp-route-pageNumber="1">&laquo;</a>
+                    </li>
+                    <li class="page-item @prevDisabled">
+                        <a class="page-link" asp-controller="ProductsFavourite" asp-action="All" asp-route-userId="@userId" asp-route-pageNumber="@(Model.PageIndex - 1)">&lt;</a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item"><a class="page-link" asp-controller="ProductsFavourite" asp-route-userId="@userId" asp-action="All" asp-route-pageNumber="@i">@i</a></li>
+                        @if (i > 10)
+                        {
+                            break;
+                        }
+                    }
+                    <li class="page-item @nextDisabled">
+                        <a class="page-link" asp-controller="ProductsFavourite" asp-action="All" asp-route-userId="@userId" asp-route-pageNumber="@(Model.PageIndex + 1)">&gt;</a>
+                    </li>
+                    <li class="page-item @nextDisabled">
+                        <a class="page-link" asp-controller="ProductsFavourite" asp-action="All" asp-route-userId="@userId" asp-route-pageNumber="@Model.TotalPages">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

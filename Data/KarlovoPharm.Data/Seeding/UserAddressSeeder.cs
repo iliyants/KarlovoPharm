@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using KarlovoPharm.Data.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class UserAddressSeeder : ISeeder
     {
@@ -15,11 +16,11 @@
                 return;
             }
 
-            var firstUser = dbContext.Users.Where(x => x.UserName == "FirstUser").SingleOrDefault();
-            var secondUser = dbContext.Users.Where(x => x.UserName == "SecondUser").SingleOrDefault();
+            var firstUser = await dbContext.Users.Where(x => x.UserName == "FirstUser").SingleOrDefaultAsync();
+            var secondUser = await dbContext.Users.Where(x => x.UserName == "SecondUser").SingleOrDefaultAsync();
 
-            var firstAddress = dbContext.Addresses.Where(x => x.City == "Sofia").SingleOrDefault();
-            var secondAddress = dbContext.Addresses.Where(x => x.City == "Plovdiv").SingleOrDefault();
+            var firstAddress = await dbContext.Addresses.Where(x => x.City == "Sofia").SingleOrDefaultAsync();
+            var secondAddress = await dbContext.Addresses.Where(x => x.City == "Plovdiv").SingleOrDefaultAsync();
 
             var firstCurrentAddress = new UserAddress
             {

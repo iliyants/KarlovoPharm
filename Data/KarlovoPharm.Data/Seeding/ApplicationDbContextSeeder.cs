@@ -34,6 +34,7 @@
                               new UsersSeeder(),
                               new AddressSeeder(),
                               new UserAddressSeeder(),
+                              new UserFavouriteProductSeeder(),
                           };
 
             foreach (var seeder in seeders)

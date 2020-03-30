@@ -1,6 +1,7 @@
 ﻿namespace KarlovoPharm.Web
 {
     using System.Reflection;
+
     using CloudinaryDotNet;
     using KarlovoPharm.Data;
     using KarlovoPharm.Data.Common;
@@ -12,6 +13,7 @@
     using KarlovoPharm.Services.Data;
     using KarlovoPharm.Services.Data.Addresses;
     using KarlovoPharm.Services.Data.Categories;
+    using KarlovoPharm.Services.Data.FavouriteProductsService;
     using KarlovoPharm.Services.Data.Products;
     using KarlovoPharm.Services.Data.Store;
     using KarlovoPharm.Services.Data.SubCategories;
@@ -25,6 +27,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -60,9 +63,18 @@
             services.Configure<CookiePolicyOptions>(
                 options =>
                     {
-                        options.CheckConsentNeeded = context => true;
+                        options.CheckConsentNeeded = context => false;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
+
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // CSRF
+            });
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -85,6 +97,7 @@
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAddressService, AddressService>();
             services.AddTransient<IUsersAddressesService, UsersAddressesService>();
+            services.AddTransient<IFavouriteProductsService, FavouriteProductsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
