@@ -39,8 +39,8 @@
                     <h3 class="text-dark"><a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id">@product.Name</a></h3>
                     <p class="price"> @product.Price</p>
                     <form id="productsApi" method="post"></form>
-                    <a href="#" class="btn btn-warning">Добави в количка</a>
-                    <a href="#" method="post" class="btn btn-danger" onclick="addToFavourites('@product.Id')">Дoбави в любими</a>
+                    <a href="#" class="btn btn-warning" onclick="addToCart('@product.Id')">Добави в количка</a>
+                    <a href="#" class="btn btn-danger" onclick="addToFavourites('@product.Id')">Дoбави в любими</a>
                 </div>
             }
         </div>
@@ -87,17 +87,40 @@
             var json = { productId: productId };
 
             $.ajax({
-                url: "/api/productsapi",
+                url: "/api/productsapi/AddToFavourites",
                 type: "POST",
                 data: JSON.stringify(json),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 headers: { 'X-CSRF-TOKEN': token },
-                success: function () {
-                    alert("Продукта беше добавен в любими");
+                success: function (data) {
+                    alert(data.message);
                 },
-                error: function () {
-                    alert("Продукта вече съществува в любими");
+                error: function (data) {
+                    alert(data.message);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function addToCart(productId) {
+            var token = $("#productsApi input[name=__RequestVerificationToken]").val();
+            var json = { productId: productId };
+
+            $.ajax({
+                url: "/api/productsapi/AddToCart",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    $('#productsQuantity').html(data.count);
+                    alert(data.message);
+                },
+                error: function (data) {
+                    alert(data.message);
                 }
             });
         }

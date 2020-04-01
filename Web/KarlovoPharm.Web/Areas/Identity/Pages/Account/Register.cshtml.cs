@@ -5,6 +5,7 @@
 
     using KarlovoPharm.Common;
     using KarlovoPharm.Data.Models.Common;
+    using KarlovoPharm.Services.Data.ShoppingCarts;
     using KarlovoPharm.Services.Messaging;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IShoppingCartService shoppingCartService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
@@ -21,11 +23,13 @@
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            IShoppingCartService shoppingCartService,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.shoppingCartService = shoppingCartService;
             this.logger = logger;
             this.emailSender = emailSender;
         }
@@ -75,6 +79,8 @@
                     //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
+
+                    await this.shoppingCartService.CreateAsync(user.Id);
 
                     await this.signInManager.SignInAsync(user, isPersistent: false);
                     return this.LocalRedirect(returnUrl);

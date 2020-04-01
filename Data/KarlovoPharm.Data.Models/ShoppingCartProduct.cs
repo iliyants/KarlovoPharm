@@ -1,6 +1,8 @@
 ﻿namespace KarlovoPharm.Data.Models
 {
-    public class ShoppingCartProduct
+    using KarlovoPharm.Data.Common.Models;
+
+    public class ShoppingCartProduct : BaseDeletableModel<string>
     {
         public string ShoppingCartId { get; set; }
 
@@ -9,5 +11,7 @@
         public string ProductId { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

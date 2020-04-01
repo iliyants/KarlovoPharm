@@ -1,6 +1,9 @@
-﻿namespace KarlovoPharm.Data.Models
+﻿
+namespace KarlovoPharm.Data.Models
 {
-    public class OrderProduct
+    using KarlovoPharm.Data.Common.Models;
+
+    public class OrderProduct : BaseDeletableModel<string>
     {
         public string OrderId { get; set; }
 
@@ -9,5 +12,7 @@
         public string ProductId { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

@@ -17,17 +17,35 @@ namespace KarlovoPharm.Services.Data.FavouriteProductsService
             this.userFavouriteProductRepository = userFavouriteProductRepository;
         }
 
+
+        private async Task<bool> ProductsExistsInFavourites(string productId, string userId)
+        {
+            var favouriteProduct = await this.userFavouriteProductRepository
+                .AllAsNoTracking()
+                .Where(x => x.ProductId == productId && x.UserId == userId)
+                .SingleOrDefaultAsync();
+
+            return favouriteProduct != null ? true : false;
+        }
+
         public async Task<bool> AddAsync(string productId, string userId)
         {
+
+            if (await this.ProductsExistsInFavourites(productId, userId))
+            {
+                return false;
+            }
+
              await this.userFavouriteProductRepository.AddAsync(new UserFavouriteProduct
             {
                 ProductId = productId,
                 UserId = userId,
             });
 
-            var result = await this.userFavouriteProductRepository.SaveChangesAsync();
 
-            return result > 0;
+            await this.userFavouriteProductRepository.SaveChangesAsync();
+   
+            return true;
         }
 
         public IQueryable<T> All<T>(string userId)

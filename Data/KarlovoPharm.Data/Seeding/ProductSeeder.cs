@@ -67,7 +67,6 @@
                 ("Durex Condom", testSubCategoryId, "https://neffassociates.files.wordpress.com/2011/11/durex-condoms.jpg?w=590", "Some description that is above 10 symbols", 30,"Some Specification", "Some Designation", "Some Effect", "Some Composition", "Some WayOfUse", "Some Manufacturer", "Some Country"),
             };
 
-
             foreach (var product in products)
             {
                 await dbContext.Products.AddAsync(new Product

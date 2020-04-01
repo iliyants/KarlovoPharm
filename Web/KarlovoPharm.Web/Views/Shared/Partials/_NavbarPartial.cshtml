@@ -1,4 +1,9 @@
 ﻿@using KarlovoPharm.Web.ViewComponents
+@using KarlovoPharm.Data.Models.Common
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 
 <div class="container">
     <div class="d-flex align-items-center justify-content-between">
@@ -12,21 +17,19 @@
                 <ul class="site-menu js-clone-nav d-none d-lg-block">
                     <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Към сайта</a></li>
                     <li><a asp-area="" asp-controller="Store" asp-action="All">Магазин</a></li>
-                    @await  Component.InvokeAsync(typeof(NavBarCategoryComponent))
+                    @await Component.InvokeAsync(typeof(NavBarCategoryComponent))
                     <li><a href="about.html">За нас</a></li>
                     <li><a href="contact.html">Свържете се с нас</a></li>
                 </ul>
             </nav>
         </div>
-        <div class="icons">
-            <a href="cart.html" class="icons-btn d-inline-block bag">
-                <span class="icon-shopping-bag"></span>
-                <span class="number">2</span>
-            </a>
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
-                <span class="icon-menu"></span>
-            </a>
-        </div>
+        @if (this.SignInManager.IsSignedIn(this.User))
+        {
+            var user = await UserManager.GetUserAsync(this.User);
+            var userId = user?.Id;
+            @await Component.InvokeAsync(typeof(ShoppingCartComponent), userId)
+
+        }
         <partial name="~/Views/Shared/Partials/_LoginPartial.cshtml" />
     </div>
 </div>
