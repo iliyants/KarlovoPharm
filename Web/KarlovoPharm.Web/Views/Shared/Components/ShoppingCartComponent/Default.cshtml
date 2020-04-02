@@ -1,8 +1,8 @@
 ﻿@model KarlovoPharm.Web.ViewComponents.Models.ShoppingCartQuantityViewModel
 
-    <div class="icons">
-        <a href="cart.html" class="icons-btn d-inline-block bag">
-            <span class="icon-shopping-bag"></span>
-            <span id="productsQuantity" class="number">@Model.Quantity</span>
-        </a>
-    </div>
+<div class="icons">
+    <a asp-area="" asp-controller="ShoppingCart" asp-action="Index" class="icons-btn d-inline-block bag">
+        <span class="icon-shopping-bag"></span>
+        <span id="productsQuantity" class="number">@Model.Quantity</span>
+    </a>
+</div>

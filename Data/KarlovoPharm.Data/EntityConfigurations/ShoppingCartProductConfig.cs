@@ -23,6 +23,9 @@
 
             scp.Property(x => x.ProductId)
                 .IsRequired();
+
+            scp.Property(x => x.Quantity)
+                .HasDefaultValue(1);
         }
     }
 }

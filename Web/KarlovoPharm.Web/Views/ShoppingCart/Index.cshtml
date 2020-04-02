@@ -1,0 +1,112 @@
+﻿@using KarlovoPharm.Web.InputModels.ShoppingCartProducts
+@model IEnumerable<ShoppingCartProductInputModel>
+
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a <a asp-area="" asp-controller="Store" asp-action="All">Магазин</a> <span class="mx-2 mb-0">/</span>
+                <strong class="text-black">Количка</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="site-blocks-table">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="product-thumbnail">Снимка</th>
+                            <th class="product-name">Продукт</th>
+                            <th class="product-price">Цена</th>
+                            <th class="product-quantity">Количество</th>
+                            <th class="product-total">Общо</th>
+                            <th class="product-remove">Премахни</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+                                <td class="product-thumbnail">
+                                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-productId="@product.ProductId">
+                                        <img src="@product.ProductPicture" class="img-fluid">
+                                    </a>
+                                </td>
+
+                                <td class="product-name">
+                                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-productId="@product.ProductId">
+                                        <h2 class="h5 text-black">@product.ProductName</h2>
+                                    </a>
+                                </td>
+
+                                <td>@product.ProductPrice</td>
+
+                                <td>
+                                    <div class="input-group mb-3" style="max-width: 120px;">
+                                        <div class="input-group-prepend">
+                                            <a asp-controller="ShoppingCart" asp-action="QuantityEdit" asp-route-productId="@product.ProductId" asp-route-quantity="@(product.Quantity - 1)" class="btn btn-primary">&minus;</a>
+                                        </div>
+
+                                        <input type="text" class="form-control text-center" value="@product.Quantity" />
+
+                                        <div class="input-group-append">
+                                            <a asp-controller="ShoppingCart" asp-action="QuantityEdit" asp-route-productId="@product.ProductId" asp-route-quantity="@(product.Quantity + 1)" class="btn btn-primary">&plus;</a>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>@(product.TotalPrice)</td>
+
+                                <td><a asp-controller="ShoppingCart" asp-action="Delete" asp-route-productId="@product.ProductId" class="btn btn-danger">Премахни</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <a asp-area="" asp-controller="Store" asp-action="All" class="btn btn-outline-primary btn-md btn-block">Продължи с пазаруването</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 pl-5">
+                <div class="row justify-content-end">
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-12 text-right border-bottom mb-5">
+                                <h3 class="text-black h4 text-uppercase">Обща сума на продуктите</h3>
+                                <p class="text-warning">(В цената не е включена доставка.)</p>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-6">
+                                <span class="text-black">Общо</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <strong class="text-black">@Model.Sum(x => x.ProductPrice * x.Quantity).ToString("F2") лв.</strong>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary btn-lg btn-block" onclick="window.location='checkout.html'">
+                                    Продължи с поръчката
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

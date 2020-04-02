@@ -12,6 +12,8 @@
 
         public const int DefaultPageSize = 9;
 
+        public const int DefaultShoppingCartPageSize = 4;
+
         public const string CloudinaryProductPictureFolder = "product_images";
 
     }
