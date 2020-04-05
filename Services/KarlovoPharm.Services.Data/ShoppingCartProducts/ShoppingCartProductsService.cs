@@ -115,5 +115,26 @@
 
             await this.shoppingCartProductsRepository.SaveChangesAsync();
         }
+
+        public async Task DeleteAll(string shoppingCartId)
+        {
+            if (shoppingCartId == null)
+            {
+                throw new ArgumentException("SHoppingCartId was null");
+            }
+
+            var shoppingCartProducts = await this.shoppingCartProductsRepository
+              .All()
+              .Where(x => x.ShoppingCartId == shoppingCartId)
+              .ToListAsync();
+
+            foreach (var scproduct in shoppingCartProducts)
+            {
+                this.shoppingCartProductsRepository.HardDelete(scproduct);
+            }
+
+            await this.shoppingCartProductsRepository.SaveChangesAsync();
+
+        }
     }
 }

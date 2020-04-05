@@ -4,14 +4,16 @@ using KarlovoPharm.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KarlovoPharm.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200403111517_AddedAdditionalPropertiesToOrder")]
+    partial class AddedAdditionalPropertiesToOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,7 +275,10 @@ namespace KarlovoPharm.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeliveryAddressId")
+                    b.Property<int>("DeliveryAddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeliveryAddressId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("DeliveryDate")
@@ -294,9 +299,6 @@ namespace KarlovoPharm.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OfficeAddress")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -307,11 +309,9 @@ namespace KarlovoPharm.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Recipient")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecipientPhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalPrice")
@@ -323,7 +323,7 @@ namespace KarlovoPharm.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryAddressId");
+                    b.HasIndex("DeliveryAddressId1");
 
                     b.HasIndex("IsDeleted");
 
@@ -731,7 +731,7 @@ namespace KarlovoPharm.Data.Migrations
                 {
                     b.HasOne("KarlovoPharm.Data.Models.Address", "DeliveryAddress")
                         .WithMany()
-                        .HasForeignKey("DeliveryAddressId");
+                        .HasForeignKey("DeliveryAddressId1");
 
                     b.HasOne("KarlovoPharm.Data.Models.Common.ApplicationUser", "User")
                         .WithMany()

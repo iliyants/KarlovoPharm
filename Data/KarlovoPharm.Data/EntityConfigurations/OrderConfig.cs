@@ -15,6 +15,12 @@
 
             order.Property(x => x.UserId)
                 .IsRequired();
+
+            order.Property(x => x.Recipient)
+                .IsRequired();
+
+            order.Property(x => x.RecipientPhoneNumber)
+                .IsRequired();
         }
     }
 }

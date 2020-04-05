@@ -20,7 +20,7 @@
 
         public const string ProductDeleteErrorMEssage = "Възникна грешка ! Продуктът не може да бъде изтрит!";
 
-
+        public const string RequiredAllFieldsErrorMessage = "Моля попълнете всички полета обозначени с този знак *";
 
 
         public const string ProductSpecificationLengthErrorMessage = "Спецификацията на продукта трябва да бъде между 10 и 500 символа";

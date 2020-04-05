@@ -39,7 +39,10 @@
                 .Select(x => x.UserAddresses)
                 .ToListAsync();
 
-
+            if (userAdresses.Count == 0)
+            {
+                return false;
+            }
             return userAdresses[0].Count == 3;
         }
 
@@ -75,6 +78,21 @@
                 .ThenInclude(x => x.Address)
                 .SingleOrDefault(x => x.Id == userId)
                 .To<T>();
+        }
+
+        public async Task<ApplicationUser> GetUserWithAllPropertiesById(string userId)
+        {
+            var result =   await this.userRepository.All()
+                .Where(x => x.Id == userId)
+                .Include(x => x.UserAddresses)
+                .ThenInclude(x => x.Address)
+                .Include(x => x.ShoppingCart)
+                .ThenInclude(x => x.ShoppingCartProducts)
+                .ThenInclude(x => x.Product)
+                .SingleOrDefaultAsync();
+
+
+            return result;
         }
     }
 }

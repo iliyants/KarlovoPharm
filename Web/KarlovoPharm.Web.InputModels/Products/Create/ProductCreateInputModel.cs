@@ -68,8 +68,6 @@
 
         public string SubCategoryId { get; set; }
 
-  
-
         [NotMapped]
         public IEnumerable<CategoryDisplayInputModel> SubCategories { get; set; }
 

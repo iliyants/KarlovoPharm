@@ -13,5 +13,7 @@ namespace KarlovoPharm.Services.Data.ShoppingCartProducts
         public Task QuantityEdit(string productId, int quantity, string userId);
 
         public Task Delete(string productId, string userId);
+
+        public Task DeleteAll(string shoppingCartId);
     }
 }

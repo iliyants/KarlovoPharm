@@ -15,22 +15,36 @@
             this.CreatedOn = DateTime.UtcNow;
         }
 
-        public string UserId { get; set; }
+        public string Recipient { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public string RecipientPhoneNumber { get; set; }
 
         public decimal TotalPrice { get; set; }
 
+        public decimal DeliveryPrice { get; set; }
+
         public DateTime? OrderDate { get; set; }
 
-        public DateTime? DeliveryDate { get; set; }
-
         public DateTime? EstimatedDeliveryDate { get; set; }
+
+        public DateTime? DeliveryDate { get; set; }
 
         public DateTime? DispatchDate { get; set; }
 
         public OrderStatus OrderStatus { get; set; }
 
+        public PaymentType PaymentType { get; set; }
+
         public ICollection<OrderProduct> OrderProducts { get; set; }
+
+        public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
+
+        public string OfficeAddress { get; set; }
+
+        public string DeliveryAddressId { get; set; }
+
+        public virtual Address DeliveryAddress { get; set; }
     }
 }

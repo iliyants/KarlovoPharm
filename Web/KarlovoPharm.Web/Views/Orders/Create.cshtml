@@ -1,0 +1,195 @@
+﻿@model KarlovoPharm.Web.InputModels.Orders.Display.OrderDisplayInputModel
+
+@{ var totalPrice = Model.ShoppingCart.ShoppingCartProducts.Sum(x => x.TotalPrice); }
+@{ var deliveryPrice = totalPrice >= 20m ? 0m : 3.5m;}
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a href="index.html">Към саита</a> <span class="mx-2 mb-0">/</span>
+                <strong class="text-black">Чекиране</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    @if (this.TempData["Error"] != null)
+    {
+        @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+    }
+    <form asp-controller="Orders" asp-action="Create" method="post">
+        <input type="hidden" asp-for="@Model.Id" />
+        <div class="container">
+            <div class="row mb-5">
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <h2 class="h3 mb-3 text-black">Детайли за вашата поръчка</h2>
+                    <div class="p-3 p-lg-5 border">
+                        <div class="form-group">
+                            <label for="c_country" class="text-black">Адрес на доставката <span class="text-danger">*</span></label>
+
+                            @if (Model.UserAddresses.Count() < 3)
+                            {
+                                <a asp-controller="Addresses" asp-action="Create" asp-route-userId="@Model.Id">
+                                    Добавете адрес.
+                                </a>
+                            }
+
+                            <div class="form-group border-primary mb-0">
+                                <ul class="list-group">
+                                    @foreach (var address in Model.UserAddresses)
+                                    {
+                                        <li class="list-group-item">
+                                            <label>
+                                                <input asp-for="DeliveryAddressId" type="radio" value="@address.AddressId" onclick="toggleInput()" />
+                                                @address.AddressStreet @address.AddressCity, @address.AddressPostCode,  @address.AddressDescription
+                                            </label>
+                                        </li>
+                                    }
+                                    <li class="list-group-item">
+                                        <label>
+                                            <input name="DeliveryAddressId" type="radio" id="officeAddress" onclick="toggleInput()">
+                                            До офис на Eконт.
+                                        </label>
+                                        <div id="OfficeAddressInputField" style="visibility:hidden">
+                                            <label for="OfficeAddress">
+                                                <textarea asp-for="OfficeAddress" placeholder="Моля опишете подробно адреса на офиса (град,улица/бул. и т.н.)"></textarea>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                @if (Model.FirstName != null)
+                                {
+                                    <input type="hidden" asp-for="@Model.FirstName" />
+                                    <label for="FirstName" class="text-black">Име на получателя: </label>
+                                    <span>@Model.FirstName</span>
+                                }
+                                else
+                                {
+                                    <label for="RecipientName" class="text-black">Име на получателя <span class="text-danger">*</span></label>
+                                    <input asp-for="Recipient" type="text" class="form-control" placeholder="Въведете име на получателя">
+                                    <span asp-validation-for="Recipient" class="text-danger"></span>
+                                }
+                            </div>
+
+                            <div class="col-md-12">
+                                @if (Model.LastName != null)
+                                {
+                                    <input type="hidden" asp-for="@Model.LastName" />
+                                    <label for="FirstName" class="text-black">Фамилия на получателя: </label>
+                                    <span>@Model.LastName</span>
+                                }
+                                else
+                                {
+                                    <label for="RecipientLastName" class="text-black">Фамилия на получателя: <span class="text-danger">*</span></label>
+                                    <input asp-for="RecipientLastName" type="text" class="form-control" placeholder="Въведете фамилия на получателя:">
+                                    <span asp-validation-for="RecipientLastName" class="text-danger"></span>
+                                }
+                            </div>
+
+                            <div class="col-md-6">
+                                @if (Model.PhoneNumber != null)
+                                {
+                                    <input type="hidden" asp-for="@Model.PhoneNumber" />
+                                    <label for="PhoneNumber" class="text-black">Телефон на получателя: </label>
+                                    <span>@Model.PhoneNumber</span>
+                                }
+                                else
+                                {
+                                    <label for="RecipientPhoneNumber" class="text-black">Номер на получателя: <span class="text-danger">*</span></label>
+                                    <input asp-for="RecipientPhoneNumber" type="text" class="form-control" placeholder="Въведете тел. номер:">
+                                    <span asp-validation-for="RecipientPhoneNumber" class="text-danger"></span>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <h2 class="h3 mb-3 text-black">Вашата поръчка</h2>
+                            <div class="p-3 p-lg-5 border">
+
+                                <table class="table site-block-order-table mb-5">
+
+                                    <thead>
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Продукт:</strong></td>
+                                            <td class="text-black font-weight-bold"><strong>Общо:</strong></td>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @foreach (var product in Model.ShoppingCart.ShoppingCartProducts)
+                                        {
+                                            <tr>
+                                                <td>@product.ProductName <strong class="mx-2">x</strong>@product.Quantity</td>
+                                                <td>@(product.ProductPrice * product.Quantity) лв.</td>
+                                            </tr>
+                                        }
+
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Доставка:</strong></td>
+                                            <td class="text-black">@deliveryPrice лв.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Обща сума (цена с ДДС):</strong></td>
+                                            <td class="text-black font-weight-bold"><strong>@(totalPrice + deliveryPrice) лв.</strong></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+
+                                <div class="form-group">
+                                    <label  class="text-black">Начин на плащане <span class="text-danger">*</span></label>
+
+                                    <div class="radio">
+                                        <label asp-for="PaymentType">
+                                            <input asp-for="PaymentType" type="radio" value="CashOnDelivery" checked>Наложен платеж
+                                        </label>
+                                    </div>
+
+                                    <div class="radio">
+                                        <label><input type="radio" name="paymentRadio">Visa, MasterCard и др.</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg btn-block" type="submit">
+                                        Продължи с поръчка
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleInput() {
+        if (document.getElementById('officeAddress').checked) {
+            document.getElementById('OfficeAddressInputField').style.visibility = 'visible';
+        }
+        else {
+            document.getElementById('OfficeAddressInputField').style.visibility = 'hidden';
+        }
+    }
+</script>
