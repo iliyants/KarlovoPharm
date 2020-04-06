@@ -1,0 +1,80 @@
+﻿@model KarlovoPharm.Web.ViewModels.Orders.OrderDetailsViewModel
+
+<div class="d-flex justify-content-center">
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <h2 class="text-center">Вашата поръчка</h2>
+            <div class="p-3 p-lg-5 border">
+
+                <table class="table site-block-order-table mb-5">
+
+                    <thead>
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Продукт:</strong></td>
+                            <td class="text-black font-weight-bold"><strong>Общо:</strong></td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var product in Model.OrderProducts)
+                        {
+                            <tr>
+                                <td>@product.ProductName <strong class="mx-2">x</strong>@product.Quantity</td>
+                                <td>@(product.ProductPrice * product.Quantity) лв.</td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Адрес на доставка:</strong></td>
+                            @if (Model.OfficeAddress == null)
+                            {
+                                <td class="text-black">
+                                    @Model.DeliveryAddress.City,
+                                    @Model.DeliveryAddress.Street,
+                                    @Model.DeliveryAddress.BuildingNumber
+                                    @Model.DeliveryAddress.PostCode,
+                                    @Model.DeliveryAddress.Description
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="text-black font-weight-bold"><strong>@Model.OfficeAddress</strong></td>
+                            }
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Доставка:</strong></td>
+                            <td class="text-black">@Model.DeliveryPrice лв.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Обща сума (цена с ДДС):</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@Model.TotalPrice лв.</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Статус</strong></td>
+                            <td class="text-black font-weight-bold"><strong>Не обработена</strong></td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Приета на:</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@(Model.OrderDate.HasValue ? Model.OrderDate.Value.ToShortDateString() : "n/a")</strong></td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Изпратена на:</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@(Model.DispatchDate.HasValue ? Model.DispatchDate.Value.ToShortDateString() : "n/a")</strong></td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Приблизителна дата на пристигане:</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@(Model.EstimatedDeliveryDate.HasValue ? Model.EstimatedDeliveryDate.Value.ToShortDateString() : "n/a")</strong></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

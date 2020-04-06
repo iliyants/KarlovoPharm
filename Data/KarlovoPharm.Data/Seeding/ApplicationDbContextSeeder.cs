@@ -36,7 +36,6 @@
                               new UserAddressSeeder(),
                               new UserFavouriteProductSeeder(),
                               new ShoppingCartSeeder(),
-                              new ShoppingCartProductsSeeder(),
                           };
 
             foreach (var seeder in seeders)

@@ -1,9 +1,9 @@
-﻿namespace KarlovoPharm.Web.ViewModels.Address
+﻿namespace KarlovoPharm.Web.ViewModels.Addresses
 {
     using KarlovoPharm.Data.Models;
     using KarlovoPharm.Services.Mapping;
 
-    public class AddressViewModel : IMapFrom<UserAddress>
+    public class UserAddressViewModel : IMapFrom<UserAddress>
     {
         public string AddressCity { get; set; }
 

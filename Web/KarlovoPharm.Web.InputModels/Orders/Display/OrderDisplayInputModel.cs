@@ -10,9 +10,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    public class OrderDisplayInputModel : IMapFrom<ApplicationUser>
+    public class OrderDisplayInputModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
-        public string Id { get; set; }
+        public string UserId { get; set; }
         public IEnumerable<AddressDisplayInputModel> UserAddresses { get; set; }
 
         public ShoppingCartInputModel ShoppingCart { get; set; }
@@ -51,5 +51,10 @@
 
         public string OfficeAddress { get; set; }
 
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<ApplicationUser, OrderDisplayInputModel>()
+                .ForMember(x => x.UserId, opt => opt.MapFrom(y => y.Id));
+        }
     }
 }

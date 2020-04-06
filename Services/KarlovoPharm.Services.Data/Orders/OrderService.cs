@@ -68,6 +68,18 @@
             return user.To<T>();
         }
 
+        public async Task<T> Details<T>(string userId, string orderId)
+        {
+            var order = await this.orderRepository.AllAsNoTracking()
+                .Include(x => x.OrderProducts)
+                .ThenInclude(x => x.Product)
+                .Include(x => x.DeliveryAddress)
+                .Where(x => x.Id == orderId && x.UserId == userId)
+                .SingleOrDefaultAsync();
+
+            return order.To<T>();
+        }
+
         public async Task<IEnumerable<T>> UserOrders<T>(string userId)
         {
             if (userId == null)

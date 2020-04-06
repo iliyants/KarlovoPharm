@@ -22,7 +22,6 @@
         private readonly IOrderService orderService;
         private readonly IShoppingCartService shoppingCartService;
 
-
         public OrdersController(
             UserManager<ApplicationUser> userManager,
             IOrderService orderService,
@@ -84,6 +83,16 @@
             return this.View(userOrdersViewModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(string orderId)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var orderDetailsViewModel = await this.orderService.Details<OrderDetailsViewModel>(user.Id, orderId);
+
+            return this.View(orderDetailsViewModel);
+        }
+
         private void ProccessCreateForm(OrderDisplayInputModel orderDisplayInputModel)
         {
             if (orderDisplayInputModel.Recipient == null)
@@ -99,6 +108,11 @@
             if (orderDisplayInputModel.RecipientPhoneNumber == null)
             {
                 orderDisplayInputModel.RecipientPhoneNumber = orderDisplayInputModel.PhoneNumber;
+            }
+
+            if (orderDisplayInputModel.DeliveryAddressId == "on")
+            {
+                orderDisplayInputModel.DeliveryAddressId = null;
             }
         }
     }

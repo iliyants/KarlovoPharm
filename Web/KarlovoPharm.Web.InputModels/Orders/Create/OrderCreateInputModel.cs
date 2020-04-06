@@ -4,10 +4,10 @@
     using KarlovoPharm.Data.Models;
     using KarlovoPharm.Data.Models.Enums;
     using KarlovoPharm.Services.Mapping;
-    public class OrderCreateInputModel : IMapTo<Order>, IHaveCustomMappings
+    public class OrderCreateInputModel : IMapTo<Order>
     {
 
-        public string Id { get; set; }
+        public string UserId { get; set; }
 
         public string Recipient { get; set; }
 
@@ -21,10 +21,5 @@
 
         public PaymentType PaymentType { get; set; }
 
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<OrderCreateInputModel, Order>()
-                .ForMember(x => x.UserId, opt => opt.MapFrom(x => x.Id));
-        }
     }
 }

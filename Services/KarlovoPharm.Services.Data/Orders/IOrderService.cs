@@ -10,5 +10,7 @@
         Task CreateUproccessedOrder(OrderCreateInputModel orderCreateInputModel, string shoppingCartId);
 
         Task<IEnumerable<T>> UserOrders<T>(string userId);
+
+        Task<T> Details<T>(string userId, string orderId);
     }
 }

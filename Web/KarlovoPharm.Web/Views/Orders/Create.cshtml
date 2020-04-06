@@ -20,7 +20,7 @@
         @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
     }
     <form asp-controller="Orders" asp-action="Create" method="post">
-        <input type="hidden" asp-for="@Model.Id" />
+        <input type="hidden" asp-for="@Model.UserId" />
         <div class="container">
             <div class="row mb-5">
             </div>
@@ -33,7 +33,7 @@
 
                             @if (Model.UserAddresses.Count() < 3)
                             {
-                                <a asp-controller="Addresses" asp-action="Create" asp-route-userId="@Model.Id">
+                                <a asp-controller="Addresses" asp-action="Create" asp-route-userId="@Model.UserId">
                                     Добавете адрес.
                                 </a>
                             }

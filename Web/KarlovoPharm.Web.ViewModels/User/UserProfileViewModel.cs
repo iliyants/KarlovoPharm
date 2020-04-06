@@ -4,7 +4,7 @@
 
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Services.Mapping;
-    using KarlovoPharm.Web.ViewModels.Address;
+    using KarlovoPharm.Web.ViewModels.Addresses;
 
     public class UserProfileViewModel : IMapFrom<ApplicationUser>
     {
@@ -20,6 +20,6 @@
 
         public string LastName { get; set; }
 
-        public List<AddressViewModel> UserAddresses { get; set; }
+        public List<UserAddressViewModel> UserAddresses { get; set; }
     }
 }
