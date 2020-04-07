@@ -3,6 +3,7 @@
     using KarlovoPharm.Data.Common.Repositories;
     using KarlovoPharm.Data.Models;
     using KarlovoPharm.Data.Models.Enums;
+    using KarlovoPharm.Services.Data.OrderProducts;
     using KarlovoPharm.Services.Data.ShoppingCartProducts;
     using KarlovoPharm.Services.Data.Users;
     using KarlovoPharm.Services.Mapping;
@@ -18,15 +19,18 @@
         private readonly IDeletableEntityRepository<Order> orderRepository;
         private readonly IUserService userService;
         private readonly IShoppingCartProductsService shoppingCartProductsService;
+        private readonly IOrderProductsService orderProductsService;
 
         public OrderService(
             IDeletableEntityRepository<Order> orderRepository,
             IUserService userService,
-            IShoppingCartProductsService shoppingCartProductsService)
+            IShoppingCartProductsService shoppingCartProductsService,
+            IOrderProductsService orderProductsService)
         {
             this.orderRepository = orderRepository;
             this.userService = userService;
             this.shoppingCartProductsService = shoppingCartProductsService;
+            this.orderProductsService = orderProductsService;
         }
 
         public async Task CreateUproccessedOrder(OrderCreateInputModel orderCreateInputModel, string shoppingCartId)
@@ -56,7 +60,7 @@
 
             await this.shoppingCartProductsService.DeleteAll(shoppingCartId);
 
-            await this.orderRepository.SaveChangesAsync(); 
+            await this.orderRepository.SaveChangesAsync();
         }
 
         public async Task<T> Details<T>(string userId)
@@ -79,6 +83,61 @@
 
             return order.To<T>();
         }
+
+        public async Task<T> DetailsAdmin<T>(string orderId)
+        {
+            var order = await this.orderRepository
+                .AllAsNoTracking()
+                .Include(x => x.OrderProducts)
+                .ThenInclude(x => x.Product)
+                .Include(x => x.User)
+                .Include(x => x.DeliveryAddress)
+                .SingleOrDefaultAsync(x => x.Id == orderId);
+
+            return order.To<T>();
+
+        }
+
+        public async Task Finish(string orderId)
+        {
+            await this.orderProductsService.DeleteAll(orderId);
+
+            var order = await this.orderRepository.All().SingleOrDefaultAsync(x => x.Id == orderId);
+
+            this.orderRepository.HardDelete(order); 
+        }
+
+        public IQueryable<T> GetAllProcessed<T>()
+        {
+            var query = this.orderRepository.AllAsNoTracking()
+               .Where(x => x.OrderStatus == OrderStatus.Proccessed)
+               .OrderByDescending(x => x.DispatchDate);
+
+            return query.To<T>();
+        }
+
+        public IQueryable<T> GetAllUnprocessed<T>()
+        {
+            var query = this.orderRepository.AllAsNoTracking()
+                .Where(x => x.OrderStatus == OrderStatus.UnProccessed)
+                .OrderByDescending(x => x.OrderDate);
+
+            return query.To<T>();
+        }
+
+        public async Task Process(string orderId)
+        {
+            var order = await this.orderRepository.All()
+                .SingleOrDefaultAsync(x => x.Id == orderId);
+
+            order.OrderStatus = OrderStatus.Proccessed;
+            order.DispatchDate = DateTime.UtcNow;
+            order.EstimatedDeliveryDate = DateTime.UtcNow.AddDays(3);
+
+            await this.orderRepository.SaveChangesAsync();
+
+        }
+
 
         public async Task<IEnumerable<T>> UserOrders<T>(string userId)
         {

@@ -17,6 +17,8 @@
 
         public string Recipient { get; set; }
 
+        public string RecipientLastName { get; set; }
+
         public string RecipientPhoneNumber { get; set; }
 
         public decimal TotalPrice { get; set; }

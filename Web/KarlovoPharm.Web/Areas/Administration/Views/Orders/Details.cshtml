@@ -1,11 +1,11 @@
-﻿@model KarlovoPharm.Web.ViewModels.Orders.OrderDetailsViewModel
+﻿@model KarlovoPharm.Web.ViewModels.Orders.OrderDetailsAdminViewModel
 @using KarlovoPharm.Web.Helpers
 
 
 <div class="d-flex justify-content-center">
     <div class="row mb-5">
         <div class="col-md-12">
-            <h2 class="text-center">Вашата поръчка</h2>
+            <h2 class="text-center">Поръчка номер @Model.Id</h2>
             <div class="p-3 p-lg-5 border">
 
                 <table class="table site-block-order-table mb-5">
@@ -46,6 +46,26 @@
                         </tr>
 
                         <tr>
+                            <td class="text-black font-weight-bold"><strong>Име на получател:</strong></td>
+                            <td class="text-black">@Model.Recipient</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Фамилия на получател::</strong></td>
+                            <td class="text-black">@Model.RecipientLastName</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Номер на получател:</strong></td>
+                            <td class="text-black">@Model.RecipientPhoneNumber</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Имейл на получател:</strong></td>
+                            <td class="text-black">@Model.UserEmail</td>
+                        </tr>
+
+                        <tr>
                             <td class="text-black font-weight-bold"><strong>Доставка:</strong></td>
                             <td class="text-black">@Model.DeliveryPrice лв.</td>
                         </tr>
@@ -72,11 +92,9 @@
                             <td class="text-black font-weight-bold"><strong>Приблизителна дата на пристигане:</strong></td>
                             <td class="text-black font-weight-bold"><strong>@(Model.EstimatedDeliveryDate.HasValue ? Model.EstimatedDeliveryDate.Value.ToShortDateString() : "n/a")</strong></td>
                         </tr>
-
                     </tbody>
                 </table>
-
-                <a asp-controller="Orders" asp-action="UserOrders" class="btn btn-primary btn-lg btn-block" role="button">
+                <a href='javascript:history.go(-1)' class="btn btn-primary btn-lg btn-block" role="button">
                     Обратно към поръчки
                 </a>
             </div>

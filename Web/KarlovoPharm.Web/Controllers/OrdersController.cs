@@ -4,7 +4,6 @@
 
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Services.Data.Orders;
-    using KarlovoPharm.Services.Data.ShoppingCartProducts;
     using KarlovoPharm.Services.Data.ShoppingCarts;
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Web.InputModels.Orders.Create;

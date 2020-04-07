@@ -29,7 +29,10 @@
                 <a class="nav-link active" asp-controller="Products" asp-action="All">Виж всички продукти</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Виж поръчки</a>
+                <a class="nav-link" asp-controller="Orders" asp-action="AllUnprocessed">Виж необработени поръчки</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" asp-controller="Orders" asp-action="AllProcessed">Виж обработени поръчки</a>
             </li>
         </ul>
     </div>

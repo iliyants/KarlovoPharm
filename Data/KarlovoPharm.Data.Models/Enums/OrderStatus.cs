@@ -4,16 +4,13 @@
 
     public enum OrderStatus
     {
-        [Display(Name = "В процес на обработване")]
-        InProccess = 1,
-
         [Display(Name = "Не обработена")]
-        UnProccessed = 2,
+        UnProccessed = 1,
 
         [Display(Name = "Обработена")]
-        Proccessed = 3,
+        Proccessed = 2,
 
         [Display(Name = "Доставена")]
-        Delivered = 4,
+        Delivered = 3,
     }
 }

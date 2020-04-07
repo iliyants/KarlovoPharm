@@ -1,0 +1,86 @@
+﻿@using KarlovoPharm.Web.ViewModels.Orders
+@model KarlovoPharm.Web.Paging.PaginatedList<OrderUnprocessedViewModel>
+@using KarlovoPharm.Web.Helpers
+
+@{
+    ViewData["Title"] = "Поръчки";
+}
+
+
+<div class="mobile-fondsize-20 h3 text-center text-muted font-italic">@(Model.Count() == 0 ? "Нямате необработени поръчки!" : "Необработени поръчки")</div>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr class="row">
+            <th scope="col" class="col-md-2 col d-flex justify-content-center">Получена на:</th>
+            <th scope="col" class="col-md-2 col d-flex justify-content-center">Начин на плащане:</th>
+            <th scope="col" class="col-md-2 col d-flex justify-content-center">Обща сума:</th>
+            <th scope="col" class="col-md-4 col d-flex justify-content-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+
+            <tr class="row">
+                <td class="col-md-2 col d-flex justify-content-center">
+                    @(order.OrderDate.HasValue ? order.OrderDate.Value.ToShortDateString() : "n/a")
+                </td>
+                <td class="col-md-2 col d-flex justify-content-center">
+                    @order.PaymentType.DisplayName()
+                </td>
+                <td class="col-md-2 col d-flex justify-content-center">
+                    @order.TotalPrice лв.
+                </td>
+                <td class="col-md-4 col d-flex justify-content-around">
+                    <div class="mr-2">
+                        <a asp-area="Administration" asp-controller="Orders" asp-action="Details" asp-route-orderId="@order.Id" class="btn btn-info btn-sm">Детайли</a>
+                    </div>
+                    <div class="mr-2">
+                        <a asp-area="Administration" asp-controller="Orders" asp-action="Process" asp-route-orderId="@order.Id" class="btn btn-warning btn-sm">Обработи</a>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<div class="row mt-5">
+    <div class="col-md-12 text-center">
+        <div class="site-block-27">
+            <ul>
+                <li class="page-item @prevDisabled">
+                    <a class="page-link" asp-action="All" asp-route-pageNumber="1">&laquo;</a>
+                </li>
+                <li class="page-item @prevDisabled">
+                    <a class="page-link" asp-action="All" asp-route-pageNumber="@Model.TotalPages">&lt;</a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item"><a class="page-link" asp-action="All" asp-route-pageNumber="@i">@i</a></li>
+                    @if (i > 10)
+                    {
+                        break;
+                    }
+                }
+                <li class="page-item @nextDisabled">
+                    <a class="page-link" asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1)">&gt;</a>
+                </li>
+                <li class="page-item @nextDisabled">
+                    <a class="page-link" asp-action="All" asp-route-pageNumber="@Model.TotalPages">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
