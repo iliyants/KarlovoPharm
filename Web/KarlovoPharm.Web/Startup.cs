@@ -31,6 +31,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -53,7 +54,13 @@
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            });
 
             Account cloudinaryCredentials = new Account(
                 this.configuration["Cloudinary:CloudName"],
@@ -79,8 +86,6 @@
             {
                 options.HeaderName = "X-CSRF-TOKEN";
             });
-
-           
 
             services.AddControllersWithViews();
             services.AddRazorPages();

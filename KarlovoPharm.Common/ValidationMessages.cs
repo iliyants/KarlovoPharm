@@ -60,6 +60,10 @@
 
         public const string TownLengthErrorMessage = "Паролите трябва да съвпадат!";
 
+        public const string UserNameExistsErrorMessage = "Вече съществува потребител с това потребителско име !";
+
+        public const string EmailExistsErrorMessage = "Вече съществува потребител с този имейл адрес !";
+
 
         public const string CityLengthErrorMessage = "Градът трябва да е между 2 и 20 символа !";
 

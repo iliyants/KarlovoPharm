@@ -6,6 +6,7 @@
     using KarlovoPharm.Common;
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Services.Data.ShoppingCarts;
+    using KarlovoPharm.Services.Data.Users;
     using KarlovoPharm.Services.Messaging;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,12 @@
 
     public class RegisterModel : PageModel
     {
+
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IShoppingCartService shoppingCartService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<RegisterModel> logger;
+        private readonly IUserService userService;
         private readonly IEmailSender emailSender;
 
         public RegisterModel(
@@ -25,12 +28,14 @@
             SignInManager<ApplicationUser> signInManager,
             IShoppingCartService shoppingCartService,
             ILogger<RegisterModel> logger,
+            IUserService userService,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.shoppingCartService = shoppingCartService;
             this.logger = logger;
+            this.userService = userService;
             this.emailSender = emailSender;
         }
 
@@ -59,9 +64,12 @@
                     UserName = this.Input.Username,
                     FirstName = this.Input.FirstName,
                     LastName = this.Input.LastName,
+                    PhoneNumber = this.Input.PhoneNumber,
                     Email = this.Input.Email,
                 };
+
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
+
                 if (result.Succeeded)
                 {
                     //this.logger.LogInformation("User created a new account with password.");
@@ -83,16 +91,26 @@
                     await this.shoppingCartService.CreateAsync(user.Id);
 
                     await this.signInManager.SignInAsync(user, isPersistent: false);
+
                     return this.LocalRedirect(returnUrl);
                 }
 
                 foreach (var error in result.Errors)
                 {
                     this.ModelState.AddModelError(string.Empty, error.Description);
+                    if (error.Code == "DuplicateUserName")
+                    {
+                        this.TempData["Error"] = $"{ValidationMessages.UserNameExistsErrorMessage}";
+                    }
+                    else if (error.Code == "DuplicateEmail")
+                    {
+                        this.TempData["Error"] = $"{ValidationMessages.EmailExistsErrorMessage}";
+                    }
                 }
+
+                return this.Page();
             }
 
-            // If we got this far, something failed, redisplay form
             return this.Page();
         }
 
@@ -115,6 +133,9 @@
             [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
             [DataType(DataType.EmailAddress, ErrorMessage = ValidationMessages.EmailValidationErrorMessage)]
             public string Email { get; set; }
+
+            [Display(Name = "PhoneNumber")]
+            public string PhoneNumber { get; set; }
 
             [Display(Name = "Password")]
             [DataType(DataType.Password)]
