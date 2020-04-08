@@ -2,17 +2,23 @@
 @model IEnumerable<ShoppingCartProductInputModel>
 
 
+@{ var totalPrice = Model.Sum(x => x.ProductPrice * x.Quantity);}
+@{ var deliveryPrice = totalPrice >= 20m ? 0m : 3.50m;}
+
 <div class="bg-light py-3">
     <div class="container">
         <div class="row">
             <div class="col-md-12 mb-0">
-                <a <a asp-area="" asp-controller="Store" asp-action="All">Магазин</a> <span class="mx-2 mb-0">/</span>
+                <a asp-area="" asp-controller="Store" asp-action="All">Магазин</a> <span class="mx-2 mb-0">/</span>
                 <strong class="text-black">Количка</strong>
             </div>
         </div>
     </div>
 </div>
-
+@if (this.TempData["Error"] != null)
+{
+    @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+}
 <div class="site-section">
     <div class="container">
         <div class="row mb-5">
@@ -83,23 +89,31 @@
                 <div class="row justify-content-end">
                     <div class="col-md-7">
                         <div class="row">
-                            <div class="col-md-12 text-right border-bottom mb-5">
+                            <div class="col-lg-12 text-right border-bottom mb-5">
                                 <h3 class="text-black h4 text-uppercase">Обща сума на продуктите</h3>
-                                <p class="text-warning">(В цената не е включена доставка.)</p>
+                                <p class="text-warning">(Безплатна доставка при покупка над 20 лв.)</p>
+                                <p class="text-warning">(Цената на доставката е 3.50 лв.)</p>
                             </div>
                         </div>
+
                         <div class="row mb-5">
                             <div class="col-md-6">
                                 <span class="text-black">Общо</span>
                             </div>
                             <div class="col-md-6 text-right">
-                                <strong class="text-black">@Model.Sum(x => x.ProductPrice * x.Quantity).ToString("F2") лв.</strong>
+                                <strong class="text-black">@(totalPrice + deliveryPrice) лв.</strong>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-black">Доставка</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <strong class="text-black">@deliveryPrice лв.</strong>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <a asp-area="" asp-controller="Orders" asp-action="Create" class="btn btn-outline-primary btn-md btn-block">Продължи с пазаруването</a>
+                                <a asp-area="" asp-controller="Orders" asp-action="Create" class="btn btn-outline-primary btn-md btn-block">Продължи с поръчка</a>
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
     public class OrderDisplayInputModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
         public string UserId { get; set; }
@@ -48,6 +50,14 @@
         [Display(Name = "PaymentType")]
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         public PaymentType PaymentType { get; set; }
+
+        [NotMapped]
+        public decimal TotalPrice
+            => this.ShoppingCart.ShoppingCartProducts.Sum(x => x.TotalPrice);
+
+        [NotMapped]
+        public decimal DeliveryPrice
+            => this.TotalPrice >= 20m ? 0m : 3.50m;
 
         public string OfficeAddress { get; set; }
 

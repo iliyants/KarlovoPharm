@@ -1,5 +1,6 @@
 ﻿namespace KarlovoPharm.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Data.Models.Common;
@@ -16,6 +17,8 @@
     public class OrdersController : BaseController
     {
         private const string DeliveryAddressCantBeNull = "Моля изберете адрес на доставката или офис на Еконт, като въведете адреса на офиса.";
+
+        private const string ShoppingCartIsEmptyError = "Количката ви е празна ! Моля добавете продукти в нея, за да продължите.";
 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOrderService orderService;
@@ -38,6 +41,13 @@
             var user = await this.userManager.GetUserAsync(this.User);
 
             var orderCreateInputModel = await this.orderService.CreateDisplayModel<OrderDisplayInputModel>(user.Id);
+
+            if (orderCreateInputModel.ShoppingCart.ShoppingCartProducts.Count() == 0)
+            {
+                this.TempData["Error"] = ShoppingCartIsEmptyError;
+
+                return this.Redirect("/ShoppingCart");
+            }
 
             return this.View(orderCreateInputModel);
         }

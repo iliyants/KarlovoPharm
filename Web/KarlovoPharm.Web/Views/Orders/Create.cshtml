@@ -1,7 +1,5 @@
 ﻿@model KarlovoPharm.Web.InputModels.Orders.Display.OrderDisplayInputModel
 
-@{ var totalPrice = Model.ShoppingCart.ShoppingCartProducts.Sum(x => x.TotalPrice); }
-@{ var deliveryPrice = totalPrice >= 20m ? 0m : 3.5m;}
 
 <div class="bg-light py-3">
     <div class="container">
@@ -15,10 +13,6 @@
 </div>
 
 <div class="site-section">
-    @if (this.TempData["Error"] != null)
-    {
-        @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
-    }
     <form asp-controller="Orders" asp-action="Create" method="post">
         <input type="hidden" asp-for="@Model.UserId" />
         <div class="container">
@@ -142,11 +136,11 @@
 
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Доставка:</strong></td>
-                                            <td class="text-black">@deliveryPrice лв.</td>
+                                            <td class="text-black">@Model.DeliveryPrice лв.</td>
                                         </tr>
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Обща сума (цена с ДДС):</strong></td>
-                                            <td class="text-black font-weight-bold"><strong>@(totalPrice + deliveryPrice) лв.</strong></td>
+                                            <td class="text-black font-weight-bold"><strong>@(Model.TotalPrice + Model.DeliveryPrice) лв.</strong></td>
                                         </tr>
 
                                     </tbody>
@@ -170,7 +164,7 @@
 
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg btn-block" type="submit">
-                                        Продължи с поръчка
+                                        Направи поръчка
                                     </button>
                                 </div>
                             </div>

@@ -15,5 +15,6 @@
         [NotMapped]
         public decimal TotalPrice =>
             this.Quantity * this.ProductPrice;
+
     }
 }
