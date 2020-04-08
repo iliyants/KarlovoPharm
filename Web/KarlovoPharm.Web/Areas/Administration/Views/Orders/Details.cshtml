@@ -92,6 +92,11 @@
                             <td class="text-black font-weight-bold"><strong>Приблизителна дата на пристигане:</strong></td>
                             <td class="text-black font-weight-bold"><strong>@(Model.EstimatedDeliveryDate.HasValue ? Model.EstimatedDeliveryDate.Value.ToString("dd/MM/yyyy") : "n/a")</strong></td>
                         </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Пристигнала на:</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@(Model.DeliveryDate.HasValue ? Model.DeliveryDate.Value.ToString("dd/MM/yyyy") : "n/a")</strong></td>
+                        </tr>
                     </tbody>
                 </table>
                 <a href='javascript:history.go(-1)' class="btn btn-primary btn-lg btn-block" role="button">

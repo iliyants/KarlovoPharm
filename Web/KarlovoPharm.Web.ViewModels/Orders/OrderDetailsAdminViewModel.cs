@@ -25,6 +25,8 @@
 
         public DateTime? EstimatedDeliveryDate { get; set; }
 
+        public DateTime? DeliveryDate { get; set; }
+
         public OrderStatus OrderStatus { get; set; }
 
         public string Recipient { get; set; }
