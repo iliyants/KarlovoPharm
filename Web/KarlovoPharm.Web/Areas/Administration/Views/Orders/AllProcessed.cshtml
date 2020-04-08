@@ -1,6 +1,7 @@
 ﻿@using KarlovoPharm.Web.ViewModels.Orders
 @model KarlovoPharm.Web.Paging.PaginatedList<OrderProcessedViewModel>
 @using KarlovoPharm.Web.Helpers
+@using KarlovoPharm.Data.Models.Enums
 
 @{
     ViewData["Title"] = "Поръчки";
@@ -13,10 +14,10 @@
 <table class="table table-hover">
     <thead>
         <tr class="row">
+            <th scope="col" class="col-md-2 col d-flex justify-content-center">Номер:</th>
+            <th scope="col" class="col-md-2 col d-flex justify-content-center">Статус:</th>
             <th scope="col" class="col-md-2 col d-flex justify-content-center">Получена на:</th>
             <th scope="col" class="col-md-2 col d-flex justify-content-center">Изпратена на:</th>
-            <th scope="col" class="col-md-2 col d-flex justify-content-center">Начин на плащане:</th>
-            <th scope="col" class="col-md-2 col d-flex justify-content-center">Обща сума:</th>
             <th scope="col" class="col-md-4 col d-flex justify-content-center"></th>
         </tr>
     </thead>
@@ -24,28 +25,35 @@
         @foreach (var order in Model)
         {
 
-        <tr class="row">
-            <td class="col-md-2 col d-flex justify-content-center">
-                @(order.OrderDate.HasValue ? order.OrderDate.Value.ToShortDateString() : "n/a")
-            </td>
-            <td class="col-md-2 col d-flex justify-content-center">
-                @(order.DispatchDate.HasValue ? order.DispatchDate.Value.ToShortDateString() : "n/a")
-            </td>
-            <td class="col-md-2 col d-flex justify-content-center">
-                @order.PaymentType.DisplayName()
-            </td>
-            <td class="col-md-2 col d-flex justify-content-center">
-                @order.TotalPrice лв.
-            </td>
-            <td class="col-md-4 col d-flex justify-content-around">
-                <div class="mr-2">
-                    <a asp-area="Administration" asp-controller="Orders" asp-action="Details" asp-route-orderId="@order.Id" class="btn btn-info btn-sm">Детайли</a>
-                </div>
-                <div class="mr-2">
-                    <a asp-area="Administration" asp-controller="Orders" asp-action="Process" asp-route-orderId="@order.Id" class="btn btn-warning btn-sm">Приключи</a>
-                </div>
-            </td>
-        </tr>
+            <tr class="row">
+                <td class="col-md-2 col d-flex justify-content-center">
+                    @order.Id.Substring(0, 5)
+                </td>
+                <td class="col-md-2 col d-flex justify-content-center">
+                    @order.OrderStatus.DisplayName()
+                </td>
+                <td class="col-md-2 col d-flex justify-content-center">
+                    @(order.OrderDate.HasValue ? order.OrderDate.Value.ToString("dd/MM/yyyy") : "n/a")
+                </td>
+                <td class="col-md-2 col d-flex justify-content-center">
+                    @(order.DispatchDate.HasValue ? order.DispatchDate.Value.ToString("dd/MM/yyyy") : "n/a")
+                </td>
+                <td class="col-md-2 col d-flex justify-content-around">
+                    <div class="mr-2">
+                        <a asp-area="Administration" asp-controller="Orders" asp-action="Details" asp-route-orderId="@order.Id" class="btn btn-info btn-sm">Детайли</a>
+                    </div>
+                    <div class="mr-2">
+                        @if (order.OrderStatus == OrderStatus.Delivered)
+                        {
+                            <a asp-area="Administration" asp-controller="Orders" asp-action="Delete" asp-route-orderId="@order.Id" class="btn btn-danger btn-sm">Изтрий</a>
+                        }
+                        else
+                        {
+                            <a asp-area="Administration" asp-controller="Orders" asp-action="Finish" asp-route-orderId="@order.Id" class="btn btn-warning btn-sm">Приключи</a>
+                        }
+                    </div>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

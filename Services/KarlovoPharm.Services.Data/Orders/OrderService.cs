@@ -63,8 +63,13 @@
             await this.orderRepository.SaveChangesAsync();
         }
 
-        public async Task<T> Details<T>(string userId)
+        public async Task<T> CreateDisplayModel<T>(string userId)
         {
+
+            if (userId == null)
+            {
+                throw new ArgumentException("UserId was null");
+            }
             var user = await this.userService
                 .GetUserWithAllPropertiesById(userId);
 
@@ -78,6 +83,7 @@
                 .Include(x => x.OrderProducts)
                 .ThenInclude(x => x.Product)
                 .Include(x => x.DeliveryAddress)
+                .Include(x => x.User)
                 .Where(x => x.Id == orderId && x.UserId == userId)
                 .SingleOrDefaultAsync();
 
@@ -100,17 +106,23 @@
 
         public async Task Finish(string orderId)
         {
-            await this.orderProductsService.DeleteAll(orderId);
+            if (orderId == null)
+            {
+                throw new ArgumentException("OrderId was null");
+            }
 
             var order = await this.orderRepository.All().SingleOrDefaultAsync(x => x.Id == orderId);
 
-            this.orderRepository.HardDelete(order); 
+            order.OrderStatus = OrderStatus.Delivered;
+            order.DeliveryDate = DateTime.UtcNow;
+
+            await this.orderRepository.SaveChangesAsync();
         }
 
         public IQueryable<T> GetAllProcessed<T>()
         {
             var query = this.orderRepository.AllAsNoTracking()
-               .Where(x => x.OrderStatus == OrderStatus.Proccessed)
+               .Where(x => x.OrderStatus == OrderStatus.Proccessed || x.OrderStatus == OrderStatus.Delivered)
                .OrderByDescending(x => x.DispatchDate);
 
             return query.To<T>();
@@ -119,7 +131,7 @@
         public IQueryable<T> GetAllUnprocessed<T>()
         {
             var query = this.orderRepository.AllAsNoTracking()
-                .Where(x => x.OrderStatus == OrderStatus.UnProccessed)
+                .Where(x => x.OrderStatus == OrderStatus.UnProccessed || x.OrderStatus == OrderStatus.Canceled)
                 .OrderByDescending(x => x.OrderDate);
 
             return query.To<T>();
@@ -127,6 +139,11 @@
 
         public async Task Process(string orderId)
         {
+            if (orderId == null)
+            {
+                throw new ArgumentException("OrderId was null");
+            }
+
             var order = await this.orderRepository.All()
                 .SingleOrDefaultAsync(x => x.Id == orderId);
 
@@ -150,6 +167,37 @@
                 .Where(x => x.UserId == userId)
                 .To<T>()
                 .ToListAsync();
+        }
+
+        public async Task Cancel(string orderId)
+        {
+            if (orderId == null)
+            {
+                throw new ArgumentException("OrderId was null");
+            }
+
+            var order = await this.orderRepository.All()
+             .SingleOrDefaultAsync(x => x.Id == orderId);
+
+            order.OrderStatus = OrderStatus.Canceled;
+
+            await this.orderRepository.SaveChangesAsync();
+        }
+
+        public async Task Delete(string orderId)
+        {
+            if (orderId == null)
+            {
+                throw new ArgumentException("OrderId was null");
+            }
+
+            await this.orderProductsService.DeleteAll(orderId);
+
+            var order = await this.orderRepository.All().SingleOrDefaultAsync(x => x.Id == orderId);
+
+            this.orderRepository.HardDelete(order);
+
+            await this.orderRepository.SaveChangesAsync();
         }
     }
 }

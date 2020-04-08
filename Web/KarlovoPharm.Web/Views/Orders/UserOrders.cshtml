@@ -1,6 +1,7 @@
 ﻿@using KarlovoPharm.Web.ViewModels.Orders
 @model IEnumerable<UserOrderViewModel>
 @using KarlovoPharm.Web.Helpers
+@using KarlovoPharm.Data.Models.Enums
 
 @{
     ViewData["Title"] = "Мойте поръчки";
@@ -12,6 +13,7 @@
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
+                <th>Номер</th>
                 <th>Статус</th>
                 <th>Цена</th>
                 <th>Начин на плащане</th>
@@ -20,12 +22,19 @@
         <tbody>
             @foreach (var order in Model)
             {
-                <tr>
-                    <td>@order.OrderStatus.DisplayName()</td>
-                    <td>@order.TotalPrice</td>
-                    <td>@order.PaymentType.DisplayName()</td>
-                    <td><a asp-controller="Orders" asp-action="Details" asp-route-orderId="@order.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Детайли за поръчка</a></td>
-                </tr>
+            <tr>
+                <td>@order.Id.Substring(0, 5)</td>
+                <td>@order.OrderStatus.DisplayName()</td>
+                <td>@order.TotalPrice</td>
+                <td>@order.PaymentType.DisplayName()</td>
+                <td><a asp-controller="Orders" asp-action="Details" asp-route-orderId="@order.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Детайли</a></td>
+                @if (order.OrderStatus != OrderStatus.Proccessed && 
+                    order.OrderStatus != OrderStatus.Delivered &&
+                    order.OrderStatus != OrderStatus.Canceled)
+                {
+                    <td><a asp-controller="Orders" asp-action="Cancel" asp-route-orderId="@order.Id" class="btn btn-warning btn-sm mobile-fondsize-11">Откажи</a></td>
+                }
+            </tr>
             }
         </tbody>
     </table>

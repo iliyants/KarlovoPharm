@@ -6,7 +6,11 @@
     using System.Threading.Tasks;
     public interface IOrderService
     {
-        Task<T> Details<T>(string userId);
+        Task<T> CreateDisplayModel<T>(string userId);
+
+        Task Cancel(string orderId);
+
+        Task Delete(string orderId);
 
         Task CreateUproccessedOrder(OrderCreateInputModel orderCreateInputModel, string shoppingCartId);
 

@@ -37,7 +37,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            var orderCreateInputModel = await this.orderService.Details<OrderDisplayInputModel>(user.Id);
+            var orderCreateInputModel = await this.orderService.CreateDisplayModel<OrderDisplayInputModel>(user.Id);
 
             return this.View(orderCreateInputModel);
         }
@@ -73,6 +73,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> UserOrders()
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -83,6 +84,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Details(string orderId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -90,6 +92,15 @@
             var orderDetailsViewModel = await this.orderService.Details<OrderDetailsViewModel>(user.Id, orderId);
 
             return this.View(orderDetailsViewModel);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Cancel(string orderId)
+        {
+            await this.orderService.Cancel(orderId);
+
+            return this.RedirectToAction(nameof(this.UserOrders));
         }
 
         private void ProccessCreateForm(OrderDisplayInputModel orderDisplayInputModel)

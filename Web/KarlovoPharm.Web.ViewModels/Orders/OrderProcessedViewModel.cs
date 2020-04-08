@@ -12,6 +12,8 @@
 
         public DateTime? OrderDate { get; set; }
 
+        public OrderStatus OrderStatus { get; set; }
+
         public DateTime? DispatchDate { get; set; }
 
         public PaymentType PaymentType { get; set; }

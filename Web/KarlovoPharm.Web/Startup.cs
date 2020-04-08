@@ -80,6 +80,8 @@
                 options.HeaderName = "X-CSRF-TOKEN";
             });
 
+           
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 

@@ -12,5 +12,8 @@
 
         [Display(Name = "Доставена")]
         Delivered = 3,
+
+        [Display(Name = "Отказана")]
+        Canceled = 4,
     }
 }

@@ -2,7 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using KarlovoPharm.Data.Models;
     using KarlovoPharm.Data.Models.Enums;
     using KarlovoPharm.Services.Mapping;
@@ -13,6 +14,10 @@
     {
 
         public string Id { get; set; }
+
+        [NotMapped]
+        public string OrderNumber
+            => this.Id.Substring(0, 5);
 
         public DateTime? OrderDate { get; set; }
 

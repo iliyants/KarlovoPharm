@@ -59,5 +59,21 @@
             return this.RedirectToAction(nameof(this.AllProcessed));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(string orderId)
+        {
+            await this.orderService.Delete(orderId);
+
+            return this.RedirectToAction(nameof(this.AllProcessed));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Cancel(string orderId)
+        {
+            await this.orderService.Cancel(orderId);
+
+            return this.RedirectToAction(nameof(this.AllUnprocessed));
+        }
+
     }
 }

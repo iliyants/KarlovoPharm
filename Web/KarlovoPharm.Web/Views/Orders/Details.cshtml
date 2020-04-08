@@ -5,7 +5,7 @@
 <div class="d-flex justify-content-center">
     <div class="row mb-5">
         <div class="col-md-12">
-            <h2 class="text-center">Вашата поръчка</h2>
+            <h2 class="text-center">Поръчка номер @Model.OrdeuNumber</h2>
             <div class="p-3 p-lg-5 border">
 
                 <table class="table site-block-order-table mb-5">
@@ -45,6 +45,27 @@
                             }
                         </tr>
 
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Име на получател:</strong></td>
+                            <td class="text-black">@Model.Recipient</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Фамилия на получател::</strong></td>
+                            <td class="text-black">@Model.RecipientLastName</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Номер на получател:</strong></td>
+                            <td class="text-black">@Model.RecipientPhoneNumber</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Имейл на получател:</strong></td>
+                            <td class="text-black">@Model.UserEmail</td>
+                        </tr>
+
                         <tr>
                             <td class="text-black font-weight-bold"><strong>Доставка:</strong></td>
                             <td class="text-black">@Model.DeliveryPrice лв.</td>
@@ -60,17 +81,23 @@
 
                         <tr>
                             <td class="text-black font-weight-bold"><strong>Приета на:</strong></td>
-                            <td class="text-black font-weight-bold"><strong>@(Model.OrderDate.HasValue ? Model.OrderDate.Value.ToShortDateString() : "n/a")</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@(Model.OrderDate.HasValue ? Model.OrderDate.Value.ToString("dd/MM/yyyy") : "n/a")</strong></td>
                         </tr>
 
                         <tr>
                             <td class="text-black font-weight-bold"><strong>Изпратена на:</strong></td>
-                            <td class="text-black font-weight-bold"><strong>@(Model.DispatchDate.HasValue ? Model.DispatchDate.Value.ToShortDateString() : "n/a")</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@(Model.DispatchDate.HasValue ? Model.DispatchDate.Value.ToString("dd/MM/yyyy") : "n/a")</strong></td>
                         </tr>
 
                         <tr>
                             <td class="text-black font-weight-bold"><strong>Приблизителна дата на пристигане:</strong></td>
-                            <td class="text-black font-weight-bold"><strong>@(Model.EstimatedDeliveryDate.HasValue ? Model.EstimatedDeliveryDate.Value.ToShortDateString() : "n/a")</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@(Model.EstimatedDeliveryDate.HasValue ? Model.EstimatedDeliveryDate.Value.ToString("dd/MM/yyyy") : "n/a")</strong></td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Пристигнала на:</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@(Model.DeliveryDate.HasValue ? Model.DeliveryDate.Value.ToString("dd/MM/yyyy") : "n/a")</strong></td>
                         </tr>
 
                     </tbody>
