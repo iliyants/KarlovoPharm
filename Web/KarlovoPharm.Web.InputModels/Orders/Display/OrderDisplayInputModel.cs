@@ -51,14 +51,6 @@
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         public PaymentType PaymentType { get; set; }
 
-        [NotMapped]
-        public decimal TotalPrice
-            => this.ShoppingCart.ShoppingCartProducts.Sum(x => x.TotalPrice);
-
-        [NotMapped]
-        public decimal DeliveryPrice
-            => this.TotalPrice >= 20m ? 0m : 3.50m;
-
         public string OfficeAddress { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

@@ -1,6 +1,9 @@
 ﻿@model KarlovoPharm.Web.InputModels.Orders.Display.OrderDisplayInputModel
 
 
+@{ var totalPrice = Model.ShoppingCart.ShoppingCartProducts.Sum(x => x.TotalPrice);}
+@{ var deliveryPrice = totalPrice >= 20m ? 0m : 3.50m;}
+
 <div class="bg-light py-3">
     <div class="container">
         <div class="row">
@@ -136,11 +139,11 @@
 
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Доставка:</strong></td>
-                                            <td class="text-black">@Model.DeliveryPrice лв.</td>
+                                            <td class="text-black">@deliveryPrice лв.</td>
                                         </tr>
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Обща сума (цена с ДДС):</strong></td>
-                                            <td class="text-black font-weight-bold"><strong>@(Model.TotalPrice + Model.DeliveryPrice) лв.</strong></td>
+                                            <td class="text-black font-weight-bold"><strong>@(totalPrice + deliveryPrice) лв.</strong></td>
                                         </tr>
 
                                     </tbody>
