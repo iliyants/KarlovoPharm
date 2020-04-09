@@ -6,9 +6,10 @@
 
     public class ProductsController : BaseController
     {
+
         private readonly IProductService productService;
 
-        public ProductsController(IProductService productService)
+        public ProductsController( IProductService productService)
         {
             this.productService = productService;
         }

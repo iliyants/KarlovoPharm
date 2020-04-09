@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
 
+    using KarlovoPharm.Common;
     using KarlovoPharm.Web.ViewModels;
     using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@
     {
 
         [Route("/")]
+        [HttpGet]
         public IActionResult Index()
         {
             return this.View();
@@ -20,10 +22,16 @@
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode = null)
         {
-            return this.View(
-                new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier, StatusCode = statusCode };
+
+            if (statusCode == StatusCodes.NotFound)
+            {
+                return this.View("ErrorNotFound", errorViewModel);
+            }
+
+            return this.View("ErrorInternalServer", errorViewModel);
         }
     }
 }

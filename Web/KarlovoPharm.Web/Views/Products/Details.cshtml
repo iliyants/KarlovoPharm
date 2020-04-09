@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 mb-0">
-                <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a href="shop.html"></a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Ibuprofen Tablets, 200mg</strong>
+                <a href="/">Към сайта</a> <span class="mx-2 mb-0">/</span> <a href="javascript:history.go(-1)">Към магазин</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">@Model.Name</strong>
             </div>
         </div>
     </div>
@@ -22,24 +22,13 @@
             <div class="col-md-6">
                 <h2 class="text-black">@Model.Name</h2>
                 <p>@Model.Description</p>
-                
+
 
                 <strong class="text-primary h4">@Model.Price лв.</strong></p>
 
-                <div class="mb-5">
-                    <div class="input-group mb-3" style="max-width: 220px;">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                        </div>
-                        <input type="text" class="form-control text-center" value="1" placeholder=""
-                               aria-label="Example text with button addon" aria-describedby="button-addon1">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                        </div>
-                    </div>
-
-                </div>
-                <p><a href="cart.html" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+                <form id="productsApi" method="post"></form>
+                <a href="#" class="btn btn-warning" onclick="addToCart('@Model.Id')">Добави в количка</a>
+                <a href="#" class="btn btn-danger" onclick="addToFavourites('@Model.Id')">Дoбави в любими</a>
 
                 <div class="mt-5">
                     <ul class="nav nav-pills mb-3 custom-pill" id="pills-tab" role="tablist">
@@ -141,3 +130,61 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function addToFavourites(productId) {
+            var token = $("#productsApi input[name=__RequestVerificationToken]").val();
+            var json = { productId: productId };
+
+            $.ajax({
+                url: "/api/productsapi/AddToFavourites",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    alert(data.message);
+                },
+                error: function (data) {
+                    if (data.message != null) {
+                        alert(data.message);
+                    }
+                    else {
+                        alert("Трябва да сте влезли в профила си за да продължите!");
+                    }
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function addToCart(productId) {
+            var token = $("#productsApi input[name=__RequestVerificationToken]").val();
+            var json = { productId: productId };
+
+            $.ajax({
+                url: "/api/productsapi/AddToCart",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    $('#productsQuantity').html(data.count);
+                    alert(data.message);
+                },
+                error: function (data) {
+                    if (data.message != null) {
+                        alert(data.message);
+                    }
+                    else {
+                        alert("Трябва да сте влезли в профила си за да продължите!");
+                    }
+
+                }
+            });
+        }
+    </script>
+}

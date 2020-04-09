@@ -36,7 +36,7 @@
             @foreach (var product in Model)
             {
                 <div class="product col-sm-6 col-lg-4 text-center item mb-4">
-                    <a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" alt="Image"></a>
+                    <a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" height="150" alt="Image"></a>
                     <h3 class="text-dark"><a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id">@product.Name</a></h3>
                     <p class="price"> @product.Price</p>
                     <form id="productsApi" method="post"></form>
@@ -94,11 +94,16 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 headers: { 'X-CSRF-TOKEN': token },
-                success: function () {
-                    alert("Продукта беше добавен в любими");
+                success: function (data) {
+                    alert(data.message);
                 },
-                error: function () {
-                    alert("Продукта вече съществува в любими");
+                error: function (data) {
+                    if (data.message != null) {
+                        alert(data.message);
+                    }
+                    else {
+                        alert("Трябва да сте влезли в профила си за да продължите!");
+                    }
                 }
             });
         }
@@ -121,7 +126,13 @@
                     alert(data.message);
                 },
                 error: function (data) {
-                    alert(data.message);
+                    if (data.message != null) {
+                        alert(data.message);
+                    }
+                    else {
+                        alert("Трябва да сте влезли в профила си за да продължите!");
+                    }
+
                 }
             });
         }

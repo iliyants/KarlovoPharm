@@ -1,0 +1,20 @@
+﻿@model KarlovoPharm.Web.ViewModels.ErrorViewModel
+
+@{
+    ViewData["Title"] = "Възникна грешка!";
+}
+
+
+<div class="page-wrap d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <div class="mb-4 lead">@ViewData["Title"]</div>
+                <img class="error-image" src="https://res.cloudinary.com/dqe7qcizi/image/upload/v1586459291/error_images/500ise_ltradc.png" />
+                <div class="mb-4 lead">Нещо се обърка, ако проблемът продължава, моля свържете се с администратор.</div>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-link">Към начална страница.</a>
+                <a asp-controller="Store" asp-action="All" class="btn btn-link">Към магазин.</a>
+            </div>
+        </div>
+    </div>
+</div>
