@@ -1,7 +1,10 @@
 ﻿using KarlovoPharm.Data.Common.Repositories;
 using KarlovoPharm.Data.Models;
+using KarlovoPharm.Services.Data.Products;
+using KarlovoPharm.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,10 +13,12 @@ namespace KarlovoPharm.Services.Data.OrderProducts
     public class OrderProductsService : IOrderProductsService
     {
         private readonly IDeletableEntityRepository<OrderProduct> orderProductRepository;
+        private readonly IProductService productService;
 
-        public OrderProductsService(IDeletableEntityRepository<OrderProduct> orderProductRepository)
+        public OrderProductsService(IDeletableEntityRepository<OrderProduct> orderProductRepository, IProductService productService)
         {
             this.orderProductRepository = orderProductRepository;
+            this.productService = productService;
         }
         public async Task DeleteAll(string orderId)
         {
@@ -30,6 +35,23 @@ namespace KarlovoPharm.Services.Data.OrderProducts
             {
                 this.orderProductRepository.HardDelete(orderProduct);
             }
+        }
+
+        public async Task<IEnumerable<T>> MostPurchased<T>()
+        {
+            var mostPurchasedProductsIds = await this.orderProductRepository.AllAsNoTrackingWithDeleted()
+                .Include(x => x.Order)
+                .Where(x => x.Order.IsDeleted)
+                .GroupBy(x => x.ProductId)
+                .Select(x => new { ProductId = x.Key, QuantitySum = x.Sum(a => a.Quantity) })
+                .OrderByDescending(x => x.QuantitySum)
+                .Select(x => x.ProductId)
+                .Take(5)
+                .ToListAsync();
+
+            var products = await this.productService.GetAllByIds<T>(mostPurchasedProductsIds);
+
+            return products;
         }
     }
 }

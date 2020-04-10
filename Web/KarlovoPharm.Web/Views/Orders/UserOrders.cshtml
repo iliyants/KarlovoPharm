@@ -28,11 +28,15 @@
                 <td>@order.TotalPrice</td>
                 <td>@order.PaymentType.DisplayName()</td>
                 <td><a asp-controller="Orders" asp-action="Details" asp-route-orderId="@order.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Детайли</a></td>
-                @if (order.OrderStatus != OrderStatus.Proccessed && 
-                    order.OrderStatus != OrderStatus.Delivered &&
-                    order.OrderStatus != OrderStatus.Canceled)
+                @if (order.OrderStatus != OrderStatus.Proccessed &&
+                   order.OrderStatus != OrderStatus.Delivered &&
+                   order.OrderStatus != OrderStatus.Canceled)
                 {
                     <td><a asp-controller="Orders" asp-action="Cancel" asp-route-orderId="@order.Id" class="btn btn-warning btn-sm mobile-fondsize-11">Откажи</a></td>
+                }
+                else if (order.OrderStatus == OrderStatus.Delivered || order.OrderStatus == OrderStatus.Canceled)
+                {
+                    <td><a asp-controller="Orders" asp-action="Delete" asp-route-orderId="@order.Id" class="btn btn-warning btn-sm mobile-fondsize-11">Изтрий</a></td>
                 }
             </tr>
             }

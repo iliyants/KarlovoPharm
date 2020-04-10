@@ -23,6 +23,8 @@
 
         public IQueryable<TEntity> AllWithDeleted() => base.All().IgnoreQueryFilters();
 
+        public IQueryable<TEntity> AllDeleted() => base.All().Where(x => x.IsDeleted);
+
         public IQueryable<TEntity> AllAsNoTrackingWithDeleted() => base.AllAsNoTracking().IgnoreQueryFilters();
 
         public Task<TEntity> GetByIdWithDeletedAsync(params object[] id)

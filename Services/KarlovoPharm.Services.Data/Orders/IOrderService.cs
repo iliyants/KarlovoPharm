@@ -26,5 +26,7 @@
 
         Task Finish(string orderId);
         IQueryable<T> GetAllProcessed<T>();
+
+        IQueryable<T> GetAllDelivered<T>();
     }
 }

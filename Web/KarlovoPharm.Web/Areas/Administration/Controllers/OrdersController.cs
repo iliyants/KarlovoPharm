@@ -36,6 +36,15 @@
         }
 
         [HttpGet]
+        public async Task<IActionResult> AllDelivered(int? pageNumber)
+        {
+            var deliveredOrders = this.orderService.GetAllDelivered<OrdereDeliveredViewModel>();
+
+            return this.View(await PaginatedList<OrdereDeliveredViewModel>
+                .CreateAsync(deliveredOrders, pageNumber ?? GlobalConstants.DefaultPageIndex, GlobalConstants.DefaultPageSize));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Details(string orderId)
         {
             var orderAdminDetailsViewModel = await this.orderService.DetailsAdmin<OrderDetailsAdminViewModel>(orderId);

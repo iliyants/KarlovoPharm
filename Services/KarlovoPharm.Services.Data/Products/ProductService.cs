@@ -12,6 +12,7 @@
     using Microsoft.EntityFrameworkCore;
     using KarlovoPharm.Web.InputModels.Products.Edit;
     using KarlovoPharm.Common;
+    using System.Collections.Generic;
 
     public class ProductService : IProductService
     {
@@ -169,6 +170,27 @@
 
             return result > 0;
 
+        }
+
+        public async Task<IEnumerable<T>> GetNewest<T>()
+        {
+            var newestProducts = await this.productRepository.AllAsNoTracking()
+                .Where(x => x.CreatedOn.Date > DateTime.UtcNow.Date.AddDays(-3))
+                .ToListAsync();
+
+            return newestProducts.To<T>();
+        }
+
+        public async Task<IEnumerable<T>> GetAllByIds<T>(List<string> ids)
+        {
+            var result = new List<Product>();
+
+            foreach (var id in ids)
+            {
+                result.Add(await this.productRepository.AllAsNoTrackingWithDeleted().SingleOrDefaultAsync(x => x.Id == id));
+            }
+
+            return result.To<T>();
         }
     }
 }

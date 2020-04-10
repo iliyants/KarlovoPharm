@@ -113,6 +113,15 @@
             return this.RedirectToAction(nameof(this.UserOrders));
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Delete(string orderId)
+        {
+            await this.orderService.Delete(orderId);
+
+            return this.RedirectToAction(nameof(this.UserOrders));
+        }
+
         private void ProccessCreateForm(OrderDisplayInputModel orderDisplayInputModel)
         {
             if (orderDisplayInputModel.Recipient == null)

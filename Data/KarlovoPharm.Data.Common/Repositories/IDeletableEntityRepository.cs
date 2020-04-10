@@ -10,6 +10,8 @@
     {
         IQueryable<TEntity> AllWithDeleted();
 
+        IQueryable<TEntity> AllDeleted();
+
         IQueryable<TEntity> AllAsNoTrackingWithDeleted();
 
         Task<TEntity> GetByIdWithDeletedAsync(params object[] id);

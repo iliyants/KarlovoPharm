@@ -93,7 +93,7 @@
         public async Task<T> DetailsAdmin<T>(string orderId)
         {
             var order = await this.orderRepository
-                .AllAsNoTracking()
+                .AllAsNoTrackingWithDeleted()
                 .Include(x => x.OrderProducts)
                 .ThenInclude(x => x.Product)
                 .Include(x => x.User)
@@ -191,13 +191,29 @@
                 throw new ArgumentException("OrderId was null");
             }
 
-            await this.orderProductsService.DeleteAll(orderId);
-
             var order = await this.orderRepository.All().SingleOrDefaultAsync(x => x.Id == orderId);
 
-            this.orderRepository.HardDelete(order);
+            if (order.OrderStatus == OrderStatus.Delivered)
+            {
+                this.orderRepository.Delete(order);
+            }
+            else
+            {
+                await this.orderProductsService.DeleteAll(orderId);
+
+                this.orderRepository.HardDelete(order);
+            }
 
             await this.orderRepository.SaveChangesAsync();
+        }
+
+        public IQueryable<T> GetAllDelivered<T>()
+        {
+            var query = this.orderRepository.AllAsNoTrackingWithDeleted()
+             .Where(x => x.OrderStatus == OrderStatus.Delivered)
+             .OrderByDescending(x => x.OrderDate);
+
+            return query.To<T>();
         }
     }
 }

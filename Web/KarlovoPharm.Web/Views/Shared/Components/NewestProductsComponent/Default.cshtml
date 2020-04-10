@@ -1,0 +1,27 @@
+﻿@using KarlovoPharm.Web.ViewModels.Products
+@model IEnumerable<ProductSingleViewModel>
+
+<div class="site-section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="title-section text-center col-12">
+                <h2 class="text-uppercase">Нови продукти</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 block-3 products-wrap">
+                <div class="nonloop-block-3 owl-carousel">
+                    @foreach (var product in Model)
+                    {
+                        <div class="text-center item mb-4">
+                            <a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" height="250" alt="Image"></a>
+                            <h3 class="text-dark"><a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id">@product.Name</a></h3>
+                            <p class="price">@product.Price лв.</p>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

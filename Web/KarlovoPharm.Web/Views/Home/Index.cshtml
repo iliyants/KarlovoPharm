@@ -1,4 +1,5 @@
-﻿
+﻿@using KarlovoPharm.Web.ViewComponents
+
 
 @if (this.TempData["Status"] != null)
 {
@@ -9,9 +10,10 @@
 
 <partial name="~/Views/Shared/Partials/_BannerPartial.cshtml" />
 
-<partial name="~/Views/Shared/Partials/_PopularProductsPartial.cshtml" />
+@await Component.InvokeAsync(typeof(PopularProductsComponent))
 
-<partial name="~/Views/Shared/Partials/_NewestProductsPartial.cshtml" />
+
+@await Component.InvokeAsync(typeof(NewestProductsComponent))
 
 
 <div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
