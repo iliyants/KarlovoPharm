@@ -1,0 +1,21 @@
+﻿@using KarlovoPharm.Web.ViewModels.Categories
+@model IEnumerable<SubCategoryViewModel>
+
+<div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+    <h3 class="footer-heading mb-4">Бързи Линкове</h3>
+    <ul class="list-unstyled">
+        <li><a asp-controller="Store" asp-action="All">Магазин</a></li>
+        @{var counter = 1; }
+        @foreach (var subCategory in Model)
+        {
+            if (counter == 5)
+            {
+                break;
+            }
+
+            <li><a asp-controller="Store" asp-action="AllFiltered" asp-route-id="@subCategory.Id">@subCategory.Name</a></li>
+
+            counter++;
+        }
+    </ul>
+</div>

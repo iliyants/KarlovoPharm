@@ -8,5 +8,6 @@ namespace KarlovoPharm.Services.Data.OrderProducts
         Task DeleteAll(string orderId);
 
         Task<IEnumerable<T>> MostPurchased<T>();
+
     }
 }

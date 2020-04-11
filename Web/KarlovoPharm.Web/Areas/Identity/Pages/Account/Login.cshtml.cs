@@ -19,11 +19,15 @@
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger<LoginModel> logger;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
+            ILogger<LoginModel> logger,
+            UserManager<ApplicationUser> userManager)
         {
             this.signInManager = signInManager;
             this.logger = logger;
+            this.userManager = userManager;
         }
 
         [BindProperty]
@@ -67,8 +71,16 @@
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await this.signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, false, lockoutOnFailure: true);
+
+                var user = await this.userManager.FindByNameAsync(this.Input.Username);
+
                 if (result.Succeeded)
                 {
+                    if (!user.EmailConfirmed && user.UserName != "Admin")
+                    {
+                        this.TempData["InfoMessage"] = ValidationMessages.ConfirmYourEmailToLogin;
+                        return this.Page();
+                    }
                     this.logger.LogInformation("User logged in.");
                     return this.LocalRedirect(returnUrl);
                 }

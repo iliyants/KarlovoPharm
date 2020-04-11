@@ -4,6 +4,11 @@
     ViewData["Title"] = "Login";
 }
 
+@if (this.TempData["InfoMessage"] != null)
+{
+    @await Component.InvokeAsync("InfoMessage", new { message = this.TempData["InfoMessage"] });
+
+}
 <div class="site-section">
     <div class="container">
         <div class="row">
@@ -11,7 +16,7 @@
                 <h2 class="h3 mb-5 text-black">Вход</h2>
             </div>
             <div class="col-md-12">
-                <form  method="post">
+                <form method="post">
                     <div class="p-3 p-lg-5 border">
                         <div class="form-group row">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -24,7 +29,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="Password" class="text-black">Парола <span class="text-danger">*</span></label>
-                                <input asp-for="Input.Password" type="password" class="form-control"  placeholder="Парола">
+                                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Парола">
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                         </div>

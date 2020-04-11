@@ -28,5 +28,8 @@
         IQueryable<T> GetAllProcessed<T>();
 
         IQueryable<T> GetAllDelivered<T>();
+
+        Task<int> GetUnprocessedOrdersCountAsync();
+
     }
 }

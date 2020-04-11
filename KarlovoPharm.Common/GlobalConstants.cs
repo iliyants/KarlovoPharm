@@ -16,5 +16,6 @@
 
         public const string CloudinaryProductPictureFolder = "product_images";
 
+        public const string AdminEmail = "karlovopharm@abv.bg";
     }
 }

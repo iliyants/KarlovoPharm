@@ -25,7 +25,7 @@
             var root = new ApplicationUser
             {
                 UserName = "Admin",
-                Email = "admin@gmail.com",
+                Email = "iliyan_tz@abv.bg",
                 PasswordHash = "123456",
             };
 

@@ -1,6 +1,7 @@
 ﻿@using KarlovoPharm.Web.ViewComponents
 @using KarlovoPharm.Data.Models.Common
 @using Microsoft.AspNetCore.Identity
+@using KarlovoPharm.Common
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -19,16 +20,22 @@
                     <li><a asp-area="" asp-controller="Store" asp-action="All">Магазин</a></li>
                     @await Component.InvokeAsync(typeof(NavBarCategoryComponent))
                     <li><a href="about.html">За нас</a></li>
-                    <li><a href="contact.html">Свържете се с нас</a></li>
+                    <li><a asp-controller="Contacts" asp-action="Contact">Свържете се с нас</a></li>
                 </ul>
             </nav>
         </div>
         @if (this.SignInManager.IsSignedIn(this.User))
         {
-            var user = await UserManager.GetUserAsync(this.User);
-            var userId = user?.Id;
-            @await Component.InvokeAsync(typeof(ShoppingCartComponent), userId)
-
+            if (this.User.IsInRole(GlobalConstants.UserRoleName))
+            {
+                var user = await UserManager.GetUserAsync(this.User);
+                var userId = user?.Id;
+                @await Component.InvokeAsync(typeof(ShoppingCartComponent), userId)
+            }
+            else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                @await Component.InvokeAsync(typeof(AdminPurchasesComponent))
+            }
         }
         <partial name="~/Views/Shared/Partials/_LoginPartial.cshtml" />
     </div>

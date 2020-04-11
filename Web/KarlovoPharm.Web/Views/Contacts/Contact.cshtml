@@ -1,0 +1,71 @@
+﻿@model KarlovoPharm.Web.InputModels.Contacts.EmailCreateInputModel
+
+<section class="Material-contact-section section-padding section-dark">
+    <div class="container">
+        <div class="row">
+            <!-- Section Titile -->
+            <div class="col-md-12 wow animated fadeInLeft" data-wow-delay=".2s">
+                <h1 class="section-title">Изпратете ни съобщение.</h1>
+            </div>
+            @if (this.TempData["InfoMessage"] != null)
+            {
+                @await Component.InvokeAsync("InfoMessage", new { message = this.TempData["InfoMessage"] });
+            }
+        </div>
+        <div class="row">
+            <!-- Section Titile -->
+            <div class="col-md-6 mt-3 contact-widget-section2 wow animated fadeInLeft" data-wow-delay=".2s">
+                <div class="find-widget">
+                    Фирма:  <a href="">Карлово Фарм</a>
+                </div>
+                <div class="find-widget">
+                    Адрес: <a href="">Елхова Гора 11 гр. Карлово</a>
+                </div>
+                <div class="find-widget">
+                    Телефон:  <a href="#">+ 879-890-9767</a>
+                </div>
+                <div class="find-widget">
+                    Работно време: <a href="#">От понеделник до петък: 08:00 - 20:00</a>
+                </div>
+                <div class="find-widget">
+                    Нашият имейл: <a href="#">karlovopharm@abv.bg</a>
+                </div>
+            </div>
+            <!-- contact form -->
+            <div class="col-md-6 wow animated fadeInRight" data-wow-delay=".2s">
+                <form class="shake" role="form" method="post" asp-controller="Contacts" asp-action="SendEmail">
+                    <!-- Name -->
+                    <div class="form-group label-floating">
+                        <label for="Name" class="text-black">Име <span class="text-danger">*</span></label>
+                        <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Въведете името си тук.">
+                        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                    </div>
+                    <!-- email -->
+                    <div class="form-group label-floating">
+                        <label for="Email" class="text-black">Имейл <span class="text-danger">*</span></label>
+                        <input asp-for="@Model.Email" type="email" class="form-control" placeholder="Въведете имейла си тук.">
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    </div>
+                    <!-- Subject -->
+                    <div class="form-group label-floating">
+                        <label for="Subject" class="text-black">Тема <span class="text-danger">*</span></label>
+                        <input asp-for="@Model.Subject" type="text" class="form-control" placeholder="Въведете темата тук.">
+                        <span asp-validation-for="@Model.Subject" class="text-danger"></span>
+                    </div>
+                    <!-- Message -->
+                    <div class="form-group label-floating">
+                        <label for="Message" class="control-label">Съобщение <span class="text-danger">*</span> </label>
+                        <textarea asp-for="@Model.Message" class="form-control" rows="3" required data-error="Въведете вашето съобщение."></textarea>
+                        <span asp-validation-for="@Model.Message" class="text-danger"></span>
+                    </div>
+                    <!-- Form Submit -->
+                    <div class="form-submit mt-5">
+                        <button class="btn btn-common" type="submit" id="form-submit"><i class="material-icons mdi mdi-message-outline"></i> Изпрати съобщение</button>
+                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

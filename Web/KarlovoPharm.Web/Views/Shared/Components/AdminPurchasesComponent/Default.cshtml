@@ -1,0 +1,8 @@
+﻿@model KarlovoPharm.Web.ViewComponents.Models.AdminPurchasesModel
+
+    <div class="icons">
+        <a asp-area="Administration" asp-controller="Orders" asp-action="AllUnprocessed" class="icons-btn d-inline-block bag">
+            <span class="icon-event_busy"></span>
+            <span id="productsQuantity" class="number">@Model.Count</span>
+        </a>
+    </div>

@@ -215,5 +215,12 @@
 
             return query.To<T>();
         }
+
+        public async Task<int> GetUnprocessedOrdersCountAsync()
+        {
+            return await this.orderRepository.AllAsNoTracking()
+                .Where(x => x.OrderStatus == OrderStatus.UnProccessed)
+                .CountAsync();
+        }
     }
 }

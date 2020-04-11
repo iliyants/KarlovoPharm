@@ -77,5 +77,12 @@
 
         public const string PhoneNumberLengthErrorMessage = "Моля въдевете валиден телефонен номер !";
 
+
+        public const string SubjectLenghtErrorMessage = "Темата трябва да е между 3 и 40 символа.";
+
+        public const string MessageLenghtErrorMessage = "Съобщението трябва да е между 10 и 300 символа.";
+
+        public const string ConfirmYourEmailToLogin = "Моля потвърдете акаунта си, чрез линка който ви беше изпратен на имейла с който се регистрирахте.";
+
     }
 }

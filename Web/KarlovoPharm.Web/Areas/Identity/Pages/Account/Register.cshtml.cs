@@ -1,6 +1,7 @@
 ﻿namespace KarlovoPharm.Web
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Text.Encodings.Web;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Common;
@@ -72,27 +73,30 @@
 
                 if (result.Succeeded)
                 {
-                    //this.logger.LogInformation("User created a new account with password.");
 
-                    //var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = this.Url.Page(
-                    //    "/Account/ConfirmEmail",
-                    //    pageHandler: null,
-                    //    values: new { userId = user.Id, code = code },
-                    //    protocol: this.Request.Scheme);
+                    var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = this.Url.Page(
+                        "/Account/ConfirmEmail",
+                        pageHandler: null,
+                        values: new { userId = user.Id, code },
+                        protocol: this.Request.Scheme);
 
-                    //await this.emailSender.SendEmailAsync(
-                    //    this.Input.Email,
-                    //    "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await this.emailSender.SendEmailAsync(
+                        GlobalConstants.AdminEmail,
+                        "Account Confirmation",
+                        this.Input.Email,
+                        "Потрвърждение на акаунт.",
+                        $"Моля потвърдете си акаунта като натиснете <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>ТУК.</a>.");
 
                     await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
 
                     await this.shoppingCartService.CreateAsync(user.Id);
 
-                    await this.signInManager.SignInAsync(user, isPersistent: false);
+                    //await this.signInManager.SignInAsync(user, isPersistent: false);
 
-                    return this.LocalRedirect(returnUrl);
+                    this.TempData["InfoMessage"] = ValidationMessages.ConfirmYourEmailToLogin;
+
+                    return this.RedirectToPage("./Login");
                 }
 
                 foreach (var error in result.Errors)
