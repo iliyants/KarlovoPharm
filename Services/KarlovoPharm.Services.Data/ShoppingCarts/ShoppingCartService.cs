@@ -1,6 +1,7 @@
 ﻿using KarlovoPharm.Data.Common.Repositories;
 using KarlovoPharm.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +18,11 @@ namespace KarlovoPharm.Services.Data.ShoppingCarts
 
         public async Task<bool> CreateAsync(string userId)
         {
+            if (userId == null)
+            {
+                throw new ArgumentNullException("userId was null");
+            }
+
              await this.shoppingCartRepoitory.AddAsync(new ShoppingCart()
             {
                 UserId = userId
@@ -29,6 +35,11 @@ namespace KarlovoPharm.Services.Data.ShoppingCarts
 
         public async Task<string> GetIdByUserId(string userId)
         {
+            if (userId == null)
+            {
+                throw new ArgumentNullException("userId was null");
+            }
+
             return await this.shoppingCartRepoitory
                 .AllAsNoTracking()
                 .Where(x => x.UserId == userId)
@@ -38,6 +49,10 @@ namespace KarlovoPharm.Services.Data.ShoppingCarts
 
         public async Task<int> GetProductsCountAsync(string userId)
         {
+            if (userId == null)
+            {
+                throw new ArgumentNullException("userId was null");
+            }
             return await this.shoppingCartRepoitory
                  .AllAsNoTracking()
                  .Where(x => x.UserId == userId)

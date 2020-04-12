@@ -16,6 +16,10 @@
 </div>
 
 <div class="site-section">
+    @if (this.TempData["Error"] != null)
+    {
+        @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+    }
     <form asp-controller="Orders" asp-action="Create" method="post">
         <input type="hidden" asp-for="@Model.UserId" />
         <div class="container">
@@ -151,7 +155,7 @@
 
 
                                 <div class="form-group">
-                                    <label  class="text-black">Начин на плащане <span class="text-danger">*</span></label>
+                                    <label class="text-black">Начин на плащане <span class="text-danger">*</span></label>
 
                                     <div class="radio">
                                         <label asp-for="PaymentType">

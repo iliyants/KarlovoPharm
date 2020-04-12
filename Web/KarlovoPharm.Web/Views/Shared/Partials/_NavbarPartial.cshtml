@@ -19,7 +19,7 @@
                     <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Към сайта</a></li>
                     <li><a asp-area="" asp-controller="Store" asp-action="All">Магазин</a></li>
                     @await Component.InvokeAsync(typeof(NavBarCategoryComponent))
-                    <li><a href="about.html">За нас</a></li>
+                    <li><a asp-controller="About" asp-action="Index">За нас</a></li>
                     <li><a asp-controller="Contacts" asp-action="Contact">Свържете се с нас</a></li>
                 </ul>
             </nav>

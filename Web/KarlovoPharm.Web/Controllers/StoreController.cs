@@ -4,19 +4,16 @@
 
     using KarlovoPharm.Common;
     using KarlovoPharm.Services.Data.Products;
-    using KarlovoPharm.Services.Data.Store;
     using KarlovoPharm.Web.Paging;
     using KarlovoPharm.Web.ViewModels.Products;
     using Microsoft.AspNetCore.Mvc;
 
     public class StoreController : BaseController
     {
-        private readonly IStoreService storeService;
         private readonly IProductService productService;
 
-        public StoreController(IStoreService storeService, IProductService productService)
+        public StoreController(IProductService productService)
         {
-            this.storeService = storeService;
             this.productService = productService;
         }
 

@@ -35,6 +35,11 @@
 
         public async Task CreateUproccessedOrder(OrderCreateInputModel orderCreateInputModel, string shoppingCartId)
         {
+            if (shoppingCartId == null)
+            {
+                throw new ArgumentNullException("ShoppingCartId was null");
+            }
+
             var order = orderCreateInputModel.To<Order>();
 
             await this.orderRepository.AddAsync(order);
@@ -79,6 +84,11 @@
 
         public async Task<T> Details<T>(string userId, string orderId)
         {
+            if (userId == null || orderId == null)
+            {
+                throw new ArgumentNullException("UserId or orderId were null");
+            }
+
             var order = await this.orderRepository.AllAsNoTracking()
                 .Include(x => x.OrderProducts)
                 .ThenInclude(x => x.Product)
@@ -92,6 +102,12 @@
 
         public async Task<T> DetailsAdmin<T>(string orderId)
         {
+
+            if (orderId == null)
+            {
+                throw new ArgumentNullException("OrderId was null");
+            }
+
             var order = await this.orderRepository
                 .AllAsNoTrackingWithDeleted()
                 .Include(x => x.OrderProducts)

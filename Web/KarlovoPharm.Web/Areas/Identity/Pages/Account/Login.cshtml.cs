@@ -70,17 +70,22 @@
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await this.signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, false, lockoutOnFailure: true);
 
                 var user = await this.userManager.FindByNameAsync(this.Input.Username);
 
-                if (result.Succeeded)
+                if (user != null)
                 {
                     if (!user.EmailConfirmed && user.UserName != "Admin")
                     {
                         this.TempData["InfoMessage"] = ValidationMessages.ConfirmYourEmailToLogin;
                         return this.Page();
                     }
+                }
+
+                var result = await this.signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, false, lockoutOnFailure: true);
+
+                if (result.Succeeded)
+                {
                     this.logger.LogInformation("User logged in.");
                     return this.LocalRedirect(returnUrl);
                 }

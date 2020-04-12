@@ -110,7 +110,11 @@
 
         public async Task<bool> DeleteCategory(string categoryId)
         {
-         
+            if (categoryId == null)
+            {
+                throw new ArgumentNullException("CategoryId was null");
+            }
+
             if (this.categoryRepository
                 .All()
                 .Include(x => x.SubCategories)

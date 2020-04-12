@@ -70,6 +70,10 @@
 
         public T GetUserInfo<T>(string userId)
         {
+            if (userId == null)
+            {
+                throw new ArgumentNullException("UserId was null");
+            }
 
             return this
                 .userRepository
@@ -82,6 +86,12 @@
 
         public async Task<ApplicationUser> GetUserWithAllPropertiesById(string userId)
         {
+
+            if (userId == null)
+            {
+                throw new ArgumentNullException("UserId was null");
+            }
+
             var result =   await this.userRepository.All()
                 .Where(x => x.Id == userId)
                 .Include(x => x.UserAddresses)

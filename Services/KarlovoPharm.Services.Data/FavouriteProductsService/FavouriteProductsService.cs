@@ -31,6 +31,11 @@ namespace KarlovoPharm.Services.Data.FavouriteProductsService
         public async Task<bool> AddAsync(string productId, string userId)
         {
 
+            if (productId == null || userId == null)
+            {
+                throw new ArgumentNullException("ProductId or userId were null");
+            }
+
             if (await this.ProductsExistsInFavourites(productId, userId))
             {
                 return false;

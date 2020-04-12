@@ -25,6 +25,11 @@
         {
             var subCategory = await this.subCategoryRepository.AllAsNoTracking().Select(x => x.Name).ToListAsync();
 
+            if (subCategory == null)
+            {
+                throw new ArgumentNullException("subCategry was null");
+            }
+
             return subCategory.Contains(name);
         }
 
@@ -50,6 +55,7 @@
 
         public async Task<string> GetNameByIdAsync(string id)
         {
+  
             var subCategory = await this.subCategoryRepository
                 .AllAsNoTracking()
                 .Where(x => x.Id == id)
@@ -116,6 +122,11 @@
 
         public async Task<string> GetMainCategoryNameBySubCategoryId(string id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException("Main category Id was null");
+            }
+
             return await this.subCategoryRepository.All().Where(x => x.Id == id)
                 .Include(x => x.Category)
                 .Select(x => x.Category.Name)
@@ -124,6 +135,11 @@
 
         public async Task<string> GetMainCategegoryIdBySubCategoryId(string id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException("Main category Id was null");
+            }
+
             return await this.subCategoryRepository.All().Where(x => x.Id == id)
                 .Select(x => x.CategoryId)
                 .SingleOrDefaultAsync();
@@ -131,7 +147,10 @@
 
         public async Task<bool> DeleteSubCategory(string subCategoryId)
         {
-
+            if (subCategoryId == null)
+            {
+                throw new ArgumentNullException("SubcategoryId was null");
+            }
             if (this.subCategoryRepository
                 .All()
                 .Include(x => x.Products)

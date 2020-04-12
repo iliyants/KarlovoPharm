@@ -36,6 +36,11 @@
 
         public async Task<bool> DeleteAsync(string addressId)
         {
+            if (addressId == null)
+            {
+                throw new ArgumentNullException("AdressId was null");
+            }
+
             var address = await this.addressRepository.AllAsNoTracking().SingleOrDefaultAsync(x => x.Id == addressId);
 
             if (address == null)
@@ -54,6 +59,11 @@
         {
             var address = await this.addressRepository.All().SingleOrDefaultAsync(x => x.Id == addressEditInputModel.Id);
 
+            if (address == null)
+            {
+                throw new ArgumentNullException("Adress was null");
+            }
+
             addressEditInputModel.To(address);
 
             var result = await this.addressRepository.SaveChangesAsync();
@@ -63,6 +73,11 @@
 
         public T GetById<T>(string addressId)
         {
+            if (addressId == null)
+            {
+                throw new ArgumentNullException("Adress was null");
+            }
+
             return this.addressRepository
                 .AllAsNoTracking()
                 .SingleOrDefault(x => x.Id == addressId)

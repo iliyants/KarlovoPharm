@@ -19,7 +19,6 @@
     using KarlovoPharm.Services.Data.Products;
     using KarlovoPharm.Services.Data.ShoppingCartProducts;
     using KarlovoPharm.Services.Data.ShoppingCarts;
-    using KarlovoPharm.Services.Data.Store;
     using KarlovoPharm.Services.Data.SubCategories;
     using KarlovoPharm.Services.Data.Users;
     using KarlovoPharm.Services.Data.UsersAddresses;
@@ -104,7 +103,6 @@
             services.AddTransient<ISubCategoryService, SubCategoryService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
-            services.AddTransient<IStoreService, StoreService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAddressService, AddressService>();
             services.AddTransient<IUsersAddressesService, UsersAddressesService>();

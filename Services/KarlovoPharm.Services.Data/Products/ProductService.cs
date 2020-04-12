@@ -119,6 +119,11 @@
         {
             var product = await this.productRepository.AllAsNoTracking().Select(x => x.Name).ToListAsync();
 
+            if (product == null)
+            {
+                throw new ArgumentNullException("Product was null");
+            }
+
             return product.Contains(name);
         }
 
