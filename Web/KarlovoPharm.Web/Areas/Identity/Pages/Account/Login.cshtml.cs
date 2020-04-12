@@ -73,14 +73,14 @@
 
                 var user = await this.userManager.FindByNameAsync(this.Input.Username);
 
-                if (user != null)
-                {
-                    if (!user.EmailConfirmed && user.UserName != "Admin")
-                    {
-                        this.TempData["InfoMessage"] = ValidationMessages.ConfirmYourEmailToLogin;
-                        return this.Page();
-                    }
-                }
+                //if (user != null)
+                //{
+                //    if (!user.EmailConfirmed && user.UserName != "Admin")
+                //    {
+                //        this.TempData["InfoMessage"] = ValidationMessages.ConfirmYourEmailToLogin;
+                //        return this.Page();
+                //    }
+                //}
 
                 var result = await this.signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, false, lockoutOnFailure: true);
 

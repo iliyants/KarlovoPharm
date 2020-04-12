@@ -169,7 +169,7 @@
             }
 
 
-            this.productRepository.HardDelete(product);
+            this.productRepository.Delete(product);
 
             var result = await this.productRepository.SaveChangesAsync();
 

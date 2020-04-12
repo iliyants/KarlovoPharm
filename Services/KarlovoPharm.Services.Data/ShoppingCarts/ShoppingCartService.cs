@@ -53,12 +53,18 @@ namespace KarlovoPharm.Services.Data.ShoppingCarts
             {
                 throw new ArgumentNullException("userId was null");
             }
-            return await this.shoppingCartRepoitory
+
+            var shoppingCartProducts = await this.shoppingCartRepoitory
                  .AllAsNoTracking()
                  .Where(x => x.UserId == userId)
-                 .Include(x => x.ShoppingCartProducts)
-                 .Select(x => x.ShoppingCartProducts.Count())
+                 .Select(x => new 
+                 {
+                    ShoppingCartProducts =  x.ShoppingCartProducts.Select(x => !x.Product.IsDeleted).ToList()
+                 })
                  .SingleOrDefaultAsync();
+
+            return shoppingCartProducts.ShoppingCartProducts.Count();
+
         }
     }
 }

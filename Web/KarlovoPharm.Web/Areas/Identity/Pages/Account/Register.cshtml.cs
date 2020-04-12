@@ -92,8 +92,6 @@
 
                     await this.shoppingCartService.CreateAsync(user.Id);
 
-                    //await this.signInManager.SignInAsync(user, isPersistent: false);
-
                     this.TempData["InfoMessage"] = ValidationMessages.ConfirmYourEmailToLogin;
 
                     return this.RedirectToPage("./Login");
