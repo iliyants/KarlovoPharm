@@ -52,7 +52,7 @@
 
             if (user == null)
             {
-                throw new ArgumentException("User was null !");
+                throw new ArgumentNullException("User was null !");
             }
 
             if (user.UserName != profileEditInputModel.Username &&
@@ -68,20 +68,21 @@
             return true;
         }
 
-        public T GetUserInfo<T>(string userId)
+        public async Task<T> GetUserInfo<T>(string userId)
         {
             if (userId == null)
             {
                 throw new ArgumentNullException("UserId was null");
             }
 
-            return this
+            var user = await this
                 .userRepository
                 .AllAsNoTracking()
                 .Include(x => x.UserAddresses)
                 .ThenInclude(x => x.Address)
-                .SingleOrDefault(x => x.Id == userId)
-                .To<T>();
+                .SingleOrDefaultAsync(x => x.Id == userId);
+
+            return user.To<T>();
         }
 
         public async Task<ApplicationUser> GetUserWithAllPropertiesById(string userId)

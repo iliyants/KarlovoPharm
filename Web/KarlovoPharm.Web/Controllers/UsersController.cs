@@ -25,9 +25,10 @@
         }
 
         [Authorize]
-        public IActionResult Profile(string userId)
+        [HttpGet]
+        public async Task<IActionResult> Profile(string userId)
         {
-            var user = this.userService.GetUserInfo<UserProfileViewModel>(userId);
+            var user = await this.userService.GetUserInfo<UserProfileViewModel>(userId);
             user.NormalizedEmail = user.NormalizedEmail.ToLower();
 
             return this.View(user);
@@ -35,9 +36,9 @@
 
         [Authorize]
         [HttpGet]
-        public IActionResult ProfileEdit(string userId)
+        public async Task<IActionResult> ProfileEdit(string userId)
         {
-            var user = this.userService.GetUserInfo<ProfileEdintInputModel>(userId);
+            var user = await this.userService.GetUserInfo<ProfileEdintInputModel>(userId);
 
             return this.View(user);
         }

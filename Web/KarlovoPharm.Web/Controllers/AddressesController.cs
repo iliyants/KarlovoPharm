@@ -78,7 +78,7 @@
         [HttpGet]
         public async Task<IActionResult> Delete(string addressId, string userId)
         {
-            if (!await this.usersAddressesService.DeleteAsync(addressId) ||
+            if (!await this.usersAddressesService.DeleteAsync(addressId, userId) ||
                 !await this.addressService.DeleteAsync(addressId))
             {
                 this.TempData["Error"] = UnexpectedErrorDeletingAddressErrorMessage;

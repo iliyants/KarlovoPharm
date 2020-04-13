@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using KarlovoPharm.Common;
     using KarlovoPharm.Data.Models.Common;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
@@ -34,16 +34,22 @@
 
             foreach (var user in users)
             {
-               var currentUser = new ApplicationUser
+                var currentUser = new ApplicationUser
                 {
                     UserName = user.UserName,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
                     PasswordHash = user.Password,
+                    EmailConfirmed = true,
                 };
 
-               await userManager.CreateAsync(currentUser, user.Password);
+                var result = await userManager.CreateAsync(currentUser, user.Password);
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(currentUser, GlobalConstants.UserRoleName);
+                }
             }
         }
     }

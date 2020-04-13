@@ -6,6 +6,6 @@ namespace KarlovoPharm.Services.Data.UsersAddresses
     {
         Task<bool> CreateAsync(string userId, string addressId);
 
-        Task<bool> DeleteAsync(string addressId);
+        Task<bool> DeleteAsync(string addressId, string userId);
     }
 }

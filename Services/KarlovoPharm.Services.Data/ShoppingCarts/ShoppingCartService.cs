@@ -1,12 +1,12 @@
-﻿using KarlovoPharm.Data.Common.Repositories;
-using KarlovoPharm.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace KarlovoPharm.Services.Data.ShoppingCarts
+﻿namespace KarlovoPharm.Services.Data.ShoppingCarts
 {
+    using KarlovoPharm.Data.Common.Repositories;
+    using KarlovoPharm.Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class ShoppingCartService : IShoppingCartService
     {
         private readonly IDeletableEntityRepository<ShoppingCart> shoppingCartRepoitory;
@@ -23,7 +23,7 @@ namespace KarlovoPharm.Services.Data.ShoppingCarts
                 throw new ArgumentNullException("userId was null");
             }
 
-             await this.shoppingCartRepoitory.AddAsync(new ShoppingCart()
+            await this.shoppingCartRepoitory.AddAsync(new ShoppingCart()
             {
                 UserId = userId
             });
@@ -57,9 +57,9 @@ namespace KarlovoPharm.Services.Data.ShoppingCarts
             var shoppingCartProducts = await this.shoppingCartRepoitory
                  .AllAsNoTracking()
                  .Where(x => x.UserId == userId)
-                 .Select(x => new 
+                 .Select(x => new
                  {
-                    ShoppingCartProducts =  x.ShoppingCartProducts.Select(x => !x.Product.IsDeleted).ToList()
+                     ShoppingCartProducts = x.ShoppingCartProducts.Select(x => !x.Product.IsDeleted).ToList()
                  })
                  .SingleOrDefaultAsync();
 

@@ -1,5 +1,6 @@
 ﻿using KarlovoPharm.Data.Common.Repositories;
 using KarlovoPharm.Data.Models;
+using KarlovoPharm.Services.Data.Addresses;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -36,9 +37,11 @@ namespace KarlovoPharm.Services.Data.UsersAddresses
 
         }
 
-        public async Task<bool> DeleteAsync(string addressId)
+        public async Task<bool> DeleteAsync(string addressId, string userId)
         {
-            var userAddress = await this.userAddressRepository.AllAsNoTracking().SingleOrDefaultAsync(x => x.AddressId == addressId);
+            var userAddress = await this.userAddressRepository
+                .All()
+                .SingleOrDefaultAsync(x => x.AddressId == addressId && x.UserId == userId);
 
             if (userAddress == null)
             {

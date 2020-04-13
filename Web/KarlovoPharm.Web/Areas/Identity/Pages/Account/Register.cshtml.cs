@@ -74,23 +74,27 @@
                 if (result.Succeeded)
                 {
 
-                    var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = this.Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code },
-                        protocol: this.Request.Scheme);
+                    //var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = this.Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { userId = user.Id, code },
+                    //    protocol: this.Request.Scheme);
 
-                    await this.emailSender.SendEmailAsync(
-                        GlobalConstants.AdminEmail,
-                        "Account Confirmation",
-                        this.Input.Email,
-                        "Потрвърждение на акаунт.",
-                        $"Моля потвърдете си акаунта като натиснете <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>ТУК.</a>.");
+                    //await this.emailSender.SendEmailAsync(
+                    //    GlobalConstants.AdminEmail,
+                    //    "Account Confirmation",
+                    //    this.Input.Email,
+                    //    "Потрвърждение на акаунт.",
+                    //    $"Моля потвърдете си акаунта като натиснете <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>ТУК.</a>.");
 
                     await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
 
                     await this.shoppingCartService.CreateAsync(user.Id);
+
+                    //delete after
+                    await this.signInManager.SignInAsync(user, isPersistent: false);
+
 
                     this.TempData["InfoMessage"] = ValidationMessages.ConfirmYourEmailToLogin;
 

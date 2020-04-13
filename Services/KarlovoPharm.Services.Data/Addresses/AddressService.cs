@@ -30,8 +30,9 @@
 
             await this.addressRepository.AddAsync(address);
 
-            return address;
+            await this.addressRepository.SaveChangesAsync();
 
+            return address;
         }
 
         public async Task<bool> DeleteAsync(string addressId)
@@ -41,12 +42,7 @@
                 throw new ArgumentNullException("AdressId was null");
             }
 
-            var address = await this.addressRepository.AllAsNoTracking().SingleOrDefaultAsync(x => x.Id == addressId);
-
-            if (address == null)
-            {
-                throw new ArgumentNullException("Product was null !");
-            }
+            var address = await this.addressRepository.All().SingleOrDefaultAsync(x => x.Id == addressId);
 
             this.addressRepository.HardDelete(address);
 

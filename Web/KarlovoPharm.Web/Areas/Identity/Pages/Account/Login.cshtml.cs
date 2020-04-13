@@ -71,11 +71,11 @@
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
-                var user = await this.userManager.FindByNameAsync(this.Input.Username);
+                //var user = await this.userManager.FindByNameAsync(this.Input.Username);
 
                 //if (user != null)
                 //{
-                //    if (!user.EmailConfirmed && user.UserName != "Admin")
+                //    if (!user.EmailConfirmed && user.UserName != "Admin" && user.UserName != "FirstUser")
                 //    {
                 //        this.TempData["InfoMessage"] = ValidationMessages.ConfirmYourEmailToLogin;
                 //        return this.Page();

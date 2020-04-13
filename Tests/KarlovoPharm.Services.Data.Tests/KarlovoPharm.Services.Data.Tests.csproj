@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\KarlovoPharm.Data\KarlovoPharm.Data.csproj" />
+    <ProjectReference Include="..\..\Services\KarlovoPharm.Services.Data\KarlovoPharm.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>

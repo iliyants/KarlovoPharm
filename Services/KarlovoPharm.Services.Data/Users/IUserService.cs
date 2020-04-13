@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     public interface IUserService
     {
-        public T GetUserInfo<T>(string userId);
+        public Task<T> GetUserInfo<T>(string userId);
 
         Task<bool> EditProfileAsync(ProfileEdintInputModel productEditInputModel);
 
