@@ -131,9 +131,9 @@
         {
             var product = await this.productRepository.All().SingleOrDefaultAsync(x => x.Id == productEditInputModel.Id);
 
-            if (product == null)
+            if (product == null || productEditInputModel.Price <= 0)
             {
-                throw new ArgumentException("Product was null !");
+                throw new ArgumentNullException("Product was null or price was equal or less than zero !");
             }
 
             if (product.Name != productEditInputModel.Name &&
@@ -161,7 +161,7 @@
 
         public async Task<bool> DeleteProductAsync(string productId)
         {
-            var product = await this.productRepository.AllAsNoTracking().SingleOrDefaultAsync(x => x.Id == productId);
+            var product = await this.productRepository.All().SingleOrDefaultAsync(x => x.Id == productId);
 
             if (product == null)
             {

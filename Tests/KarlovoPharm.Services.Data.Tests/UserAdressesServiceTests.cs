@@ -11,7 +11,7 @@
     using KarlovoPharm.Services.Data.UsersAddresses;
     using Xunit;
 
-    public class UserAdressesTests
+    public class UserAdressesServiceTests
     {
 
         [Fact]

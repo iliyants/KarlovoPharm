@@ -1,7 +1,6 @@
 ﻿using KarlovoPharm.Data.Common.Repositories;
 using KarlovoPharm.Data.Models;
 using KarlovoPharm.Services.Data.Products;
-using KarlovoPharm.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

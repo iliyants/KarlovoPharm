@@ -96,7 +96,7 @@
 
             if (subCategory == null)
             {
-                throw new ArgumentException("SubCategory was null!");
+                throw new ArgumentNullException("SubCategory was null!");
             }
 
 
@@ -130,18 +130,6 @@
             return await this.subCategoryRepository.All().Where(x => x.Id == id)
                 .Include(x => x.Category)
                 .Select(x => x.Category.Name)
-                .SingleOrDefaultAsync();
-        }
-
-        public async Task<string> GetMainCategegoryIdBySubCategoryId(string id)
-        {
-            if (id == null)
-            {
-                throw new ArgumentNullException("Main category Id was null");
-            }
-
-            return await this.subCategoryRepository.All().Where(x => x.Id == id)
-                .Select(x => x.CategoryId)
                 .SingleOrDefaultAsync();
         }
 

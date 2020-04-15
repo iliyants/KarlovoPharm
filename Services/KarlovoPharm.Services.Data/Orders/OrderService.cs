@@ -35,16 +35,17 @@
 
         public async Task CreateUproccessedOrder(OrderCreateInputModel orderCreateInputModel, string shoppingCartId)
         {
-            if (shoppingCartId == null)
+            var shoppingCartProducts = await this.shoppingCartProductsService.GetAllProductsAsync<ShoppingCartProductInputModel>(shoppingCartId);
+
+            if (shoppingCartProducts == null || shoppingCartProducts.Count() == 0)
             {
-                throw new ArgumentNullException("ShoppingCartId was null");
+                throw new ArgumentNullException("ShoppingCartId was null or empty");
             }
 
             var order = orderCreateInputModel.To<Order>();
 
             await this.orderRepository.AddAsync(order);
 
-            var shoppingCartProducts = await this.shoppingCartProductsService.GetAllProductsAsync<ShoppingCartProductInputModel>(shoppingCartId);
 
             foreach (var product in shoppingCartProducts)
             {
@@ -73,7 +74,7 @@
 
             if (userId == null)
             {
-                throw new ArgumentException("UserId was null");
+                throw new ArgumentNullException("UserId was null");
             }
             var user = await this.userService
                 .GetUserWithAllPropertiesById(userId);
@@ -122,12 +123,12 @@
 
         public async Task Finish(string orderId)
         {
-            if (orderId == null)
-            {
-                throw new ArgumentException("OrderId was null");
-            }
-
             var order = await this.orderRepository.All().SingleOrDefaultAsync(x => x.Id == orderId);
+
+            if (order == null)
+            {
+                throw new ArgumentNullException("Order was null");
+            }
 
             order.OrderStatus = OrderStatus.Delivered;
             order.DeliveryDate = DateTime.UtcNow;
@@ -155,13 +156,14 @@
 
         public async Task Process(string orderId)
         {
-            if (orderId == null)
+            var order = await this.orderRepository.All()
+                .SingleOrDefaultAsync(x => x.Id == orderId);
+
+            if (order == null)
             {
                 throw new ArgumentException("OrderId was null");
             }
 
-            var order = await this.orderRepository.All()
-                .SingleOrDefaultAsync(x => x.Id == orderId);
 
             order.OrderStatus = OrderStatus.Proccessed;
             order.DispatchDate = DateTime.UtcNow;
@@ -187,13 +189,14 @@
 
         public async Task Cancel(string orderId)
         {
-            if (orderId == null)
-            {
-                throw new ArgumentException("OrderId was null");
-            }
-
             var order = await this.orderRepository.All()
              .SingleOrDefaultAsync(x => x.Id == orderId);
+
+            if (order == null)
+            {
+                throw new ArgumentNullException("OrderId was null");
+            }
+
 
             order.OrderStatus = OrderStatus.Canceled;
 
@@ -202,12 +205,12 @@
 
         public async Task Delete(string orderId)
         {
-            if (orderId == null)
-            {
-                throw new ArgumentException("OrderId was null");
-            }
-
             var order = await this.orderRepository.All().SingleOrDefaultAsync(x => x.Id == orderId);
+
+            if (order == null)
+            {
+                throw new ArgumentNullException("OrderId was null");
+            }
 
             if (order.OrderStatus == OrderStatus.Delivered)
             {

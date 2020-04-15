@@ -13,16 +13,13 @@
     public class ShoppingCartProductsService : IShoppingCartProductsService
     {
         private readonly IDeletableEntityRepository<ShoppingCartProduct> shoppingCartProductsRepository;
-        private readonly IDeletableEntityRepository<ShoppingCart> shoppingCardRepository;
         private readonly IShoppingCartService shoppingCartService;
 
         public ShoppingCartProductsService(
             IDeletableEntityRepository<ShoppingCartProduct> shoppingCartProductsRepository,
-            IDeletableEntityRepository<ShoppingCart> shoppingCardRepository,
             IShoppingCartService shoppingCartService)
         {
             this.shoppingCartProductsRepository = shoppingCartProductsRepository;
-            this.shoppingCardRepository = shoppingCardRepository;
             this.shoppingCartService = shoppingCartService;
         }
 
@@ -64,7 +61,6 @@
                 throw new ArgumentNullException("ShoppingcartId was null");
             }
 
-
             return await this.shoppingCartProductsRepository
                 .AllAsNoTracking()
                 .Where(x => x.ShoppingCartId == shoppingCartId)
@@ -75,16 +71,16 @@
         public async Task QuantityEdit(string productId, int quantity, string userId)
         {
 
-            var userShoppingCartId = await this.shoppingCartService.GetIdByUserId(userId);
+            var userShoppingCart = await this.shoppingCartService.GetIdByUserId(userId);
 
-            if (productId == null || userId == null || userShoppingCartId == null)
+            if (productId == null || userId == null || userShoppingCart == null)
             {
-                throw new ArgumentException("Product or user or shoppingCart was null");
+                throw new ArgumentNullException("Product or user or shoppingCart was null");
             }
 
             var shoppingCartProduct = await this.shoppingCartProductsRepository
                 .All()
-                .SingleOrDefaultAsync(x => x.ProductId == productId && x.ShoppingCartId == userShoppingCartId);
+                .SingleOrDefaultAsync(x => x.ProductId == productId && x.ShoppingCartId == userShoppingCart);
 
             if (quantity <= 0)
             {
@@ -94,7 +90,6 @@
             shoppingCartProduct.Quantity = quantity;
 
             await this.shoppingCartProductsRepository.SaveChangesAsync();
-
         }
 
         public async Task Delete(string productId, string userId)
@@ -103,7 +98,7 @@
 
             if (productId == null || userId == null || userShoppingCartId == null)
             {
-                throw new ArgumentException("Product or user or shoppingCart was null");
+                throw new ArgumentNullException("Product or user or shoppingCart was null");
             }
 
 
@@ -120,7 +115,7 @@
         {
             if (shoppingCartId == null)
             {
-                throw new ArgumentException("SHoppingCartId was null");
+                throw new ArgumentNullException("SHoppingCartId was null");
             }
 
             var shoppingCartProducts = await this.shoppingCartProductsRepository

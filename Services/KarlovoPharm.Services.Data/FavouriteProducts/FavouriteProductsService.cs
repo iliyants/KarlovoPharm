@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KarlovoPharm.Services.Data.FavouriteProductsService
+namespace KarlovoPharm.Services.Data.FavouriteProducts
 {
     public class FavouriteProductsService : IFavouriteProductsService
     {

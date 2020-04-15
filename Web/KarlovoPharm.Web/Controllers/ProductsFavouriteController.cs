@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
 
     using KarlovoPharm.Common;
-    using KarlovoPharm.Services.Data.FavouriteProductsService;
+    using KarlovoPharm.Services.Data.FavouriteProducts;
     using KarlovoPharm.Web.Paging;
     using KarlovoPharm.Web.ViewModels.Products;
     using Microsoft.AspNetCore.Authorization;

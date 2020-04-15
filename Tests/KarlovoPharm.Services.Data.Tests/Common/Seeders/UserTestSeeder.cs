@@ -30,7 +30,7 @@
                 UserId = user1.Entity.Id,
             };
 
-            userWithoutAddresses.ShoppingCart = new ShoppingCart()
+            userWithThreeAdresses.ShoppingCart = new ShoppingCart()
             {
                 UserId = user2.Entity.Id,
             };

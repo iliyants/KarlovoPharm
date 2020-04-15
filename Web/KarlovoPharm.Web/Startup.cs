@@ -13,7 +13,7 @@
     using KarlovoPharm.Services.Data;
     using KarlovoPharm.Services.Data.Addresses;
     using KarlovoPharm.Services.Data.Categories;
-    using KarlovoPharm.Services.Data.FavouriteProductsService;
+    using KarlovoPharm.Services.Data.FavouriteProducts;
     using KarlovoPharm.Services.Data.OrderProducts;
     using KarlovoPharm.Services.Data.Orders;
     using KarlovoPharm.Services.Data.Products;

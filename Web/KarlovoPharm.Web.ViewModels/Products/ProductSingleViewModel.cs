@@ -12,5 +12,10 @@
         public decimal Price { get; set; }
 
         public string Picture { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return this.Name == ((ProductSingleViewModel)obj).Name;
+        }
     }
 }

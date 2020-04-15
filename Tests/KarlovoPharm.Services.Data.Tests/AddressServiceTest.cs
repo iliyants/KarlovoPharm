@@ -53,6 +53,9 @@
             var addressRepository = new EfDeletableEntityRepository<Address>(context);
             var addressService = new AddressService(addressRepository);
 
+            var addressTestSeeder = new AddressTestSeeder();
+            await addressTestSeeder.SeedOneAddress(context);
+
             var address = await context.Addresses.SingleOrDefaultAsync(x => x.City == "FourthCity");
 
             var booleanResult = await addressService.DeleteAsync(address.Id);

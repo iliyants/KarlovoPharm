@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
 
     using KarlovoPharm.Data.Models.Common;
-    using KarlovoPharm.Services.Data.FavouriteProductsService;
+    using KarlovoPharm.Services.Data.FavouriteProducts;
     using KarlovoPharm.Services.Data.ShoppingCartProducts;
     using KarlovoPharm.Services.Data.ShoppingCarts;
     using KarlovoPharm.Web.ViewModels.ProductsAPI;
