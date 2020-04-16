@@ -27,6 +27,7 @@
                 UserName = "Admin",
                 Email = "iliyan_tz@abv.bg",
                 PasswordHash = "123456",
+                EmailConfirmed = true,
             };
 
             var rootPassword = "123456";
