@@ -74,7 +74,7 @@
                 options =>
                     {
                         options.CheckConsentNeeded = context => true;
-                        options.MinimumSameSitePolicy = SameSiteMode.Lax;
+                        options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
             services.Configure<CookieTempDataProviderOptions>(options =>

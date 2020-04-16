@@ -1,32 +1,36 @@
 ﻿@using KarlovoPharm.Web.ViewComponents
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
 
-                <div class="block-7">
-                    <h3 class="footer-heading mb-4">За нас</h3>
-                    <p>
-                        Аптека Карлово Фарм е основана еди кога си.Дъра бъра 3 чадъра разбираш ли, и после
-                        еди кво си и те така.
-                    </p>
-                </div>
+            <div class="block-7">
+                <h3 class="footer-heading mb-4">За нас</h3>
+                <p>
+                    Аптека Карлово Фарм е основана еди кога си.Дъра бъра 3 чадъра разбираш ли, и после
+                    еди кво си и те така.
+                </p>
+                <p>
+                    <a asp-area="" asp-controller="Home" asp-action="Privacy">Политика за ползване</a>
+                </p>
 
             </div>
 
-            @await Component.InvokeAsync(typeof(FooterLinksComponent))
+        </div>
+
+        @await Component.InvokeAsync(typeof(FooterLinksComponent))
 
 
-            <div class="col-md-6 col-lg-3">
-                <div class="block-5 mb-5">
-                    <h3 class="footer-heading mb-4">Връзка с нас</h3>
-                    <ul class="list-unstyled">
-                        <li class="address">ул. Едикоя си, номер едикой си едикъдеси.</li>
-                        <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-                        <li class="email">karlovoPharm@gmail.com</li>
-                    </ul>
-                </div>
-
-
+        <div class="col-md-6 col-lg-3">
+            <div class="block-5 mb-5">
+                <h3 class="footer-heading mb-4">Връзка с нас</h3>
+                <ul class="list-unstyled">
+                    <li class="address">ул. Едикоя си, номер едикой си едикъдеси.</li>
+                    <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
+                    <li class="email">karlovoPharm@gmail.com</li>
+                </ul>
             </div>
         </div>
+
+
     </div>
+</div>
