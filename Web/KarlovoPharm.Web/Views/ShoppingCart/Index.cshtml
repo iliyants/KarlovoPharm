@@ -101,13 +101,13 @@
                                 <span class="text-black">Общо</span>
                             </div>
                             <div class="col-md-6 text-right">
-                                <strong class="text-black">@(totalPrice + deliveryPrice) лв.</strong>
+                                <strong class="text-black">@(totalPrice == 0m ? 0m : (totalPrice + deliveryPrice)) лв.</strong>
                             </div>
                             <div class="col-md-6">
                                 <span class="text-black">Доставка</span>
                             </div>
                             <div class="col-md-6 text-right">
-                                <strong class="text-black">@deliveryPrice лв.</strong>
+                                <strong class="text-black">@(totalPrice == 0m ? 0m : deliveryPrice) лв.</strong>
                             </div>
                         </div>
 

@@ -6,29 +6,29 @@
     @await Component.InvokeAsync("InfoMessage", new { message = this.TempData["Status"] });
 }
 
-    <div class="site-blocks-cover" style="  background-image: url(https://res.cloudinary.com/dqe7qcizi/image/upload/v1586517396/common_images/hero_1_jqh3af.jpg);
+<div class="site-blocks-cover" style="  background-image: url(https://res.cloudinary.com/dqe7qcizi/image/upload/v1586517396/common_images/hero_1_jqh3af.jpg);
 ">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
-                    <div class="site-block-cover-content text-center">
-                        <h2 class="sub-title">Ефективни лекарства, Нови лекарства всеки ден</h2>
-                        <h1>Добре дошли в Карлово Фарм </h1>
-                        <p>
-                            <a asp-controller="Store" asp-action="All" class="btn btn-primary px-5 py-3">Пазарувайте сега</a>
-                        </p>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
+                <div class="site-block-cover-content text-center">
+                    <h2 class="sub-title">Ефективни лекарства, Нови лекарства всеки ден</h2>
+                    <h1>Добре дошли в Карлово Фарм </h1>
+                    <p>
+                        <a asp-controller="Store" asp-action="All" class="btn btn-primary px-5 py-3">Пазарувайте сега</a>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 <div class="site-section">
     <div class="container">
         <div class="row align-items-stretch section-overlap">
             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                 <div class="banner-wrap bg-primary h-100">
-                    <a href="#" class="h-100">
+                    <a asp-controller="ShoppingCart" asp-action="Index" class="h-100">
                         <h5>Безплатна <br> Доставка</h5>
                         <p>
                             Безплатна доставка при поръчка над 20 лв
@@ -38,11 +38,11 @@
             </div>
             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                 <div class="banner-wrap h-100">
-                    <a href="#" class="h-100">
-                        <h5>Season <br> Sale 50% Off</h5>
+                    <a asp-controller="Store" asp-action="All" asp-route-sortOrder="products-with-discount" class="h-100">
+                        <h5>Намаление <br> до 50%</h5>
                         <p>
-                            Amet sit amet dolor
-                            <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                            Вижте
+                            <strong>Всички намалени продукти</strong>
                         </p>
                     </a>
                 </div>

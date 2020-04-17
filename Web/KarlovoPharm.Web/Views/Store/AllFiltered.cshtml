@@ -19,6 +19,7 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item" asp-action="AllFiltered" asp-route-sortOrder="price-highest-to-lowest" asp-route-searchString="@searchString">Цена нисходящ</a>
                     <a class="dropdown-item" asp-action="AllFiltered" asp-route-sortOrder="price-lowest-to-highest" asp-route-searchString="@searchString">Цена възходящ</a>
+                    <a class="dropdown-item" asp-action="All" asp-route-sortOrder="products-with-discount" asp-route-searchString="@searchString">Продукти с отстъпка</a>
                 </div>
             </div>
 
@@ -35,14 +36,25 @@
         <div id="products" class="row">
             @foreach (var product in Model)
             {
-                <div class="product col-sm-6 col-lg-4 text-center item mb-4">
-                    <a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" height="150" alt="Image"></a>
-                    <h3 class="text-dark"><a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id">@product.Name</a></h3>
-                    <p class="price"> @product.Price</p>
-                    <form id="productsApi" method="post"></form>
-                    <a href="#" class="btn btn-warning" onclick="addToCart('@product.Id')">Добави в количка</a>
-                    <a href="#" class="btn btn-danger" onclick="addToFavourites('@product.Id')">Дoбави в любими</a>
-                </div>
+            <div class="product col-sm-6 col-lg-4 text-center item mb-4">
+                @if (product.OldPrice > 0m)
+                {
+                    <span class="tag">Намаление</span>
+                }
+                <a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" height="150" alt="Image"></a>
+                <h3 class="text-dark"><a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id">@product.Name</a></h3>
+                @if (product.OldPrice > 0m)
+                {
+                    <p class="price"><del>@product.OldPrice лв.</del> &mdash; @product.Price лв.</p>
+                }
+                else
+                {
+                    <p class="price"> @product.Price лв.</p>
+                }
+                <form id="productsApi" method="post"></form>
+                <a href="#" class="btn btn-warning" onclick="addToCart('@product.Id')">Добави в количка</a>
+                <a href="#" class="btn btn-danger" onclick="addToFavourites('@product.Id')">Дoбави в любими</a>
+            </div>
             }
         </div>
 

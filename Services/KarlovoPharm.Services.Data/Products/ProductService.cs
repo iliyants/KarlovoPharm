@@ -82,8 +82,14 @@
             {
                 case "price-highest-to-lowest": return this.OrderByPriceDesc(products);
                 case "price-lowest-to-highest": return this.OrderByPriceAsc(products);
+                case "products-with-discount": return this.OrderByDiscount(products);
                 default: return products;
             }
+        }
+
+        private IQueryable<ProductSingleViewModel> OrderByDiscount(IQueryable<ProductSingleViewModel> products)
+        {
+            return products.Where(x => x.OldPrice > 0);
         }
 
         private IQueryable<ProductSingleViewModel> OrderByPriceDesc(IQueryable<ProductSingleViewModel> products)
@@ -150,6 +156,11 @@
                     GlobalConstants.CloudinaryProductPictureFolder);
 
                 product.Picture = pictureUrl;
+            }
+
+            if (productEditInputModel.Price < product.Price)
+            {
+                product.OldPrice = product.Price;
             }
 
             productEditInputModel.To(product);

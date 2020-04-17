@@ -20,6 +20,8 @@
 
         public decimal Price { get; set; }
 
+        public decimal OldPrice { get; set; }
+
         public bool Available { get; set; }
 
         public string Picture { get; set; }
