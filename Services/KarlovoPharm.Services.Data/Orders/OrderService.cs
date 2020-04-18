@@ -4,6 +4,7 @@
     using KarlovoPharm.Data.Models;
     using KarlovoPharm.Data.Models.Enums;
     using KarlovoPharm.Services.Data.OrderProducts;
+    using KarlovoPharm.Services.Data.PromoCodes;
     using KarlovoPharm.Services.Data.ShoppingCartProducts;
     using KarlovoPharm.Services.Data.Users;
     using KarlovoPharm.Services.Mapping;
@@ -20,17 +21,20 @@
         private readonly IUserService userService;
         private readonly IShoppingCartProductsService shoppingCartProductsService;
         private readonly IOrderProductsService orderProductsService;
+        private readonly IPromoCodeService promoCodeService;
 
         public OrderService(
             IDeletableEntityRepository<Order> orderRepository,
             IUserService userService,
             IShoppingCartProductsService shoppingCartProductsService,
-            IOrderProductsService orderProductsService)
+            IOrderProductsService orderProductsService,
+            IPromoCodeService promoCodeService)
         {
             this.orderRepository = orderRepository;
             this.userService = userService;
             this.shoppingCartProductsService = shoppingCartProductsService;
             this.orderProductsService = orderProductsService;
+            this.promoCodeService = promoCodeService;
         }
 
         public async Task CreateUproccessedOrder(OrderCreateInputModel orderCreateInputModel, string shoppingCartId)
@@ -40,6 +44,15 @@
             if (shoppingCartProducts == null || shoppingCartProducts.Count() == 0)
             {
                 throw new ArgumentNullException("ShoppingCartId was null or empty");
+            }
+
+            var deliveryPrice = shoppingCartProducts.Sum(x => x.Quantity * x.ProductPrice) >= 20m ? 0m : 3.5m;
+
+            var totalPrice = shoppingCartProducts.Sum(x => x.Quantity * x.ProductPrice) + deliveryPrice;
+
+            if (orderCreateInputModel.PromoCodeId != null)
+            {
+                totalPrice = await this.promoCodeService.DeductPercentageFromPrice(totalPrice, orderCreateInputModel.PromoCodeId);
             }
 
             var order = orderCreateInputModel.To<Order>();
@@ -57,11 +70,9 @@
                 });
             }
 
-            var deliveryPrice = shoppingCartProducts.Sum(x => x.Quantity * x.ProductPrice) >= 20m ? 0m : 3.5m;
-
             order.OrderStatus = OrderStatus.UnProccessed;
             order.DeliveryPrice = deliveryPrice;
-            order.TotalPrice = shoppingCartProducts.Sum(x => x.Quantity * x.ProductPrice) + deliveryPrice;
+            order.TotalPrice = totalPrice;
             order.OrderDate = DateTime.UtcNow;
 
             await this.shoppingCartProductsService.DeleteAll(shoppingCartId);
@@ -95,6 +106,7 @@
                 .ThenInclude(x => x.Product)
                 .Include(x => x.DeliveryAddress)
                 .Include(x => x.User)
+                .Include(x => x.PromoCode)
                 .Where(x => x.Id == orderId && x.UserId == userId)
                 .SingleOrDefaultAsync();
 
@@ -115,6 +127,7 @@
                 .ThenInclude(x => x.Product)
                 .Include(x => x.User)
                 .Include(x => x.DeliveryAddress)
+                .Include(x => x.PromoCode)
                 .SingleOrDefaultAsync(x => x.Id == orderId);
 
             return order.To<T>();

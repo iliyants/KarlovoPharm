@@ -155,17 +155,20 @@
             var validProductEditInputModel = new ProductEditInputModel()
             {
                 Id = "1",
+                Price = 1,
             };
 
             var inValidProductIdEditInputModel = new ProductEditInputModel()
             {
                 Id = "invalid",
+                Price = 1,
             };
 
             var inValidProductNameEditInputModel = new ProductEditInputModel()
             {
                 Id = "1",
                 Name = "testProduct2",
+                Price = 1,
             };
 
             var resultShouldBeTrue = await productsService.EditProductAsync(validProductEditInputModel);

@@ -17,6 +17,7 @@
     using KarlovoPharm.Services.Data.OrderProducts;
     using KarlovoPharm.Services.Data.Orders;
     using KarlovoPharm.Services.Data.Products;
+    using KarlovoPharm.Services.Data.PromoCodes;
     using KarlovoPharm.Services.Data.ShoppingCartProducts;
     using KarlovoPharm.Services.Data.ShoppingCarts;
     using KarlovoPharm.Services.Data.SubCategories;
@@ -116,6 +117,7 @@
             services.AddTransient<IShoppingCartProductsService, ShoppingCartProductsService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderProductsService, OrderProductsService>();
+            services.AddTransient<IPromoCodeService, PromoCodeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

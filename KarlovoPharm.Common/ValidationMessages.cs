@@ -84,5 +84,9 @@
 
         public const string ConfirmYourEmailToLogin = "Моля потвърдете акаунта си, чрез линка който ви беше изпратен на имейла с който се регистрирахте.";
 
+
+        public const string PromoCodeLengthErrorMessage = "Промокодъд, трябва да е между 3 и 10 символа.";
+
+        public const string PromoCodePercetnageErrorMessage = "Процентът не може да бъде негативно число или нула.";
     }
 }

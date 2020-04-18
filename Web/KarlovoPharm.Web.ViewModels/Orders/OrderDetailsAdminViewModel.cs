@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using KarlovoPharm.Data.Models;
     using KarlovoPharm.Data.Models.Enums;
     using KarlovoPharm.Services.Mapping;
@@ -42,6 +42,10 @@
         public decimal DeliveryPrice { get; set; }
 
         public string OfficeAddress { get; set; }
+
+        public string PromoCodeName { get; set; }
+
+        public decimal PromoCodeDiscountInPercentage { get; set; }
 
         public AddressViewModel DeliveryAddress { get; set; }
 

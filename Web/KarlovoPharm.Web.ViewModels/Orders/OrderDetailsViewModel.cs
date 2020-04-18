@@ -43,6 +43,10 @@
 
         public string OfficeAddress { get; set; }
 
+        public string PromoCodeName { get; set; }
+
+        public decimal PromoCodeDiscountInPercentage { get; set; }
+
         public AddressViewModel DeliveryAddress { get; set; }
 
         public IEnumerable<OrderProductViewModel> OrderProducts { get; set; }

@@ -6,11 +6,11 @@
     using KarlovoPharm.Data.Models.Enums;
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Web.InputModels.Addresses.Display;
+    using KarlovoPharm.Web.InputModels.PromoCodes;
     using KarlovoPharm.Web.InputModels.ShoppingCarts;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
 
     public class OrderDisplayInputModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
@@ -24,6 +24,12 @@
         public string LastName { get; set; }
 
         public string PhoneNumber { get; set; }
+
+
+        public string PromoCodeId { get; set; }
+
+        [NotMapped]
+        public string PromoCodeName { get; set; }
 
         [NotMapped]
         [Display(Name = "RecipientName")]

@@ -1,0 +1,32 @@
+﻿@using KarlovoPharm.Web.ViewModels.PromoCodes
+@model IEnumerable<PromoCodeViewModel>
+
+@{
+    ViewData["Title"] = "Всички промокодове";
+}
+
+
+<table class="table justify-content-center">
+    <thead>
+        <tr class="row">
+            <th scope="col" class="col-md-2 col d-flex justify-content-center">Име:</th>
+            <th scope="col" class="col-md-2 col d-flex justify-content-center">Отстъпка:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var promoCode in Model)
+        {
+
+            <tr class="row">
+                <td class="col-md-2 col d-flex justify-content-center">
+                    @promoCode.Name
+                </td>
+                <td class="col-md-2 col d-flex justify-content-center">
+                    @promoCode.DiscountInPercentage %
+                </td>
+                <td><a asp-action="Edit" asp-route-promoCodeId="@promoCode.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Промени</a></td>
+                <td><a asp-action="Delete" asp-route-promoCodeId="@promoCode.Id" class="btn btn-danger btn-sm mobile-fondsize-11">Изтрий</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

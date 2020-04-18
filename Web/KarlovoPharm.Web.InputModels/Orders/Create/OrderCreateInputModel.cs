@@ -1,6 +1,5 @@
 ﻿namespace KarlovoPharm.Web.InputModels.Orders.Create
 {
-    using AutoMapper;
     using KarlovoPharm.Data.Models;
     using KarlovoPharm.Data.Models.Enums;
     using KarlovoPharm.Services.Mapping;
@@ -10,6 +9,8 @@
         public string UserId { get; set; }
 
         public string Recipient { get; set; }
+
+        public string PromoCodeId { get; set; }
 
         public string RecipientLastName { get; set; }
 

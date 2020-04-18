@@ -4,14 +4,16 @@ using KarlovoPharm.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KarlovoPharm.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200417183231_AddedPromoCodeEntity")]
+    partial class AddedPromoCodeEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,9 +308,6 @@ namespace KarlovoPharm.Data.Migrations
                     b.Property<int>("PaymentType")
                         .HasColumnType("int");
 
-                    b.Property<string>("PromoCodeId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Recipient")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -332,8 +331,6 @@ namespace KarlovoPharm.Data.Migrations
                     b.HasIndex("DeliveryAddressId");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("PromoCodeId");
 
                     b.HasIndex("UserId");
 
@@ -462,7 +459,6 @@ namespace KarlovoPharm.Data.Migrations
             modelBuilder.Entity("KarlovoPharm.Data.Models.PromoCode", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
@@ -775,10 +771,6 @@ namespace KarlovoPharm.Data.Migrations
                     b.HasOne("KarlovoPharm.Data.Models.Address", "DeliveryAddress")
                         .WithMany()
                         .HasForeignKey("DeliveryAddressId");
-
-                    b.HasOne("KarlovoPharm.Data.Models.PromoCode", "PromoCode")
-                        .WithMany("Orders")
-                        .HasForeignKey("PromoCodeId");
 
                     b.HasOne("KarlovoPharm.Data.Models.Common.ApplicationUser", "User")
                         .WithMany()

@@ -11,6 +11,7 @@
     using KarlovoPharm.Data.Repositories;
     using KarlovoPharm.Services.Data.OrderProducts;
     using KarlovoPharm.Services.Data.Orders;
+    using KarlovoPharm.Services.Data.PromoCodes;
     using KarlovoPharm.Services.Data.ShoppingCartProducts;
     using KarlovoPharm.Services.Data.Tests.Common;
     using KarlovoPharm.Services.Data.Tests.Common.Seeders;
@@ -243,6 +244,8 @@
 
             var iShoppingCartProductsServiceMock = new Mock<IShoppingCartProductsService>();
 
+            var iPromoCodeServiceMock = new Mock<IPromoCodeService>();
+
             iShoppingCartProductsServiceMock
                 .Setup(x => x.GetAllProductsAsync<ShoppingCartProductInputModel>(It.IsAny<string>()))
                 .Returns((string shoppingCartId) =>
@@ -267,7 +270,8 @@
                 orderRepository,
                 iUserServiceMock.Object,
                 iShoppingCartProductsServiceMock.Object,
-                iOrderProductsServiceMock.Object);
+                iOrderProductsServiceMock.Object,
+                iPromoCodeServiceMock.Object);
 
             return orderService;
         }

@@ -5,6 +5,7 @@
 
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Services.Data.Orders;
+    using KarlovoPharm.Services.Data.PromoCodes;
     using KarlovoPharm.Services.Data.ShoppingCarts;
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Web.InputModels.Orders.Create;
@@ -20,18 +21,23 @@
 
         private const string ShoppingCartIsEmptyError = "Количката ви е празна ! Моля добавете продукти в нея, за да продължите.";
 
+        private const string PromoCodeDoesNotExistErrorMessage = "Не съществува промокод с такова име!";
+
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOrderService orderService;
         private readonly IShoppingCartService shoppingCartService;
+        private readonly IPromoCodeService promoCodeService;
 
         public OrdersController(
             UserManager<ApplicationUser> userManager,
             IOrderService orderService,
-            IShoppingCartService shoppingCartService)
+            IShoppingCartService shoppingCartService,
+            IPromoCodeService promoCodeService)
         {
             this.userManager = userManager;
             this.orderService = orderService;
             this.shoppingCartService = shoppingCartService;
+            this.promoCodeService = promoCodeService;
         }
 
         [HttpGet]
@@ -63,10 +69,24 @@
                 return this.RedirectToAction(nameof(this.Create));
             }
 
+            if (!await this.promoCodeService.ExistsAsync(orderDisplayInputModel.PromoCodeName) &&
+                orderDisplayInputModel.PromoCodeName != null)
+            { 
+                this.TempData["Error"] = PromoCodeDoesNotExistErrorMessage;
+                return this.RedirectToAction(nameof(this.Create));
+            }
+
             this.ProccessCreateForm(orderDisplayInputModel);
 
             var user = await this.userManager.GetUserAsync(this.User);
+
+            if (orderDisplayInputModel.PromoCodeName != null)
+            {
+                orderDisplayInputModel.PromoCodeId = await this.promoCodeService.GetIdByNameAsync(orderDisplayInputModel.PromoCodeName);
+            }
+
             var orderCreateInputModel = orderDisplayInputModel.To<OrderCreateInputModel>();
+
 
             var shoppingCartId = await this.shoppingCartService.GetIdByUserId(user.Id);
 

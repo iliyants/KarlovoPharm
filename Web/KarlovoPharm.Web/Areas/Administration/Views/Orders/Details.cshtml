@@ -70,8 +70,12 @@
                             <td class="text-black">@Model.DeliveryPrice лв.</td>
                         </tr>
                         <tr>
-                            <td class="text-black font-weight-bold"><strong>Обща сума (цена с ДДС):</strong></td>
+                            <td class="text-black font-weight-bold"><strong>Крайна сума (цена с ДДС):</strong></td>
                             <td class="text-black font-weight-bold"><strong>@Model.TotalPrice лв.</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Код за отстъпка:</strong></td>
+                            <td class="text-black font-weight-bold"><strong>@(Model.PromoCodeName == null ? "n/a" : Model.PromoCodeName + " " + Model.PromoCodeDiscountInPercentage.ToString("F2") + " % отстъпка.")</strong></td>
                         </tr>
                         <tr>
                             <td class="text-black font-weight-bold"><strong>Статус</strong></td>

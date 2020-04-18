@@ -43,6 +43,10 @@
 
         public virtual ApplicationUser User { get; set; }
 
+        public string PromoCodeId { get; set; }
+
+        public PromoCode PromoCode { get; set; }
+
         public string OfficeAddress { get; set; }
 
         public string DeliveryAddressId { get; set; }

@@ -47,6 +47,8 @@
 
         public DbSet<UserFavouriteProduct> UserFavouriteProducts { get; set; }
 
+        public DbSet<PromoCode> PromoCodes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
