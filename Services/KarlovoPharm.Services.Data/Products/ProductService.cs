@@ -191,7 +191,8 @@
         public async Task<IEnumerable<T>> GetNewest<T>()
         {
             var newestProducts = await this.productRepository.AllAsNoTracking()
-                .Where(x => x.CreatedOn.Date > DateTime.UtcNow.Date.AddDays(-3))
+                .Where(x => x.CreatedOn.Date > DateTime.UtcNow.Date.AddDays(-7))
+                .Take(20)
                 .ToListAsync();
 
             return newestProducts.To<T>();

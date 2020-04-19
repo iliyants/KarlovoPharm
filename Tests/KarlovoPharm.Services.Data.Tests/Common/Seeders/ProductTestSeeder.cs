@@ -35,7 +35,7 @@
                 Name = "testProduct3",
                 Price = 7,
                 Description = "testDescription3",
-                CreatedOn = DateTime.UtcNow.AddDays(-5),
+                CreatedOn = DateTime.UtcNow.AddDays(-20),
             };
 
             await context.Products.AddAsync(product1);
