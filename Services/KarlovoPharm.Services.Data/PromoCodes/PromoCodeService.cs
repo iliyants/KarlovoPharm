@@ -97,7 +97,7 @@
         public async Task<bool> DeleteAsync(string promoCodeId)
         {
             var promoCode = await this.promoCodeRepository
-           .AllAsNoTracking()
+           .All()
            .SingleOrDefaultAsync(x => x.Id == promoCodeId);
 
             if (promoCode == null)
