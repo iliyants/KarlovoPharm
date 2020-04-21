@@ -46,14 +46,9 @@
                 throw new ArgumentNullException("ShoppingCartId was null or empty");
             }
 
-            var deliveryPrice = shoppingCartProducts.Sum(x => x.Quantity * x.ProductPrice) >= 20m ? 0m : 3.5m;
 
-            var totalPrice = shoppingCartProducts.Sum(x => x.Quantity * x.ProductPrice) + deliveryPrice;
-
-            if (orderCreateInputModel.PromoCodeId != null)
-            {
-                totalPrice = await this.promoCodeService.DeductPercentageFromPrice(totalPrice, orderCreateInputModel.PromoCodeId);
-            }
+            decimal totalPrice = 0m;
+            decimal deliveryPrice = 0m;
 
             var order = orderCreateInputModel.To<Order>();
 
@@ -70,9 +65,18 @@
                 });
             }
 
+            totalPrice = shoppingCartProducts.Sum(x => x.Quantity * x.ProductPrice);
+
+            if (orderCreateInputModel.PromoCodeId != null)
+            {
+                totalPrice = await this.promoCodeService.DeductPercentageFromPrice(totalPrice, orderCreateInputModel.PromoCodeId);
+            }
+
+            deliveryPrice = totalPrice >= 20m ? 0m : 3.5m;
+
             order.OrderStatus = OrderStatus.UnProccessed;
             order.DeliveryPrice = deliveryPrice;
-            order.TotalPrice = totalPrice;
+            order.TotalPrice = totalPrice + deliveryPrice;
             order.OrderDate = DateTime.UtcNow;
 
             await this.shoppingCartProductsService.DeleteAll(shoppingCartId);
