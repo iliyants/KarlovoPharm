@@ -49,6 +49,7 @@
 
         [NotMapped]
         [Display(Name = "RecipientPhoneNumber")]
+        [RegularExpression(ValidationRegexes.PhoneRegex, ErrorMessage = ValidationMessages.PhoneNumberLengthErrorMessage)]
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         public string RecipientPhoneNumber { get; set; }
 

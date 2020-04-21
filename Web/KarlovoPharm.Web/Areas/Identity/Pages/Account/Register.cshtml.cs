@@ -137,6 +137,7 @@
             public string Email { get; set; }
 
             [Display(Name = "PhoneNumber")]
+            [RegularExpression(ValidationRegexes.PhoneRegex, ErrorMessage = ValidationMessages.PhoneNumberLengthErrorMessage)]
             public string PhoneNumber { get; set; }
 
             [Display(Name = "Password")]

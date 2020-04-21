@@ -25,8 +25,7 @@
         public string LastName { get; set; }
 
         [Display(Name = "PhoneNumber")]
-        [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
-        [Phone(ErrorMessage = ValidationMessages.PhoneNumberLengthErrorMessage)]
+        [RegularExpression(ValidationRegexes.PhoneRegex, ErrorMessage = ValidationMessages.PhoneNumberLengthErrorMessage)]
         public string PhoneNumber { get; set; }
 
         public List<AddressDisplayInputModel> UserAddresses { get; set; }
