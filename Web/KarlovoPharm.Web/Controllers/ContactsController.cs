@@ -35,7 +35,7 @@
             await this.emailSender.SendEmailAsync(
                 emailCreateInputModel.Email,
                 emailCreateInputModel.Name,
-                "kinveytester1@abv.bg",
+                GlobalConstants.AdminEmail,
                 emailCreateInputModel.Subject,
                 emailCreateInputModel.Message);
 

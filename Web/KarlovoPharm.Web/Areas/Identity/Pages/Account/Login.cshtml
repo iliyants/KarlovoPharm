@@ -1,51 +1,52 @@
 ﻿@page
 @model LoginModel
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Вход";
 }
 
 @if (this.TempData["InfoMessage"] != null)
 {
     @await Component.InvokeAsync("InfoMessage", new { message = this.TempData["InfoMessage"] });
-
 }
-<div class="site-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="h3 mb-5 text-black">Вход</h2>
-            </div>
-            <div class="col-md-12">
-                <form method="post">
-                    <div class="p-3 p-lg-5 border">
-                        <div class="form-group row">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="col-md-12">
-                                <label for="Username" class="text-black">Потребителско име <span class="text-danger">*</span></label>
-                                <input asp-for="Input.Username" type="text" class="form-control" placeholder="Потребителско име">
-                                <span asp-validation-for="Input.Username" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <label for="Password" class="text-black">Парола <span class="text-danger">*</span></label>
-                                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Парола">
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-lg-12">
-                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Влез">
-                            </div>
-                        </div>
-                        <a href="/Identity/Account/Register" class="btn btn-primary btn-lg btn-block">
-                            <span class="d-inline">Регистрация</span>
-                        </a>
+@if (this.TempData["Error"] != null)
+{
+    @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+}
+
+
+<div class="row justify-content-center">
+    <div class="col-md-4 ">
+        <h1 style="color: black">@ViewData["Title"]</h1>
+        <hr />
+        <div class="col-md-10">
+            <form method="post">
+                <div class="form-group">
+                    <label for="Username" class="text-black">Потребителско име <span class="text-danger">*</span></label>
+                    <input asp-for="Input.Username" type="text" class="form-control" placeholder="Потребителско име...">
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Password" class="text-black">Парола <span class="text-danger">*</span></label>
+                    <input asp-for="Input.Password" type="password" class="form-control" placeholder="Парола...">
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Влез">
+                        <a class="btn btn-primary btn-sm" href="/Identity/Account/ForgotPassword" role="button">Забравена парола</a>
                     </div>
-                </form>
-            </div>
+                    <br>
+                    @*<div class="col-lg-6">
+                        <a class="btn btn-primary btn-sm" href="/Identity/Account/ForgotPassword" role="button">Забравена парола</a>
+                    </div>*@
+                    <div class="col-lg-6">
+                        <a class="btn btn-primary btn-sm" href="/Identity/Account/Register" role="button">Регистрация</a>
+                    </div>
+                    <br>
+
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
 

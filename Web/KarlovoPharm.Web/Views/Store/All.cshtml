@@ -18,7 +18,7 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item" asp-action="All" asp-route-sortOrder="price-highest-to-lowest" asp-route-searchString="@searchString">Цена нисходящ</a>
                     <a class="dropdown-item" asp-action="All" asp-route-sortOrder="price-lowest-to-highest" asp-route-searchString="@searchString">Цена възходящ</a>
-                    <a class="dropdown-item" asp-action="All" asp-route-sortOrder="products-with-discount" asp-route-searchString="@searchString">Продукти с отстъпка</a>              
+                    <a class="dropdown-item" asp-action="All" asp-route-sortOrder="products-with-discount" asp-route-searchString="@searchString">Продукти с отстъпка</a>
                 </div>
             </div>
 
@@ -56,6 +56,9 @@
             </div>
             }
         </div>
+
+
+
 
         @{
             var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";

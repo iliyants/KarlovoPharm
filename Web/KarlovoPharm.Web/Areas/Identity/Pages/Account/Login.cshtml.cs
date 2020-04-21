@@ -17,6 +17,8 @@
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
+        private const string InvalidUserNameOrPasswordErrorMessage = "Невалидно потребителско име или парола.";
+
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger<LoginModel> logger;
         private readonly UserManager<ApplicationUser> userManager;
@@ -86,12 +88,12 @@
 
                 if (result.Succeeded)
                 {
-                    this.logger.LogInformation("User logged in.");
                     return this.LocalRedirect(returnUrl);
                 }
                 else
                 {
-                    this.ModelState.AddModelError(string.Empty, "Невалидно потребителско име или парола.");
+                    this.ModelState.AddModelError(string.Empty, InvalidUserNameOrPasswordErrorMessage);
+                    this.TempData["Error"] = InvalidUserNameOrPasswordErrorMessage;
                     return this.Page();
                 }
             }

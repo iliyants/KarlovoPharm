@@ -86,7 +86,7 @@
                         "Account Confirmation",
                         this.Input.Email,
                         "Потрвърждение на акаунт.",
-                        $"Моля потвърдете си акаунта като натиснете <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>ТУК.</a>.");
+                        $"Моля потвърдете си акаунта като натиснете <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>ТУК.</a>");
 
                     await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
 
