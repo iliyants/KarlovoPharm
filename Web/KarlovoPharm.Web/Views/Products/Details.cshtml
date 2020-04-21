@@ -1,5 +1,5 @@
 ﻿@model KarlovoPharm.Web.ViewModels.Products.ProductDetailsViewModel
-
+@using KarlovoPharm.Common;
 
 <div class="bg-light py-3">
     <div class="container">
@@ -24,12 +24,19 @@
                 <p>@Model.Description</p>
 
 
-                <strong class="text-primary h4">@Model.Price лв.</strong></p>
+                <p><strong class="text-primary h4">@Model.Price лв.</strong></p>
 
                 <form id="productsApi" method="post"></form>
-                <a href="#" class="btn btn-warning" onclick="addToCart('@Model.Id')">Добави в количка</a>
-                <a href="#" class="btn btn-danger" onclick="addToFavourites('@Model.Id')">Дoбави в любими</a>
 
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    <a asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-productId="@Model.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Промени</a>
+                }
+                else
+                {
+                    <a href="#" class="btn btn-warning" onclick="addToCart('@Model.Id')">Добави в количка</a>
+                    <a href="#" class="btn btn-danger" onclick="addToFavourites('@Model.Id')">Дoбави в любими</a>
+                }
                 <div class="mt-5">
                     <ul class="nav nav-pills mb-3 custom-pill" id="pills-tab" role="tablist">
 
