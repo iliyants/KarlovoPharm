@@ -150,7 +150,7 @@
 
             var subCategory = await this.subCategoryRepository.All().SingleOrDefaultAsync(x => x.Id == subCategoryId);
 
-            this.subCategoryRepository.HardDelete(subCategory);
+            this.subCategoryRepository.Delete(subCategory);
             await this.subCategoryRepository.SaveChangesAsync();
 
             return true;

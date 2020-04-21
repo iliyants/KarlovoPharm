@@ -126,7 +126,7 @@
 
             var category = await this.categoryRepository.All().SingleOrDefaultAsync(x => x.Id == categoryId);
 
-            this.categoryRepository.HardDelete(category);
+            this.categoryRepository.Delete(category);
             await this.categoryRepository.SaveChangesAsync();
 
             return true;
