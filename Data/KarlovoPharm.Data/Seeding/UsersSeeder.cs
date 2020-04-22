@@ -22,35 +22,31 @@
                 return;
             }
 
-            var users = new List<(string UserName,
-                                    string FirstName,
-                                    string LastName,
-                                    string Email,
-                                    string Password)>
+            var firstUser = new ApplicationUser
             {
-                ("FirstUser", "FirstName", "LastName", "firstUser@abv.bg", "111111"),
-                ("SecondUser", "SecondFirstName", "SecondLastName", "secondUser@abv.bg", "111111"),
+                UserName = "FirstUser",
+                FirstName = "FirstName",
+                LastName = "LastName",
+                Email = "firstUser@email.bg",
+                PasswordHash = "111111",
+                EmailConfirmed = true,
+                PhoneNumber = "0898767889",
             };
 
-            foreach (var user in users)
+            var secondUser = new ApplicationUser
             {
-                var currentUser = new ApplicationUser
-                {
-                    UserName = user.UserName,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    PasswordHash = user.Password,
-                    EmailConfirmed = true,
-                };
+                UserName = "SecondUser",
+                Email = "secondUser@email.bg",
+                PasswordHash = "111111",
+                EmailConfirmed = true,
+                PhoneNumber = "0898767889",
+            };
 
-                var result = await userManager.CreateAsync(currentUser, user.Password);
+            await userManager.CreateAsync(firstUser, firstUser.PasswordHash);
+            await userManager.CreateAsync(secondUser, secondUser.PasswordHash);
 
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(currentUser, GlobalConstants.UserRoleName);
-                }
-            }
+            await userManager.AddToRoleAsync(firstUser, GlobalConstants.UserRoleName);
+            await userManager.AddToRoleAsync(secondUser, GlobalConstants.UserRoleName);
         }
     }
 }

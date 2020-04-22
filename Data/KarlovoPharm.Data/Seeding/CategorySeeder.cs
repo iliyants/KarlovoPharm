@@ -20,6 +20,13 @@
                 {
                     Name = "TestCategory",
                 });
+
+            await dbContext.Categories.AddAsync(
+
+             new Category
+             {
+                 Name = "TestCategory2",
+             });
         }
     }
 }
