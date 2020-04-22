@@ -10,6 +10,8 @@ namespace KarlovoPharm.Services.Data.ShoppingCartProducts
 
         public Task<IEnumerable<T>> GetAllProductsAsync<T>(string shoppingCartId);
 
+        public Task<bool> RemoveDisabledProducts(string shoppingCartId);
+
         public Task QuantityEdit(string productId, int quantity, string userId);
 
         public Task Delete(string productId, string userId);

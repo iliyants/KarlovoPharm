@@ -12,6 +12,7 @@
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
 
+     
             if (dbContext.Products.Any())
             {
                 return;

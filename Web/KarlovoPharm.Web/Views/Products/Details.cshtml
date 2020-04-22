@@ -34,7 +34,10 @@
                 }
                 else
                 {
-                    <a href="#" class="btn btn-warning" onclick="addToCart('@Model.Id')">Добави в количка</a>
+                    if (Model.Available)
+                    {
+                        <a href="#" class="btn btn-warning" onclick="addToCart('@Model.Id')">Добави в количка</a>
+                    }
                     <a href="#" class="btn btn-danger" onclick="addToFavourites('@Model.Id')">Дoбави в любими</a>
                 }
                 <div class="mt-5">

@@ -37,6 +37,13 @@
                     <td>@product.SubCategoryName</td>
                     <td><a asp-action="Edit" asp-route-productId="@product.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Промени</a></td>
                     <td><a asp-action="Delete" asp-route-productId="@product.Id" class="btn btn-danger btn-sm mobile-fondsize-11">Изтрий</a></td>
+                    <td>
+                        <form id="availableForm" method="post"></form>
+                        <div id="@product.Id" href="#" class="@(product.Available == true ? "btn btn-dark" : "btn btn-success")"  
+                             onclick="changeAvailability('@product.Id', '@product.Available')">
+                            @(product.Available == true ? "Промени на неналичен" : "Промени на наличен")
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -65,10 +72,10 @@
                         }
                     }
                     <li class="page-item @nextDisabled">
-                        <a class="page-link" asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1)"asp-route-searchString="@searchString">&gt;</a>
+                        <a class="page-link" asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-searchString="@searchString">&gt;</a>
                     </li>
                     <li class="page-item @nextDisabled">
-                        <a class="page-link" asp-action="All" asp-route-pageNumber="@Model.TotalPages"asp-route-searchString="@searchString">&raquo;</a>
+                        <a class="page-link" asp-action="All" asp-route-pageNumber="@Model.TotalPages" asp-route-searchString="@searchString">&raquo;</a>
                     </li>
                 </ul>
             </div>
@@ -76,3 +83,43 @@
     </div>
 
 </div>
+
+
+@section Scripts {
+    <script>
+        function changeAvailability(id, available) {
+
+            var token = $("#availableForm input[name=__RequestVerificationToken]").val();
+            var json = { id: id, available: available };
+
+            $.ajax({
+                url: `/Products/ChangeAvailability/${id}`,
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    if (data.available == true) {
+
+                        var element = document.getElementById(json['id']);
+
+                        element.innerHTML = "Промени на неналичен";
+                        element.className = "btn btn-dark";
+                    }
+                    else {
+                           var element = document.getElementById(json['id']);
+
+                        element.innerHTML = "Промени на наличен";
+                        element.className = "btn btn-success";
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("error " + textStatus);
+                    console.log("incoming Text " + jqXHR.responseText);
+                }
+
+            });
+        }
+    </script>
+}

@@ -6,6 +6,8 @@
 
         public string Message { get; set; }
 
+        public bool Available { get; set; }
+
         public int Count { get; set; }
     }
 }

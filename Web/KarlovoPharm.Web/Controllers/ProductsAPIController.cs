@@ -4,6 +4,7 @@
 
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Services.Data.FavouriteProducts;
+    using KarlovoPharm.Services.Data.Products;
     using KarlovoPharm.Services.Data.ShoppingCartProducts;
     using KarlovoPharm.Services.Data.ShoppingCarts;
     using KarlovoPharm.Web.ViewModels.ProductsAPI;
@@ -25,17 +26,20 @@
         private readonly IFavouriteProductsService favouriteProductsService;
         private readonly IShoppingCartProductsService shoppingCartProductsService;
         private readonly IShoppingCartService shoppingCartService;
+        private readonly IProductService productService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public ProductsAPIController(
             IFavouriteProductsService favouriteProductsService,
             IShoppingCartProductsService shoppingCartProductsService,
             IShoppingCartService shoppingCartService,
+            IProductService productService,
             UserManager<ApplicationUser> userManager)
         {
             this.favouriteProductsService = favouriteProductsService;
             this.shoppingCartProductsService = shoppingCartProductsService;
             this.shoppingCartService = shoppingCartService;
+            this.productService = productService;
             this.userManager = userManager;
         }
 

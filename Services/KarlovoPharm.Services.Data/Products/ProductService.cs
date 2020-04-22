@@ -209,5 +209,25 @@
 
             return result.To<T>();
         }
+
+        public async Task<ProductSingleViewModel> ChangeAvailability(ProductSingleViewModel productSingleViewModel)
+        {
+            var product = await this.productRepository.All().SingleOrDefaultAsync(x => x.Id == productSingleViewModel.Id);
+
+            if (product == null)
+            {
+                throw new ArgumentNullException("Product was null");
+            }
+
+            var availabilityState = product.Available == true ? false : true;
+
+            product.Available = availabilityState;
+
+            product.To(productSingleViewModel);
+
+            var result  = await this.productRepository.SaveChangesAsync();
+
+            return productSingleViewModel;
+        }
     }
 }

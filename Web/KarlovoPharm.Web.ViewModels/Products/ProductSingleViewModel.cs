@@ -13,6 +13,8 @@
 
         public decimal Price { get; set; }
 
+        public bool Available { get; set; }
+
         public string Picture { get; set; }
 
         public override bool Equals(object obj)

@@ -28,5 +28,7 @@
 
         public Task<IEnumerable<T>> GetNewest<T>();
 
+        public Task<ProductSingleViewModel> ChangeAvailability(ProductSingleViewModel productSingleViewModel);
+
     }
 }

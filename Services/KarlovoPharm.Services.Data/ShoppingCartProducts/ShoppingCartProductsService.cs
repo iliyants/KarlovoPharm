@@ -131,5 +131,28 @@
             await this.shoppingCartProductsRepository.SaveChangesAsync();
 
         }
+
+        public async Task<bool> RemoveDisabledProducts(string shoppingCartId)
+        {
+            var disabledProducts = await this.shoppingCartProductsRepository
+                .All()
+                .Include(x => x.Product)
+                .Where(x => x.ShoppingCartId == shoppingCartId && !x.Product.Available)
+                .ToListAsync();
+
+            if (disabledProducts.Count() != 0)
+            {
+                foreach (var scp in disabledProducts)
+                {
+                    this.shoppingCartProductsRepository.HardDelete(scp);
+                }
+
+                await this.shoppingCartProductsRepository.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }

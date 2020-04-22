@@ -10,6 +10,7 @@
     using KarlovoPharm.Web.InputModels.Products.Edit;
     using KarlovoPharm.Web.Paging;
     using KarlovoPharm.Web.ViewModels.Display;
+    using KarlovoPharm.Web.ViewModels.Products;
     using Microsoft.AspNetCore.Mvc;
 
     public class ProductsController : AdministrationController
@@ -20,7 +21,10 @@
         private readonly IProductService productService;
         private readonly ICloudinaryService cloudinaryService;
 
-        public ProductsController(ISubCategoryService subCategoryService, IProductService productService, ICloudinaryService cloudinaryService)
+        public ProductsController(
+            ISubCategoryService subCategoryService,
+            IProductService productService,
+            ICloudinaryService cloudinaryService)
         {
             this.subCategoryService = subCategoryService;
             this.productService = productService;
@@ -101,7 +105,6 @@
             return this.RedirectToAction("All");
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Delete(string productId)
         {
@@ -112,6 +115,16 @@
             }
 
             return this.RedirectToAction("All");
+        }
+
+
+        [HttpPost]
+        [Route("/Products/ChangeAvailability/{id}")]
+        public async Task<ActionResult<ProductSingleViewModel>> ChangeAvailability(ProductSingleViewModel productSingleViewModel)
+        {
+            var model = await this.productService.ChangeAvailability(productSingleViewModel);
+
+            return model;
         }
     }
 }

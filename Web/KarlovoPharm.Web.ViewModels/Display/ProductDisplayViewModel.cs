@@ -13,6 +13,8 @@
 
         public decimal Price { get; set; }
 
+        public bool Available { get; set; }
+
         public string SubCategoryCategoryName { get; set; }
 
         public string SubCategoryName { get; set; }

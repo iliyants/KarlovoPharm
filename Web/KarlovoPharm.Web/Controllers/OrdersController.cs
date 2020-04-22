@@ -6,6 +6,7 @@
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Services.Data.Orders;
     using KarlovoPharm.Services.Data.PromoCodes;
+    using KarlovoPharm.Services.Data.ShoppingCartProducts;
     using KarlovoPharm.Services.Data.ShoppingCarts;
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Web.InputModels.Orders.Create;
@@ -23,21 +24,26 @@
 
         private const string PromoCodeDoesNotExistErrorMessage = "Не съществува промокод с такова име!";
 
+        private const string SomeProductsHaveBeenRemoved = "Вашата поръчка съдържаше продукти, които в момента не са налични, те бяха премахнати. Моля да ни извините.";
+
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOrderService orderService;
         private readonly IShoppingCartService shoppingCartService;
         private readonly IPromoCodeService promoCodeService;
+        private readonly IShoppingCartProductsService shoppingCartProductsService;
 
         public OrdersController(
             UserManager<ApplicationUser> userManager,
             IOrderService orderService,
             IShoppingCartService shoppingCartService,
-            IPromoCodeService promoCodeService)
+            IPromoCodeService promoCodeService,
+            IShoppingCartProductsService shoppingCartProductsService)
         {
             this.userManager = userManager;
             this.orderService = orderService;
             this.shoppingCartService = shoppingCartService;
             this.promoCodeService = promoCodeService;
+            this.shoppingCartProductsService = shoppingCartProductsService;
         }
 
         [HttpGet]
@@ -71,7 +77,7 @@
 
             if (!await this.promoCodeService.ExistsAsync(orderDisplayInputModel.PromoCodeName) &&
                 orderDisplayInputModel.PromoCodeName != null)
-            { 
+            {
                 this.TempData["Error"] = PromoCodeDoesNotExistErrorMessage;
                 return this.RedirectToAction(nameof(this.Create));
             }
@@ -87,8 +93,13 @@
 
             var orderCreateInputModel = orderDisplayInputModel.To<OrderCreateInputModel>();
 
-
             var shoppingCartId = await this.shoppingCartService.GetIdByUserId(user.Id);
+
+            if (await this.shoppingCartProductsService.RemoveDisabledProducts(shoppingCartId))
+            {
+                this.TempData["Error"] = SomeProductsHaveBeenRemoved;
+                return this.Redirect("/ShoppingCart");
+            }
 
             await this.orderService.CreateUproccessedOrder(orderCreateInputModel, shoppingCartId);
 

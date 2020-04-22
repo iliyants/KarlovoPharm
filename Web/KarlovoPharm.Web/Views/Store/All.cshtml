@@ -36,36 +36,37 @@
         <div id="products" class="row">
             @foreach (var product in Model)
             {
-            <div class="product col-sm-6 col-lg-4 text-center item mb-4">
-                @if (product.OldPrice > 0m)
-                {
-                    <span class="tag">Намаление</span>
-                }
-                <a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" height="150" alt="Image"></a>
-                <h3 class="text-dark"><a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id">@product.Name</a></h3>
-                @if (product.OldPrice > 0m)
-                {
-                    <p class="price"><del>@product.OldPrice лв.</del> &mdash; @product.Price лв.</p>
-                }
-                else
-                {
-                    <p class="price"> @product.Price лв.</p>
-                }
-                <form id="productsApi" method="post"></form>
-                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                {
-                    <a asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-productId="@product.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Промени</a>
-                }
-                else
-                {
-                    <a href="#" class="btn btn-warning" onclick="addToCart('@product.Id')">Добави в количка</a>
-                    <a href="#" class="btn btn-danger" onclick="addToFavourites('@product.Id')">Дoбави в любими</a>
-                }
-            </div>
+                <div class="product col-sm-6 col-lg-4 text-center item mb-4">
+                    @if (product.OldPrice > 0m)
+                    {
+                        <span class="tag">Намаление</span>
+                    }
+                    <a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id"> <img src="@product.Picture" width="150" height="150" alt="Image"></a>
+                    <h3 class="text-dark"><a asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id">@product.Name</a></h3>
+                    @if (product.OldPrice > 0m)
+                    {
+                        <p class="price"><del>@product.OldPrice лв.</del> &mdash; @product.Price лв.</p>
+                    }
+                    else
+                    {
+                        <p class="price"> @product.Price лв.</p>
+                    }
+                    <form id="productsApi" method="post"></form>
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <a asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-productId="@product.Id" class="btn btn-primary btn-sm mobile-fondsize-11">Промени</a>
+                    }
+                    else
+                    {
+                        if (product.Available)
+                        {
+                            <a href="#" id="addToCartId" class="btn btn-warning" onclick="addToCart('@product.Id')">Добави в количка</a>
+                        }
+                        <a href="#" class="btn btn-danger" onclick="addToFavourites('@product.Id')">Дoбави в любими</a>
+                    }
+                </div>
             }
         </div>
-
-
 
 
         @{
