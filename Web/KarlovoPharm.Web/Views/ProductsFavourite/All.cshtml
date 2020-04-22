@@ -26,7 +26,10 @@
                     <td>@product.ProductPrice</td>
                     <td>
                         <form id="productsApi" method="post"></form>
-                        <a href="#" class="btn btn-warning" onclick="addToCart('@product.ProductId')">Добави в количка</a>
+                        @if (product.ProductAvailable)
+                        {
+                            <a href="#" class="btn btn-warning" onclick="addToCart('@product.ProductId')">Добави в количка</a>
+                        }
                     </td>
                     <td><a asp-controller="ProductsFavourite" asp-action="Delete" asp-route-productId="@product.ProductId" asp-route-userId="@product.UserId" class="btn btn-danger btn-sm mobile-fondsize-11">Премахни</a></td>
                     <td><a asp-controller="Products" asp-action="Details" asp-route-productId="@product.ProductId" class="btn btn-primary btn-sm mobile-fondsize-11">Детайли</a></td>
