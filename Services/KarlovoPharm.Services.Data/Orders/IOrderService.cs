@@ -12,6 +12,8 @@
 
         Task Delete(string orderId);
 
+        Task Renew(string orderId);
+
         Task CreateUproccessedOrder(OrderCreateInputModel orderCreateInputModel, string shoppingCartId);
 
         Task<IEnumerable<T>> UserOrders<T>(string userId);

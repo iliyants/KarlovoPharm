@@ -258,5 +258,21 @@
                 .Where(x => x.OrderStatus == OrderStatus.UnProccessed)
                 .CountAsync();
         }
+
+        public async Task Renew(string orderId)
+        {
+            var order = await this.orderRepository.All()
+        .SingleOrDefaultAsync(x => x.Id == orderId);
+
+            if (order == null)
+            {
+                throw new ArgumentNullException("OrderId was null");
+            }
+
+
+            order.OrderStatus = OrderStatus.UnProccessed;
+
+            await this.orderRepository.SaveChangesAsync();
+        }
     }
 }

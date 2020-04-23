@@ -53,11 +53,12 @@
                 }
                 else
                 {
-                    <a asp-area="Administration" asp-controller="Orders" asp-action="Delete" asp-route-orderId="@order.Id" class="btn btn-danger btn-sm">Изтрий</a>
+                <a asp-area="Administration" asp-controller="Orders" asp-action="Renew" asp-route-orderId="@order.Id" class="btn btn-success btn-sm mobile-fondsize-11">Възобнови</a>
+                <a asp-area="Administration" asp-controller="Orders" asp-action="Delete" asp-route-orderId="@order.Id" class="btn btn-danger btn-sm">Изтрий</a>
 
-                }
-            </td>
-        </tr>
+            }
+                </td>
+            </tr>
         }
 
     </tbody>

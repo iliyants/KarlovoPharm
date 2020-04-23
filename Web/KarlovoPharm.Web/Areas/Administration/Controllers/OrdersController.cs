@@ -61,6 +61,14 @@
         }
 
         [HttpGet]
+        public async Task<IActionResult> Renew(string orderId)
+        {
+            await this.orderService.Renew(orderId);
+
+            return this.RedirectToAction(nameof(this.AllUnprocessed));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Finish(string orderId)
         {
             await this.orderService.Finish(orderId);
