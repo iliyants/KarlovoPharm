@@ -104,6 +104,11 @@
                     {
                         this.TempData["Error"] = $"{ValidationMessages.UserNameExistsErrorMessage}";
                     }
+                    else if (error.Code == "InvalidUserName")
+                    {
+                        this.TempData["Error"] = $"{ValidationMessages.UserNameMustBeInLatinErrorMessage}";
+
+                    }
                     else if (error.Code == "DuplicateEmail")
                     {
                         this.TempData["Error"] = $"{ValidationMessages.EmailExistsErrorMessage}";
