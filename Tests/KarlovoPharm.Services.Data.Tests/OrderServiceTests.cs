@@ -183,6 +183,28 @@
 
 
         [Fact]
+        public async Task Renew_WorksCorectly()
+        {
+            var context = ApplicationDbContextInMemoryFactory.InitializeContext();
+            var orderRepository = new EfDeletableEntityRepository<Order>(context);
+            var orderService = this.GetOrderService(orderRepository, context);
+            var orderTestSeeder = new OrderTestSeeder();
+
+            await orderTestSeeder.SeedOneCanceledOrder(context);
+            var order = context.Orders.FirstOrDefault();
+
+            await orderService.Renew(order.Id);
+
+            Assert.Equal(OrderStatus.UnProccessed, order.OrderStatus);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await orderService.Renew("invalid");
+            });
+        }
+
+
+        [Fact]
         public async Task Cancel_WorksCorectly()
         {
             var context = ApplicationDbContextInMemoryFactory.InitializeContext();

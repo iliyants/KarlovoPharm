@@ -39,6 +39,7 @@
         {
             var order = new Order()
             {
+                Id = "1",
                 Recipient = "Canceled",
                 OrderStatus = OrderStatus.Canceled,
             };

@@ -11,16 +11,20 @@
         {
             var product1 = new Product()
             {
+                Id = "1",
                 Name = "Product1",
                 Price = 1,
                 Description = "testDescription",
+                Available = true,
                 Specification = "testSpecification",
             };
 
             var product2 = new Product()
             {
+                Id = "2",
                 Name = "Product2",
                 Price = 1,
+                Available = false,
                 Description = "testDescription",
                 Specification = "testSpecification",
             };

@@ -236,6 +236,30 @@
             Assert.Equal(2, products.Count());
         }
 
+        [Fact]
+        public async Task ChangeAvailability_ChangesProductAvailabilityCorectly()
+        {
+            MapperInitializer.InitializeMapper();
+            var context = ApplicationDbContextInMemoryFactory.InitializeContext();
+            var productRepository = new EfDeletableEntityRepository<Product>(context);
+            var productsTestSeeder = new ProductTestSeeder();
+            var productsService = this.GetProductsService(productRepository, context);
+
+            await productsTestSeeder.SeedProducts(context);
+
+            var isNotAvailableModel = new ProductSingleViewModel() { Id = "2" };
+            var nonExistantId = new ProductSingleViewModel() { Id = "asd" };
+
+            var shouldBeTrue = await productsService.ChangeAvailability(isNotAvailableModel);
+
+            Assert.True(shouldBeTrue.Available);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await productsService.ChangeAvailability(nonExistantId);
+            });
+        }
+
         private ProductService GetProductsService(EfDeletableEntityRepository<Product> productRepository, ApplicationDbContext context)
         {
             var cloudinaryService = new Mock<ICloudinaryService>();
