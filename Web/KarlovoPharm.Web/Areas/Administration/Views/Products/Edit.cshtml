@@ -3,7 +3,7 @@
     ViewData["Title"] = "Редактирай продукт";
 }
 
-<div class="site-section">
+@*<div class="site-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -111,6 +111,98 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="row justify-content-center">
+    <div class="col-md-4 ">
+        <h1 style="color: black">@ViewData["Title"]</h1>
+        <hr />
+        <div class="col-md-10">
+            @if (this.TempData["Error"] != null)
+            {
+                @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+            }
+            <form asp-controller="Products" asp-action="Edit" asp-route-productId="@Model.Id" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="hidden" asp-for="@Model.Id" />
+                    <label asp-for="Name" class="text-black">Име<span class="text-danger">*</span></label>
+                    <input asp-for="Name" class="form-control" placeholder="@Model.Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="text-black">Цена <span class="text-danger">*</span></label>
+                    <input asp-for="Price" class="form-control" placeholder="@Model.Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="text-black">Описание <span class="text-danger">*</span></label>
+                    <textarea asp-for="Description" class="form-control" placeholder="@Model.Price"> </textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Designation" class="text-black">Предназначение </label>
+                    <textarea asp-for="Designation" class="form-control" placeholder="@Model.Designation"> </textarea>
+                    <span asp-validation-for="Designation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Effect" class="text-black">Действие </label>
+                    <textarea asp-for="Effect" class="form-control" placeholder="@Model.Effect"></textarea>
+                    <span asp-validation-for="Effect" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Composition" class="text-black">Състав </label>
+                    <textarea asp-for="Composition" class="form-control" placeholder="@Model.Composition"></textarea>
+                    <span asp-validation-for="Composition" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WayOfUse" class="text-black">Начин на употреба</label>
+                    <textarea asp-for="WayOfUse" class="form-control" placeholder="@Model.WayOfUse"></textarea>
+                    <span asp-validation-for="WayOfUse" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Specification" class="text-black">Спецификация </label>
+                    <textarea asp-for="Specification" class="form-control" placeholder="@Model.Specification"></textarea>
+                    <span asp-validation-for="Specification" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Manufacturer" class="text-black">Производител <span class="text-danger">*</span></label>
+                    <input asp-for="Manufacturer" class="form-control" placeholder="@Model.Manufacturer">
+                    <span asp-validation-for="Manufacturer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Specification" class="text-black">Спецификация </label>
+                    <textarea asp-for="Specification" class="form-control" placeholder="Въведете тук спецификацията на продукта"></textarea>
+                    <span asp-validation-for="Specification" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CountryOfOrigin" class="text-black">Страна на произход <span class="text-danger">*</span></label>
+                    <input asp-for="CountryOfOrigin" class="form-control" placeholder="@Model.CountryOfOrigin">
+                    <span asp-validation-for="CountryOfOrigin" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <select class="select-width" name="SubCategoryId">
+                        <option value="@Model.SubCategoryId" selected>@Model.SubCategoryName</option>
+                        @foreach (var subCategory in Model.SubCategories.Where(x => x.Name != Model.SubCategoryName))
+                        {
+                            <option value="@subCategory.Id">@subCategory.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <input type="hidden" asp-for="@Model.PictureUrl" />
+                        <label asp-for="PictureFile" class="control-label">Изберете нова снимка</label>
+                        <input asp-for="PictureFile" type="file" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-10">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Запази промените">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

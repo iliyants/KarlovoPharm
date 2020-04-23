@@ -18,6 +18,7 @@
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [NotMapped]
         public IFormFile Picture { get; set; }
+
         [Display(Name = "Name")]
         [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         [StringLength(100, MinimumLength = 3, ErrorMessage = ValidationMessages.ProductNameLenghtErrorMessage)]
@@ -66,6 +67,7 @@
 
         public string PictureUrl { get; set; }
 
+        [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
         public string SubCategoryId { get; set; }
 
         [NotMapped]

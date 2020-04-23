@@ -4,34 +4,28 @@
     ViewData["Title"] = "Създай Категория";
 }
 
-<div class="site-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="h3 mb-5 text-black">@this.ViewData["Title"]</h2>
-            </div>
-            <div class="col-md-12">
-                @if (this.TempData["Error"] != null)
-                {
-                    @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
-                }
-                <form asp-controller="Categories" asp-action="Add" method="post" class="form">
-                    <div class="p-3 p-lg-5 border">
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <label for="CategoryName" class="text-black">Име на категория <span class="text-danger">*</span></label>
-                                <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Въведете името на категорията тук.">
-                                <span asp-validation-for="@Model.Name" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-lg-12">
-                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Създай">
-                            </div>
-                        </div>
+
+<div class="row justify-content-center">
+    <div class="col-md-4 ">
+        <h1 style="color: black">@ViewData["Title"]</h1>
+        <hr />
+        <div class="col-md-10">
+            @if (this.TempData["Error"] != null)
+            {
+                @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+            }
+            <form asp-controller="Categories" asp-action="Add" method="post" class="form">
+                <div class="form-group">
+                    <label for="CategoryName" class="text-black">Име на категория <span class="text-danger">*</span></label>
+                    <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Въведете името на категорията тук.">
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Създай">
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
