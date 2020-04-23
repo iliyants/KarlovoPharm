@@ -25,6 +25,34 @@
             await context.SaveChangesAsync();
         }
 
+        public async Task SeedDisabledProduct(ApplicationDbContext context)
+        {
+
+            var product1 = new Product()
+            {
+                Id = "ProductId1",
+                Available = false,
+            };
+
+            var shoppingCart1 = new ShoppingCart()
+            {
+                Id = "1",
+            };
+
+            var shoppingCartProduct1 = new ShoppingCartProduct()
+            {
+                ShoppingCartId = "1",
+                Product = product1,
+                Quantity = 2,
+            };
+
+            await context.ShoppingCarts.AddAsync(shoppingCart1);
+
+            await context.ShoppingCartProducts.AddAsync(shoppingCartProduct1);
+
+            await context.SaveChangesAsync();
+        }
+
         public async Task SeedProducts(ApplicationDbContext context)
         {
             var shoppingCart1 = new ShoppingCart()

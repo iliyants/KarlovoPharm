@@ -193,9 +193,11 @@
 
         public async Task<IEnumerable<T>> UserOrders<T>(string userId)
         {
-            if (userId == null)
+            var user = await this.userService.GetUserWithAllPropertiesById(userId);
+
+            if (user == null)
             {
-                throw new ArgumentNullException("UserId was null");
+                throw new ArgumentNullException("User was null");
             }
 
             return await this.orderRepository.AllAsNoTracking()

@@ -5,18 +5,28 @@
 
     using KarlovoPharm.Data;
     using KarlovoPharm.Data.Models;
+    using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Data.Models.Enums;
 
     public class OrderTestSeeder
     {
         public async Task SeedOneUnprocessedOrder(ApplicationDbContext context)
         {
+
+            var user = new ApplicationUser()
+            {
+                Id = "UserId1",
+            };
+
             var order = new Order()
             {
+                Id = "OrderId1",
+                UserId = "UserId1",
                 Recipient = "UnProcessed",
                 OrderStatus = OrderStatus.UnProccessed,
             };
 
+            await context.Users.AddAsync(user);
             await context.Orders.AddAsync(order);
 
             await context.SaveChangesAsync();

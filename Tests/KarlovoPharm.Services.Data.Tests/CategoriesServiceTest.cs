@@ -1,6 +1,7 @@
 ﻿namespace KarlovoPharm.Services.Data.Tests
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Data.Models;
@@ -195,6 +196,22 @@
             var result = await categoryService.DeleteCategory("1");
 
             Assert.False(result);
+        }
+
+        [Fact]
+        public async Task GetAllAsync_ReturnsCorectly()
+        {
+            MapperInitializer.InitializeMapper();
+            var context = ApplicationDbContextInMemoryFactory.InitializeContext();
+            var categoryRepository = new EfDeletableEntityRepository<Category>(context);
+            var categoryService = new CategoryService(categoryRepository);
+            var categoryTestSeeder = new CategoryTestSeeder();
+
+            await categoryTestSeeder.SeedCategories(context);
+
+            var result = await categoryService.GetAllAsync<CategoryViewModel>();
+
+            Assert.Equal(2, result.Count());
         }
     }
 }

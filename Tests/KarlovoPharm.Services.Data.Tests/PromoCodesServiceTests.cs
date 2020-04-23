@@ -1,6 +1,7 @@
 ﻿namespace KarlovoPharm.Services.Data.Tests
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using KarlovoPharm.Data.Models;
@@ -164,6 +165,23 @@
             var expectedResult = "FirstId";
 
             Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public async Task All_ReturnsCorectly()
+        {
+            MapperInitializer.InitializeMapper();
+            var context = ApplicationDbContextInMemoryFactory.InitializeContext();
+            var promoCodeRepository = new EfDeletableEntityRepository<PromoCode>(context);
+            var promoCodeService = new PromoCodeService(promoCodeRepository);
+
+            var promoCodesTestSeeder = new PromoCodesTestSeeder();
+
+            await promoCodesTestSeeder.SeedPromoCodesAsync(context);
+
+            var result = await promoCodeService.All<PromoCodeViewModel>();
+
+            Assert.Equal(2, result.Count());
         }
     }
 }

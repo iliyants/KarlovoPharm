@@ -12,11 +12,13 @@
         { 
             var userWithoutAddresses = new ApplicationUser()
             {
+                Id = "UserId1",
                 UserName = "UserWithoutAddresses",
             };
 
             var userWithThreeAdresses = new ApplicationUser()
             {
+                Id = "UserId2",
                 UserName = "UserWithThreeAddresses",
             };
 

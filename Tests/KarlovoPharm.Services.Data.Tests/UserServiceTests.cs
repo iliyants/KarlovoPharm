@@ -11,6 +11,7 @@
     using KarlovoPharm.Services.Data.Tests.Common.Seeders;
     using KarlovoPharm.Services.Data.Users;
     using KarlovoPharm.Web.InputModels.Users;
+    using KarlovoPharm.Web.ViewModels.User;
     using Microsoft.AspNetCore.Identity;
     using Moq;
     using Xunit;
@@ -104,11 +105,19 @@
         }
 
         [Fact]
-        public async Task GetUserInfo_ThrowsException_IfTheUserIsNull()
+        public async Task GetUserInfo_WorksCorectly()
         {
+            MapperInitializer.InitializeMapper();
             var context = ApplicationDbContextInMemoryFactory.InitializeContext();
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(context);
             var userService = this.GetUserService(userRepository, context);
+            var userTestSeeder = new UserTestSeeder();
+
+            await userTestSeeder.SeedUsersWithAddressesAsync(context);
+
+            var result = await userService.GetUserInfo<UserProfileViewModel>("UserId1");
+
+            Assert.NotNull(result);
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
@@ -117,11 +126,19 @@
         }
 
         [Fact]
-        public async Task GetUserWithAllPropertiesById_ThrowsException_IfTheUserIsNull()
+        public async Task GetUserWithAllPropertiesById_WorksCorectly()
         {
+            MapperInitializer.InitializeMapper();
             var context = ApplicationDbContextInMemoryFactory.InitializeContext();
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(context);
             var userService = this.GetUserService(userRepository, context);
+            var userTestSeeder = new UserTestSeeder();
+
+            await userTestSeeder.SeedUsersWithAddressesAsync(context);
+
+            var result = await userService.GetUserWithAllPropertiesById("UserId1");
+
+            Assert.NotNull(result);
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {

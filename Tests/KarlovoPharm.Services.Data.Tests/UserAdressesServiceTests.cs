@@ -13,7 +13,6 @@
 
     public class UserAdressesServiceTests
     {
-
         [Fact]
         public async Task CreateAsync_ThrowsException_IfEitheruserIdorAdressIdAreNull()
         {

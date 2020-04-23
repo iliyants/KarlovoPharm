@@ -112,12 +112,19 @@
         }
 
         [Fact]
-        public async Task Details_ThrowsNullException_IfEitherUserIdOrORderIdAreNull()
+        public async Task Details_WorksCorectly()
         {
             MapperInitializer.InitializeMapper();
             var context = ApplicationDbContextInMemoryFactory.InitializeContext();
             var orderRepository = new EfDeletableEntityRepository<Order>(context);
             var orderService = this.GetOrderService(orderRepository, context);
+            var orderTestSeeder = new OrderTestSeeder();
+
+            await orderTestSeeder.SeedOneUnprocessedOrder(context);
+
+            var result = orderService.Details<OrderDetailsViewModel>("UserId1", "OrderId1");
+
+            Assert.NotNull(result);
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
@@ -126,12 +133,19 @@
         }
 
         [Fact]
-        public async Task DetailsAdmin_ThrowsNUllException_IfOrderIsIsNull()
+        public async Task DetailsAdmin_WorksCorectly()
         {
             MapperInitializer.InitializeMapper();
             var context = ApplicationDbContextInMemoryFactory.InitializeContext();
             var orderRepository = new EfDeletableEntityRepository<Order>(context);
             var orderService = this.GetOrderService(orderRepository, context);
+            var orderTestSeeder = new OrderTestSeeder();
+
+            await orderTestSeeder.SeedOneUnprocessedOrder(context);
+
+            var result = orderService.DetailsAdmin<OrderDetailsViewModel>("OrderId1");
+
+            Assert.NotNull(result);
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
@@ -261,14 +275,94 @@
 
         }
 
+        [Fact]
+        public async Task UserOrders_WorksCorectly()
+        {
+            MapperInitializer.InitializeMapper();
+            var context = ApplicationDbContextInMemoryFactory.InitializeContext();
+            var orderRepository = new EfDeletableEntityRepository<Order>(context);
+            var orderService = this.GetOrderService(orderRepository, context);
+            var orderTestSeeder = new OrderTestSeeder();
+
+            await orderTestSeeder.SeedOneUnprocessedOrder(context);
+
+            var userOrders = await orderService.UserOrders<OrderDetailsViewModel>("UserId1");
+
+            Assert.Single(userOrders);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await orderService.UserOrders<OrderDetailsViewModel>("invalid");
+            });
+
+        }
+
+        [Fact]
+        public async Task GetAllUnprocessed_ReturnsCorectly()
+        {
+            MapperInitializer.InitializeMapper();
+            var context = ApplicationDbContextInMemoryFactory.InitializeContext();
+            var orderRepository = new EfDeletableEntityRepository<Order>(context);
+            var orderService = this.GetOrderService(orderRepository, context);
+            var orderTestSeeder = new OrderTestSeeder();
+
+            await orderTestSeeder.SeedOneUnprocessedOrder(context);
+
+            var result = orderService.GetAllUnprocessed<OrderUnprocessedViewModel>();
+
+            Assert.Single(result);
+        }
+
+        [Fact]
+        public async Task GetAllProcessed_ReturnsCorectly()
+        {
+            MapperInitializer.InitializeMapper();
+            var context = ApplicationDbContextInMemoryFactory.InitializeContext();
+            var orderRepository = new EfDeletableEntityRepository<Order>(context);
+            var orderService = this.GetOrderService(orderRepository, context);
+            var orderTestSeeder = new OrderTestSeeder();
+
+            await orderTestSeeder.SeedOneProcessedOrder(context);
+
+            var result = orderService.GetAllProcessed<OrderProcessedViewModel>();
+
+            Assert.Single(result);
+        }
+
+        [Fact]
+        public async Task GetAllDelivered_ReturnsCorectly()
+        {
+            MapperInitializer.InitializeMapper();
+            var context = ApplicationDbContextInMemoryFactory.InitializeContext();
+            var orderRepository = new EfDeletableEntityRepository<Order>(context);
+            var orderService = this.GetOrderService(orderRepository, context);
+            var orderTestSeeder = new OrderTestSeeder();
+
+            await orderTestSeeder.SeedOneDeliveredOrder(context);
+
+            var result = orderService.GetAllDelivered<OrderProcessedViewModel>();
+
+            Assert.Single(result);
+        }
+
         private OrderService GetOrderService(EfDeletableEntityRepository<Order> orderRepository, ApplicationDbContext context)
         {
 
-            var iShoppingCartProductsServiceMock = new Mock<IShoppingCartProductsService>();
+            var shoppingCartProductsServiceMock = new Mock<IShoppingCartProductsService>();
 
-            var iPromoCodeServiceMock = new Mock<IPromoCodeService>();
+            var userServiceMock = new Mock<IUserService>();
 
-            iShoppingCartProductsServiceMock
+            var promoCodeServiceMock = new Mock<IPromoCodeService>();
+
+
+            userServiceMock
+                .Setup(x => x.GetUserWithAllPropertiesById(It.IsAny<string>()))
+                .Returns((string userId) =>
+                Task.FromResult(
+                context.Users
+                .SingleOrDefault(x => x.Id == userId)));
+
+            shoppingCartProductsServiceMock
                 .Setup(x => x.GetAllProductsAsync<ShoppingCartProductInputModel>(It.IsAny<string>()))
                 .Returns((string shoppingCartId) =>
                 Task.FromResult((IEnumerable<ShoppingCartProductInputModel>)
@@ -277,23 +371,21 @@
                 .To<ShoppingCartProductInputModel>()
                 .ToList()));
 
-            iShoppingCartProductsServiceMock
+            shoppingCartProductsServiceMock
                 .Setup(x => x.DeleteAll(It.IsAny<string>()))
                 .Callback((string shoppingCartId) =>
                 {
                     context.ShoppingCartProducts.RemoveRange(context.ShoppingCartProducts.Where(x => x.ShoppingCartId == shoppingCartId));
                 });
 
-            var iOrderProductsServiceMock = new Mock<IOrderProductsService>();
-
-            var iUserServiceMock = new Mock<IUserService>();
+            var orderProductsServiceMock = new Mock<IOrderProductsService>();
 
             var orderService = new OrderService(
                 orderRepository,
-                iUserServiceMock.Object,
-                iShoppingCartProductsServiceMock.Object,
-                iOrderProductsServiceMock.Object,
-                iPromoCodeServiceMock.Object);
+                userServiceMock.Object,
+                shoppingCartProductsServiceMock.Object,
+                orderProductsServiceMock.Object,
+                promoCodeServiceMock.Object);
 
             return orderService;
         }

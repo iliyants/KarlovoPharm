@@ -104,6 +104,20 @@
             });
         }
 
+        [Fact]
+        public async Task RemoveDisabledProducts_ReturnsTrueIfProductsWereDeleted()
+        {
+            var context = ApplicationDbContextInMemoryFactory.InitializeContext();
+            var shoppingCartProductsRepository = new EfDeletableEntityRepository<ShoppingCartProduct>(context);
+            var shoppingCartProductService = this.GetShoppingCartProductService(shoppingCartProductsRepository, context);
+            var shoppingCartProductSeeder = new ShoppingCartProductSeeder();
+
+            await shoppingCartProductSeeder.SeedDisabledProduct(context);
+
+            var shouldBeTrue = await shoppingCartProductService.RemoveDisabledProducts("1");
+
+            Assert.True(shouldBeTrue);
+        }
 
         private ShoppingCartProductsService GetShoppingCartProductService(EfDeletableEntityRepository<ShoppingCartProduct> shoppingCartProductsRepository, ApplicationDbContext context)
         {
@@ -125,4 +139,3 @@
         }
     }
 }
-
