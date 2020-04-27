@@ -67,11 +67,13 @@
                 throw new ArgumentNullException("PromoCode id or name was null was null");
             }
 
-            if (await this.PromoCodeNameIsNotUnique(promoCodeCreateInputModel.Name))
+            if (promoCode.Name != promoCodeCreateInputModel.Name)
             {
-                return false;
+                if (await this.PromoCodeNameIsNotUnique(promoCodeCreateInputModel.Name))
+                {
+                    return false;
+                }
             }
-
             promoCodeCreateInputModel.To(promoCode);
 
             await this.promoCodeRepository.SaveChangesAsync();

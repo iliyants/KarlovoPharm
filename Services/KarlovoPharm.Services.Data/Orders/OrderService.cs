@@ -138,7 +138,7 @@
 
         }
 
-        public async Task Finish(string orderId)
+        public async Task<bool> Finish(string orderId)
         {
             var order = await this.orderRepository.All().SingleOrDefaultAsync(x => x.Id == orderId);
 
@@ -150,7 +150,9 @@
             order.OrderStatus = OrderStatus.Delivered;
             order.DeliveryDate = DateTime.UtcNow;
 
-            await this.orderRepository.SaveChangesAsync();
+           var result = await this.orderRepository.SaveChangesAsync();
+
+            return result > 0;
         }
 
         public IQueryable<T> GetAllProcessed<T>()
@@ -171,7 +173,7 @@
             return query.To<T>();
         }
 
-        public async Task Process(string orderId)
+        public async Task<bool> Process(string orderId)
         {
             var order = await this.orderRepository.All()
                 .SingleOrDefaultAsync(x => x.Id == orderId);
@@ -181,13 +183,13 @@
                 throw new ArgumentException("OrderId was null");
             }
 
-
             order.OrderStatus = OrderStatus.Proccessed;
             order.DispatchDate = DateTime.UtcNow;
             order.EstimatedDeliveryDate = DateTime.UtcNow.AddDays(3);
 
-            await this.orderRepository.SaveChangesAsync();
+            var result = await this.orderRepository.SaveChangesAsync();
 
+            return result > 0;
         }
 
 
@@ -206,7 +208,7 @@
                 .ToListAsync();
         }
 
-        public async Task Cancel(string orderId)
+        public async Task<bool> Cancel(string orderId)
         {
             var order = await this.orderRepository.All()
              .SingleOrDefaultAsync(x => x.Id == orderId);
@@ -216,13 +218,14 @@
                 throw new ArgumentNullException("OrderId was null");
             }
 
-
             order.OrderStatus = OrderStatus.Canceled;
 
-            await this.orderRepository.SaveChangesAsync();
+            var result = await this.orderRepository.SaveChangesAsync();
+
+            return result > 0;
         }
 
-        public async Task Delete(string orderId)
+        public async Task<bool> Delete(string orderId)
         {
             var order = await this.orderRepository.All().SingleOrDefaultAsync(x => x.Id == orderId);
 
@@ -237,12 +240,15 @@
             }
             else
             {
-                await this.orderProductsService.DeleteAll(orderId);
-
-                this.orderRepository.HardDelete(order);
+                if (await this.orderProductsService.DeleteAll(orderId))
+                {
+                    this.orderRepository.HardDelete(order);
+                }
             }
 
-            await this.orderRepository.SaveChangesAsync();
+            var result = await this.orderRepository.SaveChangesAsync();
+
+            return result > 0;
         }
 
         public IQueryable<T> GetAllDelivered<T>()
@@ -261,7 +267,7 @@
                 .CountAsync();
         }
 
-        public async Task Renew(string orderId)
+        public async Task<bool> Renew(string orderId)
         {
             var order = await this.orderRepository.All()
         .SingleOrDefaultAsync(x => x.Id == orderId);
@@ -274,7 +280,9 @@
 
             order.OrderStatus = OrderStatus.UnProccessed;
 
-            await this.orderRepository.SaveChangesAsync();
+            var result = await this.orderRepository.SaveChangesAsync();
+
+            return result > 0;
         }
     }
 }

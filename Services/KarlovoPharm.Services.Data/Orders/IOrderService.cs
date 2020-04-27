@@ -8,11 +8,11 @@
     {
         Task<T> CreateDisplayModel<T>(string userId);
 
-        Task Cancel(string orderId);
+        Task<bool> Cancel(string orderId);
 
-        Task Delete(string orderId);
+        Task<bool> Delete(string orderId);
 
-        Task Renew(string orderId);
+        Task<bool> Renew(string orderId);
 
         Task CreateUproccessedOrder(OrderCreateInputModel orderCreateInputModel, string shoppingCartId);
 
@@ -24,9 +24,10 @@
 
         Task<T> DetailsAdmin<T>(string orderId);
 
-        Task Process(string orderId);
+        Task<bool> Process(string orderId);
 
-        Task Finish(string orderId);
+        Task<bool> Finish(string orderId);
+
         IQueryable<T> GetAllProcessed<T>();
 
         IQueryable<T> GetAllDelivered<T>();

@@ -69,18 +69,18 @@ namespace KarlovoPharm.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Display(Name = "Email")]
+            [Display(Name = "Имейл")]
             [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
             [EmailAddress]
             public string Email { get; set; }
 
-            [Display(Name = "Password")]
+            [Display(Name = "Парола")]
             [DataType(DataType.Password)]
             [Required(ErrorMessage = ValidationMessages.RequiredFieldErrorMessage)]
             [StringLength(15, MinimumLength = 5, ErrorMessage = ValidationMessages.PasswordValidationErrorMessage)]
             public string Password { get; set; }
 
-            [Display(Name = "ConfirmPassword")]
+            [Display(Name = "Потвърди парола")]
             [DataType(DataType.Password)]
             [Compare("Password", ErrorMessage = ValidationMessages.PasswordAndConfirmPasswordDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }

@@ -1,27 +1,28 @@
 ﻿@using KarlovoPharm.Web.ViewComponents
 
 
-@if (this.TempData["Status"] != null)
-{
-    @await Component.InvokeAsync("InfoMessage", new { message = this.TempData["Status"] });
-}
 
-<div class="site-blocks-cover" style="  background-image: url(https://res.cloudinary.com/dqe7qcizi/image/upload/v1586517396/common_images/hero_1_jqh3af.jpg);
+    <div class="site-blocks-cover" style="  background-image: url(https://res.cloudinary.com/dqe7qcizi/image/upload/v1586517396/common_images/hero_1_jqh3af.jpg);
 ">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
-                <div class="site-block-cover-content text-center">
-                    <h2 class="sub-title">Ефективни лекарства, Нови лекарства всеки ден</h2>
-                    <h1>Добре дошли в Карлово Фарм </h1>
-                    <p>
-                        <a asp-controller="Store" asp-action="All" class="btn btn-primary px-5 py-3">Пазарувайте сега</a>
-                    </p>
+
+        @if (this.TempData["Status"] != null)
+        {
+            @await Component.InvokeAsync("InfoMessage", new { message = this.TempData["Status"] });
+        }
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
+                    <div class="site-block-cover-content text-center">
+                        <h2 class="sub-title">Ефективни лекарства, Нови лекарства всеки ден</h2>
+                        <h1>Добре дошли в Карлово Фарм </h1>
+                        <p>
+                            <a asp-controller="Store" asp-action="All" class="btn btn-primary px-5 py-3">Пазарувайте сега</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <div class="site-section">
     <div class="container">

@@ -33,13 +33,16 @@ namespace KarlovoPharm.Web.Areas.Identity.Pages.Account
                 return this.NotFound($"Unable to load user with ID '{userId}'.");
             }
 
+            if (user.EmailConfirmed == true)
+            {
+                return this.RedirectToPage("./EmailAlreadyConfirmed");
+            }
+
             var result = await this.userManager.ConfirmEmailAsync(user, code);
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");
             }
-
-            await this.signInManager.SignInAsync(user, isPersistent: false);
 
             return this.Page();
         }

@@ -45,7 +45,7 @@ namespace KarlovoPharm.Services.Data.UsersAddresses
 
             if (userAddress == null)
             {
-                throw new ArgumentNullException("Product was null !");
+                throw new ArgumentNullException("Address was null!");
             }
 
             this.userAddressRepository.HardDelete(userAddress);

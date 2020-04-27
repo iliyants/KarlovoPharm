@@ -108,7 +108,7 @@
             var json = { productId: productId };
 
             $.ajax({
-                url: "/api/productsapi/AddToFavourites",
+                url: `/Products/AddToFavourites/${productId}`,
                 type: "POST",
                 data: JSON.stringify(json),
                 contentType: "application/json; charset=utf-8",
@@ -135,7 +135,7 @@
             var json = { productId: productId };
 
             $.ajax({
-                url: "/api/productsapi/AddToCart",
+                url: `/Products/AddToCart/${productId}`,
                 type: "POST",
                 data: JSON.stringify(json),
                 contentType: "application/json; charset=utf-8",

@@ -5,7 +5,7 @@ namespace KarlovoPharm.Services.Data.OrderProducts
 {
     public interface IOrderProductsService
     {
-        Task DeleteAll(string orderId);
+        Task<bool> DeleteAll(string orderId);
 
         Task<IEnumerable<T>> MostPurchased<T>();
 

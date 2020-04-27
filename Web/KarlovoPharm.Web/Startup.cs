@@ -103,6 +103,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
+            services.AddTransient<IGooglereCaptchaService>(serviceprovider => new GooglereCaptchaService(this.configuration["GoogleReCaptcha:SecretKey"]));
             services.AddTransient<IEmailSender>(serviceProvider => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICategoryService, CategoryService>();
@@ -140,7 +141,7 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
                 app.UseDatabaseErrorPage();
             }
             else

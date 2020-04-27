@@ -1,17 +1,10 @@
 ﻿@page
 @model LoginModel
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @{
     ViewData["Title"] = "Вход";
 }
 
-@if (this.TempData["InfoMessage"] != null)
-{
-    @await Component.InvokeAsync("InfoMessage", new { message = this.TempData["InfoMessage"] });
-}
-@if (this.TempData["Error"] != null)
-{
-    @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
-}
 
 
 <div class="row justify-content-center">
@@ -19,6 +12,14 @@
         <h1 style="color: black">@ViewData["Title"]</h1>
         <hr />
         <div class="col-md-10">
+            @if (this.TempData["InfoMessage"] != null)
+            {
+                @await Component.InvokeAsync("InfoMessage", new { message = this.TempData["InfoMessage"] });
+            }
+            @if (this.TempData["Error"] != null)
+            {
+                @await Component.InvokeAsync("ErrorAlert", new { message = this.TempData["Error"] });
+            }
             <form method="post">
                 <div class="form-group">
                     <label for="Username" class="text-black">Потребителско име <span class="text-danger">*</span></label>
@@ -32,6 +33,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-6">
+                        <input type="hidden" asp-for="Input.Token" />
                         <input type="submit" class="btn btn-primary btn-sm" value="Влез">
                         <a class="btn btn-primary btn-sm" href="/Identity/Account/ForgotPassword" role="button">Забравена парола</a>
                     </div>
@@ -47,3 +49,15 @@
     </div>
 </div>
 
+
+@section Scripts {
+
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:SiteKey"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:SiteKey"]', { action: 'homepage' }).then(function (token) {
+                $('#Input_Token').val(token);
+            });
+        });
+    </script>
+}

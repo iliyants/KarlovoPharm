@@ -13,8 +13,17 @@
         [HttpGet]
         public IActionResult Index()
         {
+
             return this.View();
         }
+
+
+        [HttpGet]
+        public IActionResult InternalServer()
+        {
+            return this.StatusCode(500);
+        }
+
 
         public IActionResult Privacy()
         {

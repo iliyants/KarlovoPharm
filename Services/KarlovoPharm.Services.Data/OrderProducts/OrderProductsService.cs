@@ -19,7 +19,8 @@ namespace KarlovoPharm.Services.Data.OrderProducts
             this.orderProductRepository = orderProductRepository;
             this.productService = productService;
         }
-        public async Task DeleteAll(string orderId)
+
+        public async Task<bool> DeleteAll(string orderId)
         {
             if (orderId == null)
             {
@@ -34,6 +35,10 @@ namespace KarlovoPharm.Services.Data.OrderProducts
             {
                 this.orderProductRepository.HardDelete(orderProduct);
             }
+
+            var result = await this.orderProductRepository.SaveChangesAsync();
+
+            return result > 0;
         }
 
         public async Task<IEnumerable<T>> MostPurchased<T>()

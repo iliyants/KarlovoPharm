@@ -50,7 +50,7 @@
             var address = await this.addressService.CreateAsync(addressCreateInputModel);
             await this.usersAddressesService.CreateAsync(addressCreateInputModel.UserId, address.Id);
 
-            return this.Redirect($"/Users/profile?userId={addressCreateInputModel.UserId}");
+            return this.Redirect($"/Users/Profile?userId={addressCreateInputModel.UserId}");
         }
 
         [HttpGet]
