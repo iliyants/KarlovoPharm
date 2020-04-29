@@ -12,8 +12,8 @@
         var user = await UserManager.GetUserAsync(this.User);
         var userId = user?.Id;
 
-        <button type="button" class="btn btn-sm btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            @User.Identity.Name
+        <button type="button" id="userNameId" class="btn btn-sm btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+            @await UserManager.GetUserNameAsync(user)
         </button>
         <div class="dropdown-menu">
             @if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))

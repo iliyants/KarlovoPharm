@@ -1,7 +1,6 @@
 ﻿namespace KarlovoPharm.Services.Data.Users
 {
     using KarlovoPharm.Data.Common.Repositories;
-    using KarlovoPharm.Data.Models;
     using KarlovoPharm.Data.Models.Common;
     using KarlovoPharm.Services.Mapping;
     using KarlovoPharm.Web.InputModels.Users;
@@ -14,13 +13,10 @@
     public class UserService : IUserService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public UserService(IDeletableEntityRepository<ApplicationUser> userRepository,
-            UserManager<ApplicationUser> userManager)
+        public UserService(IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.userRepository = userRepository;
-            this.userManager = userManager;
         }
 
         private async Task<bool> UserNameIsNotUnique(string userName)
@@ -63,7 +59,7 @@
 
             profileEditInputModel.To(user);
 
-            await this.userManager.UpdateAsync(user);
+            await this.userRepository.SaveChangesAsync();
 
             return true;
         }

@@ -59,11 +59,7 @@
                 return this.RedirectToAction("ProfileEdit", "Users", new { userId = profileEdintInputModel.Id });
             }
 
-            this.TempData["Status"] = RelogMessage;
-
-            await this.signInManager.SignOutAsync();
-
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(this.Profile), new { userId = profileEdintInputModel.Id});
         }
     }
 }

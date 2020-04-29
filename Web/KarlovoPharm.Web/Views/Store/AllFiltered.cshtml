@@ -102,32 +102,7 @@
 </div>
 
 @section Scripts {
-    <script>
-        function addToFavourites(productId) {
-            var token = $("#productsApi input[name=__RequestVerificationToken]").val();
-            var json = { productId: productId };
-
-            $.ajax({
-                url: `/Products/AddToFavourites/${productId}`,
-                type: "POST",
-                data: JSON.stringify(json),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                headers: { 'X-CSRF-TOKEN': token },
-                success: function (data) {
-                    alert(data.message);
-                },
-                error: function (data) {
-                    if (data.message != null) {
-                        alert(data.message);
-                    }
-                    else {
-                        alert("Трябва да сте влезли в профила си за да продължите!");
-                    }
-                }
-            });
-        }
-    </script>
+C
 
     <script>
         function addToCart(productId) {
